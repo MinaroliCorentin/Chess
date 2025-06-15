@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.Button?>
+
+<GridPane fx:id="chessGrid" xmlns:fx="http://javafx.com/fxml" fx:controller="src.chess.Controller.ChessBoardController"/>

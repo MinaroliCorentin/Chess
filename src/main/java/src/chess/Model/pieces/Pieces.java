@@ -2,6 +2,8 @@ package src.chess.Model.pieces;
 
 import src.chess.Model.Board;
 
+import java.util.List;
+
 public abstract class Pieces {
 
     private Color color;
@@ -38,7 +40,7 @@ public abstract class Pieces {
         return false;
     }
 
-    public abstract void movements();
+    public abstract List<Localisation> movements(int x, int y, Board board);
 
     public abstract String getSymbol();
 

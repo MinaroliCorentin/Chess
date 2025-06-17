@@ -8,6 +8,12 @@ public class Board {
 
     public Board() {
 
+        this.BoardInitialize();
+
+    }
+
+    public void BoardInitialize(){
+
         this.board = new Pieces[8][8];
 
         this.board[0][0] = new Rook(Color.BLACK);
@@ -46,6 +52,18 @@ public class Board {
         return board[y][x];
     }
 
+    public boolean isEmpty(int x, int y) {
+        return isBound(x,y) && board[y][x] == null;
+    }
+
+    public boolean isBound(int x, int y) {
+        return x >= 0 && x < 8 && y >= 0 && y < 8;
+    }
+
+    public boolean hasOpponentPiece( int x, int y, Color color){
+        return isBound(x,y) && board[x][y] != null &&board[y][x].getColor() != color;
+    }
+
     public void display () {
 
         for (int i = 0; i < 8; i++) {
@@ -53,23 +71,9 @@ public class Board {
 
                 Pieces temporaryPieces = board[i][j];
                 if (temporaryPieces != null) {
-
-                    if (temporaryPieces.isBishop()) {
-                        System.out.print(temporaryPieces.getSymbol() + " ");
-                    }  if (temporaryPieces.isKing()) {
-                        System.out.print(temporaryPieces.getSymbol() + " ");
-                    }  if (temporaryPieces.isQueen()) {
-                        System.out.print(temporaryPieces.getSymbol() + " ");
-                    }  if (temporaryPieces.isPawn()) {
-                        System.out.print(temporaryPieces.getSymbol() + " ");
-                    }  if (temporaryPieces.isRook()) {
-                        System.out.print(temporaryPieces.getSymbol() + " ");
-                    } if (temporaryPieces.isKnigth()) {
-                        System.out.print(temporaryPieces.getSymbol() + " ");
-                    }
-
+                    System.out.print(temporaryPieces.getSymbol() + " ");
                 } else {
-                    System.out.print("");
+                    System.out.print(". ");
                 }
             }
             System.out.println();

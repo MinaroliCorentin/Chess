@@ -2,6 +2,8 @@ package src.chess.Model.pieces;
 
 import src.chess.Model.Board;
 
+import java.util.List;
+
 public class Bishop extends Pieces{
 
     public Bishop(Color color) {
@@ -39,7 +41,7 @@ public class Bishop extends Pieces{
     }
 
     @Override
-    public void movements(){
+    public List<Localisation> movements(int x, int y, Board board){
 
     }
 

@@ -3,6 +3,7 @@ package src.chess.Model.pieces;
 import src.chess.Model.Board;
 
 import javax.swing.text.Position;
+import java.util.List;
 
 public class Knight extends Pieces {
 
@@ -41,7 +42,7 @@ public class Knight extends Pieces {
     }
 
     @Override
-    public void movements(){
+    public List<Localisation> movements(int x, int y, Board board){
 
     }
 

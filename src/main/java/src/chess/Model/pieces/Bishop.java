@@ -1,7 +1,8 @@
 package src.chess.Model.pieces;
 
-import src.chess.Model.Board;
+import src.chess.Factory.Board;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Bishop extends Pieces{
@@ -21,7 +22,7 @@ public class Bishop extends Pieces{
     }
 
     @Override
-    public boolean isKnigth(){
+    public boolean isKnight(){
         return false ;
     }
 
@@ -41,8 +42,42 @@ public class Bishop extends Pieces{
     }
 
     @Override
-    public List<Localisation> movements(int x, int y, Board board){
+    public List<Localisation> movements(int x, int y, Board board) {
 
+        List<Localisation> moves = new ArrayList<>();
+
+        int[][] directions = {
+
+                {+1, -1},   // Up-Right
+                {+1, +1},    // Down-Right
+                {-1, +1},   // Down-Left
+                {-1, -1}   // Up-Left
+        };
+
+        for (int[] dir : directions) {
+            int dx = dir[0];
+            int dy = dir[1];
+
+            int newX = x + dx;
+            int newY = y + dy;
+
+            while (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
+
+                if (board.isEmpty(newX, newY)) {
+                    moves.add(new Localisation(newX, newY));
+                } else {
+                    if (board.hasOpponentPiece(newX, newY, this.getColor())) {
+                        moves.add(new Localisation(newX, newY));
+                    }
+                    break;
+                }
+
+                newX += dx;
+                newY += dy;
+            }
+        }
+
+        return moves;
     }
 
     @Override

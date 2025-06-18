@@ -1,6 +1,6 @@
 package src.chess.Model.pieces;
 
-import src.chess.Model.Board;
+import src.chess.Factory.Board;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ public class Pawn extends Pieces {
     }
 
     @Override
-    public boolean isKnigth(){
+    public boolean isKnight(){
         return false ;
     }
 
@@ -48,7 +48,7 @@ public class Pawn extends Pieces {
         int direction ;
         int startRow ;
 
-        if ( this.color == Color.WHITE){
+        if ( this.getColor() == Color.WHITE){
             direction = -1 ;
             startRow = 6 ;
         } else {

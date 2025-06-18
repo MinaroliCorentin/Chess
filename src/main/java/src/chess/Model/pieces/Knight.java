@@ -1,8 +1,8 @@
 package src.chess.Model.pieces;
 
-import src.chess.Model.Board;
+import src.chess.Factory.Board;
 
-import javax.swing.text.Position;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Knight extends Pieces {
@@ -22,7 +22,7 @@ public class Knight extends Pieces {
     }
 
     @Override
-    public boolean isKnigth(){
+    public boolean isKnight(){
         return true ;
     }
 
@@ -42,8 +42,45 @@ public class Knight extends Pieces {
     }
 
     @Override
-    public List<Localisation> movements(int x, int y, Board board){
+    public List<Localisation> movements(int x, int y, Board board) {
 
+        List<Localisation> moves = new ArrayList<>();
+
+        int[][] directions = {
+                { 2,  1},  // Right 2, Down 1
+                { 1,  2},  // Right 1, Down 2
+                {-1,  2},  // Left 1, Down 2
+                {-2,  1},  // Left 2, Down 1
+                {-2, -1},  // Left 2, Up 1
+                {-1, -2},  // Left 1, Up 2
+                { 1, -2},  // Right 1, Up 2
+                { 2, -1},  // Right 2, Up 1
+        };
+
+        for (int[] dir : directions) {
+            int dx = dir[0];
+            int dy = dir[1];
+
+            int newX = x + dx;
+            int newY = y + dy;
+
+            while (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
+
+                if (board.isEmpty(newX, newY)) {
+                    moves.add(new Localisation(newX, newY));
+                } else {
+                    if (board.hasOpponentPiece(newX, newY, this.getColor())) {
+                        moves.add(new Localisation(newX, newY));
+                    }
+                    break;
+                }
+
+                newX += dx;
+                newY += dy;
+            }
+        }
+
+        return moves;
     }
 
     @Override

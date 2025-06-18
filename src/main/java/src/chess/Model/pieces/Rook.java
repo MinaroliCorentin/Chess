@@ -1,8 +1,7 @@
 package src.chess.Model.pieces;
 
-import src.chess.Model.Board;
+import src.chess.Factory.Board;
 
-import javax.swing.text.Position;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class Rook extends Pieces {
     }
 
     @Override
-    public boolean isKnigth(){
+    public boolean isKnight(){
         return false ;
     }
 
@@ -51,7 +50,7 @@ public class Rook extends Pieces {
 
                 {+1, 0},   // Right
                 {-1, 0},  // Left
-                {0, +1},   // Bottom
+                {0, +1},   // Down
                 {0, -1}   // Up
         };
 

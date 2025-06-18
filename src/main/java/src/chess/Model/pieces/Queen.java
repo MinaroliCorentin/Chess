@@ -1,6 +1,6 @@
 package src.chess.Model.pieces;
 
-import src.chess.Model.Board;
+import src.chess.Factory.Board;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ public class Queen extends Pieces{
     }
 
     @Override
-    public boolean isKnigth(){
+    public boolean isKnight(){
         return false ;
     }
 
@@ -51,9 +51,9 @@ public class Queen extends Pieces{
                 {0, -1},   // Up
                 {+1, -1},   // Up-Right
                 {+1, 0},    // Right
-                {+1, +1},    // Bottom-Right
-                {0, +1},    // Bottom
-                {-1, +1},   // Bottom-Left
+                {+1, +1},    // Down-Right
+                {0, +1},    // Down
+                {-1, +1},   // Down-Left
                 {-1, 0},   // Left
                 {-1, -1}   // Up-Left
         };

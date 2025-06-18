@@ -1,6 +1,6 @@
 package src.chess.Model.pieces;
 
-import src.chess.Model.Board;
+import src.chess.Factory.Board;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public abstract class Pieces {
         return false ;
     }
 
-    public boolean isKnigth(){
+    public boolean isKnight(){
         return false ;
     }
 

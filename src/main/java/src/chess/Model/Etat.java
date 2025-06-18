@@ -1,5 +1,7 @@
 package src.chess.Model;
 
+import src.chess.Factory.Board;
+
 public class Etat {
 
 

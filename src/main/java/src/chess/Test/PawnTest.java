@@ -37,9 +37,9 @@ public class PawnTest {
         Pieces Pawn_White = new Pawn(Color.WHITE);
         Pieces Pawn_Black = new Pawn(Color.BLACK);
 
-        assert (Pawn_White.getSymbol().equals("\u2659") ):" Must display a White Pawn ";
+        assert (Pawn_White.getSymbol().equals("\u265F") ):" Must display a White Pawn ";
         assert (Pawn_White.getSymbol().equals(UnicodePieces.PAWN_WHITE) ):" Must display a White Pawn ";
-        assert (Pawn_Black.getSymbol().equals("\u265F") ):" Must display a Black Pawn ";
+        assert (Pawn_Black.getSymbol().equals("\u2659") ):" Must display a Black Pawn ";
         assert (Pawn_Black.getSymbol().equals(UnicodePieces.PAWN_BLACK) ):" Must display a Black Pawn ";
 
     }
@@ -58,11 +58,13 @@ public class PawnTest {
 
             board.setPiece(x, y, pawn);
 
-            if (board.isBound(x, y + 1)){
-                board.setPiece(x, y + 1, new Pawn(Color.BLACK));
+            if (board.isBound(x +1 , y)){
+                board.setPiece(x +1, y, new Pawn(Color.BLACK));
             }
 
-            assert (pawn.movements(x, y, board).isEmpty()) : " Black pawn should have no movement." + pawn.movements(x, y, board).size() ;
+            board.displayWithIndices();
+
+            assert (pawn.movements(x, y, board).isEmpty()) : " Black pawn should have no movement : " + pawn.movements(x, y, board).size() ;
         }
     }
 

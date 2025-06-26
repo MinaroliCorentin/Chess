@@ -3,7 +3,7 @@ module src.chess {
     requires javafx.fxml;
     requires java.desktop;
     requires junit;
-
+    requires org.testng;
 
     opens src.chess to javafx.fxml;
     exports src.chess;

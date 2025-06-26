@@ -56,25 +56,23 @@ public class Pawn extends Pieces {
             startRow = 1 ;
         }
 
-        if ( board.isEmpty(x,y + direction) ){
-            moves.add(new Localisation(x, y + direction));
+        if (board.isEmpty(x + direction, y)) {
+            moves.add(new Localisation(x + direction, y));
 
-            if (y == startRow && board.isEmpty(x, y + ( 2 * direction) )) {
-                moves.add(new Localisation(x, y + ( 2 * direction) ));
+            if (x == startRow && board.isEmpty(x + 2 * direction, y)) {
+                moves.add(new Localisation(x + 2 * direction, y));
             }
         }
 
-        if (x > 0 && board.hasOpponentPiece(x - 1, y + direction, this.getColor())) {
-            moves.add(new Localisation(x - 1, y + direction));
+        if (y > 0 && board.hasOpponentPiece(x + direction, y - 1, this.getColor())) {
+            moves.add(new Localisation(x + direction, y - 1));
         }
 
-        if ( x < 7 && board.hasOpponentPiece(x + 1, y + direction, this.getColor())) {
-            moves.add(new Localisation(x + 1, y + direction));
+        if (y < 7 && board.hasOpponentPiece(x + direction, y + 1, this.getColor())) {
+            moves.add(new Localisation(x + direction, y + 1));
         }
 
         return moves;
-
-
     }
 
     @Override

@@ -37,9 +37,9 @@ public class KingTest {
         Pieces King_White = new King(Color.WHITE);
 
         assert ( King_Black.getSymbol().equals(UnicodePieces.KING_BLACK)):" Should display a black king ";
-        assert ( King_Black.getSymbol().equals("\u265A")):" Should display a black king ";
+        assert ( King_Black.getSymbol().equals("\u2654")):" Should display a black king ";
         assert ( King_White.getSymbol().equals(UnicodePieces.KING_WHITE)):" Should display a white king ";
-        assert ( King_White.getSymbol().equals("\u2654")):" Should display a black king ";
+        assert ( King_White.getSymbol().equals("\u265A")):" Should display a black king ";
 
     }
 

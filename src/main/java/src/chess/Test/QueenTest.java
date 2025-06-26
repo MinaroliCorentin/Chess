@@ -3,13 +3,13 @@ package src.chess.Test;
 import org.junit.Test;
 import src.chess.Factory.Board;
 import src.chess.Factory.EmptyBoard;
-import src.chess.Factory.StandartBoard;
 import src.chess.Model.pieces.*;
 
 import java.util.Random;
 
 public class QueenTest {
-    
+
+    @Test
     public void queenTest(){
         
         Pieces queen_Black = new Queen(Color.BLACK);
@@ -37,9 +37,9 @@ public class QueenTest {
         Pieces Queen_White = new Queen(Color.WHITE);
 
         assert ( Queen_White.getSymbol().equals(UnicodePieces.QUEEN_WHITE)) : " Must display a White Queen ";
-        assert ( Queen_White.getSymbol().equals("\u2655")) : " Must display a White Queen ";
+        assert ( Queen_White.getSymbol().equals("\u265B")) : " Must display a White Queen ";
         assert ( Queen_Black.getSymbol().equals(UnicodePieces.QUEEN_BLACK)) : " Must display a White Queen ";
-        assert ( Queen_Black.getSymbol().equals("\u265B")) : " Must display a White Queen ";
+        assert ( Queen_Black.getSymbol().equals("\u2655")) : " Must display a White Queen ";
 
     }
 

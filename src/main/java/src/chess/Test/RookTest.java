@@ -37,9 +37,9 @@ public class RookTest {
         Pieces Rook_White = new Rook(Color.WHITE);
 
         assert ( Rook_White.getSymbol().equals(UnicodePieces.ROOK_WHITE)) : " Must display a White Rook ";
-        assert ( Rook_White.getSymbol().equals("\u2656")) : " Must display a White Rook ";
+        assert ( Rook_White.getSymbol().equals("\u265C")) : " Must display a White Rook ";
         assert ( Rook_Black.getSymbol().equals(UnicodePieces.ROOK_BLACK)) : " Must display a White Rook ";
-        assert ( Rook_Black.getSymbol().equals("\u265C")) : " Must display a White Rook ";
+        assert ( Rook_Black.getSymbol().equals("\u2656")) : " Must display a White Rook ";
 
     }
 

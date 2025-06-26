@@ -4,11 +4,7 @@ import org.junit.Test;
 import src.chess.Factory.Board;
 import src.chess.Factory.EmptyBoard;
 import src.chess.Model.pieces.*;
-import java.util.List;
 import java.util.Random;
-
-import static org.junit.Assert.*;
-
 
 public class BishopTest {
 
@@ -39,8 +35,8 @@ public class BishopTest {
         Pieces bishop_Black = new Bishop(Color.BLACK);
         Pieces bishop_White = new Bishop(Color.WHITE);
 
-        assert (bishop_Black.getSymbol().equals("\u265D")) : " Should display black bishop ";
-        assert (bishop_White.getSymbol().equals("\u2657")) : " Should display white bishop ";
+        assert (bishop_Black.getSymbol().equals("\u2657")) : " Should display black bishop ";
+        assert (bishop_White.getSymbol().equals("\u265D")) : " Should display white bishop ";
 
         assert (bishop_Black.getSymbol().equals(UnicodePieces.BISHOP_BLACK)) : " Should display black bishop ";
         assert (bishop_White.getSymbol().equals(UnicodePieces.BISHOP_WHITE)) : " Should display white bishop ";
@@ -84,6 +80,7 @@ public class BishopTest {
 
     @Test
     public void movementAvailableTest() {
+
         Random rand = new Random();
 
         for (int i = 0; i < 100; i++) {
@@ -115,8 +112,6 @@ public class BishopTest {
                 assert (test1 >= test2) : " bishop must have at least the same number of movement, probably more than before blocking";
 
             }
-
         }
-
     }
 }

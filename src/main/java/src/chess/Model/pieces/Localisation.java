@@ -9,8 +9,6 @@ public class Localisation {
         this.y = y;
     }
 
-
-
     public int getX() {
         return x;
     }

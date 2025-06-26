@@ -36,9 +36,9 @@ public class KnightTest {
         Pieces Knight_White = new Knight(Color.WHITE);
         Pieces Knight_Black = new Knight(Color.BLACK);
 
-        assert (Knight_White.getSymbol().equals("\u2658") ):" Must display a White Knight ";
+        assert (Knight_White.getSymbol().equals("\u265E") ):" Must display a White Knight ";
         assert (Knight_White.getSymbol().equals(UnicodePieces.KNIGHT_WHITE) ):" Must display a White Knight ";
-        assert (Knight_Black.getSymbol().equals("\u265E") ):" Must display a Black Knight ";
+        assert (Knight_Black.getSymbol().equals("\u2658") ):" Must display a Black Knight ";
         assert (Knight_Black.getSymbol().equals(UnicodePieces.KNIGHT_BLACK) ):" Must display a Black Knight ";
 
     }

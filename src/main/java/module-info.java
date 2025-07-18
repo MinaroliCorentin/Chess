@@ -7,7 +7,7 @@ module src.chess {
 
     opens src.chess to javafx.fxml;
     exports src.chess;
-    exports src.chess.Controller;
-    exports src.chess.Test;
-    opens src.chess.Controller to javafx.fxml;
+    exports src.chess.controller;
+    exports src.chess.test;
+    opens src.chess.controller to javafx.fxml;
 }

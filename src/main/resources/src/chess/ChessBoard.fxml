@@ -6,4 +6,4 @@
 
 <?import javafx.scene.control.Button?>
 
-<GridPane fx:id="chessGrid" xmlns:fx="http://javafx.com/fxml" fx:controller="src.chess.Controller.ChessBoardController"/>
+<GridPane fx:id="chessGrid" xmlns:fx="http://javafx.com/fxml" fx:controller="src.chess.controller.ChessBoardController"/>

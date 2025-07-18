@@ -1,7 +1,7 @@
 package src.chess;
 
-import src.chess.Factory.Board;
-import src.chess.Factory.StandartBoard;
+import src.chess.factory.Board;
+import src.chess.factory.StandartBoard;
 
 public class MainTerminal {
 

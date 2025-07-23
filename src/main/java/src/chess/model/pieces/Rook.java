@@ -7,8 +7,29 @@ import java.util.List;
 
 public class Rook extends Pieces {
 
+    private boolean leftRookMoved ;
+    private boolean RightRookMoved ;
+
     public Rook(Color color) {
         super(color);
+        this.leftRookMoved = false ;
+        this.RightRookMoved = false ;
+    }
+
+    public boolean isLeftRookMoved() {
+        return leftRookMoved;
+    }
+
+    public void setLeftRookMoved(boolean leftRookMoved) {
+        this.leftRookMoved = leftRookMoved;
+    }
+
+    public boolean isRightRookMoved() {
+        return RightRookMoved;
+    }
+
+    public void setRightRookMoved(boolean rightRookMoved) {
+        RightRookMoved = rightRookMoved;
     }
 
     @Override
@@ -76,6 +97,8 @@ public class Rook extends Pieces {
                 newY += dy;
             }
         }
+
+        // Ne pas oublier code pour roque depuis rook
 
         return moves;
     }

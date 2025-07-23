@@ -1,14 +1,26 @@
 package src.chess.model.pieces;
 
 import src.chess.factory.Board;
+import src.chess.status.PiecesStatus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class King extends Pieces {
 
+    private boolean hasMoved ;
+
     public King(Color color) {
         super(color);
+        this.hasMoved = false;
+    }
+
+    public boolean isMoved() {
+        return hasMoved;
+    }
+
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
     }
 
     @Override
@@ -72,6 +84,28 @@ public class King extends Pieces {
                 }
             }
 
+        }
+
+        PiecesStatus status = new PiecesStatus(board);
+
+        // White
+        if (this.getColor() == Color.WHITE && !this.isMoved() && x == 7 && y == 4) {
+            if (status.canCastleWhiteRightSide()) {
+                moves.add(new Localisation(7, 6));
+            }
+            if (status.canCastleWhiteLeftSide()) {
+                moves.add(new Localisation(7, 2));
+            }
+        }
+
+        // Black
+        if (this.getColor() == Color.BLACK && !this.isMoved() && x == 0 && y == 4) {
+            if (status.canCastleBlackRightSide()) {
+                moves.add(new Localisation(0, 6));
+            }
+            if (status.canCastleBlackLeftSide()) {
+                moves.add(new Localisation(0, 2));
+            }
         }
 
         return moves;

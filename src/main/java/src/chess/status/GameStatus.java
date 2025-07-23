@@ -7,13 +7,11 @@ public class GameStatus {
 
     private Board board;
     private PiecesStatus piecesStatus;
-    private PlayerStatus playerStatus;
 
-    public GameStatus(Board board, PiecesStatus piecesStatus, PlayerStatus playerStatus){
+    public GameStatus(Board board, PiecesStatus piecesStatus){
 
         this.board = board;
         this.piecesStatus =  piecesStatus ;
-        this.playerStatus = playerStatus ;
 
     }
 

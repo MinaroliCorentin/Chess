@@ -8,6 +8,9 @@ import src.chess.model.players.HumanPlayer;
 import src.chess.model.players.Player;
 import src.chess.status.PiecesStatus;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 public class PiecesStatusTest {
 
     private Board bishopBoard;
@@ -15,6 +18,7 @@ public class PiecesStatusTest {
     private Board rookBoard;
     private Board board;
     private Board queenBoard;
+    private CastlingBoard castlingBoard;
 
     private Player playerBlackBishop;
     private Player playerWhiteBishop;
@@ -26,6 +30,9 @@ public class PiecesStatusTest {
     private Player playerWhite;
     private Player playerBlackQueen;
     private Player playerWhiteQueen;
+    private Player playerBlackCastling ;
+    private Player playerWhiteCastling;
+
     String from ;
     String to;
 
@@ -39,6 +46,10 @@ public class PiecesStatusTest {
         bishopBoard = new BishopBoard();
         playerBlackBishop = new HumanPlayer(bishopBoard, Color.BLACK);
         playerWhiteBishop = new HumanPlayer(bishopBoard, Color.WHITE);
+
+        castlingBoard = new CastlingBoard();
+        playerBlackCastling = new HumanPlayer(castlingBoard, Color.BLACK);
+        playerWhiteCastling = new HumanPlayer(castlingBoard, Color.WHITE);
 
         kingBoard = new KingBoard();
         playerBlackKing = new HumanPlayer(kingBoard, Color.BLACK);
@@ -69,10 +80,8 @@ public class PiecesStatusTest {
         boolean tmp = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
         assert (!tmp):" The King isn't in danger";
 
-        kingBoard.displayWithIndices();
         Bishop bishop = new Bishop(Color.WHITE);
         kingBoard.setPiece(1,3,bishop);
-        kingBoard.displayWithIndices();
         boolean tmp2 = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
         assert (tmp2):" The King is in danger";
 
@@ -80,7 +89,6 @@ public class PiecesStatusTest {
         kingBoard.reset();
         Bishop bishop2 = new Bishop(Color.BLACK);
         kingBoard.setPiece(6,3,bishop2);
-        kingBoard.displayWithIndices();
         boolean tmp3 = statusKingBoard.isKingInCheck(kingBoard,Color.WHITE);
         assert (tmp3):" The King is in danger";
 
@@ -94,17 +102,14 @@ public class PiecesStatusTest {
         boolean tmp = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
         assert (!tmp):" The King isn't in danger";
 
-        kingBoard.displayWithIndices();
         King king = new King(Color.WHITE);
         kingBoard.setPiece(1,3,king);
-        kingBoard.displayWithIndices();
         boolean tmp2 = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
         assert (tmp2):" The King is in danger";
 
         kingBoard.reset();
         King king2 = new King(Color.BLACK);
         kingBoard.setPiece(6,3,king2);
-        kingBoard.displayWithIndices();
         boolean tmp3 = statusKingBoard.isKingInCheck(kingBoard,Color.WHITE);
         assert (tmp3):" The King is in danger";
 
@@ -118,17 +123,14 @@ public class PiecesStatusTest {
         boolean tmp = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
         assert (!tmp):" The King isn't in danger";
 
-        kingBoard.displayWithIndices();
         Knight knight = new Knight(Color.WHITE);
         kingBoard.setPiece(2,3,knight);
-        kingBoard.displayWithIndices();
         boolean tmp2 = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
         assert (tmp2):" The King is in danger";
 
         kingBoard.reset();
         Knight knight2 = new Knight(Color.BLACK);
         kingBoard.setPiece(5,3,knight2);
-        kingBoard.displayWithIndices();
         boolean tmp3 = statusKingBoard.isKingInCheck(kingBoard,Color.WHITE);
         assert (tmp3):" The King is in danger";
 
@@ -141,17 +143,14 @@ public class PiecesStatusTest {
         boolean tmp = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
         assert (!tmp):" The King isn't in danger";
 
-        kingBoard.displayWithIndices();
         Pawn pawn = new Pawn(Color.WHITE);
         kingBoard.setPiece(1,3,pawn);
-        kingBoard.displayWithIndices();
         boolean tmp2 = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
         assert (tmp2):" The King is in danger";
 
         kingBoard.reset();
         Pawn pawn2 = new Pawn(Color.BLACK);
         kingBoard.setPiece(6,3,pawn2);
-        kingBoard.displayWithIndices();
         boolean tmp3 = statusKingBoard.isKingInCheck(kingBoard,Color.WHITE);
         assert (tmp3):" The King is in danger";
 
@@ -164,17 +163,14 @@ public class PiecesStatusTest {
         boolean tmp = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
         assert (!tmp):" The King isn't in danger";
 
-        kingBoard.displayWithIndices();
         Queen queen= new Queen(Color.WHITE);
         kingBoard.setPiece(1,3,queen);
-        kingBoard.displayWithIndices();
         boolean tmp2 = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
         assert (tmp2):" The King is in danger";
 
         kingBoard.reset();
         Queen queen2 = new Queen(Color.BLACK);
         kingBoard.setPiece(6,3,queen2);
-        kingBoard.displayWithIndices();
         boolean tmp3 = statusKingBoard.isKingInCheck(kingBoard,Color.WHITE);
         assert (tmp3):" The King is in danger";
 
@@ -187,20 +183,127 @@ public class PiecesStatusTest {
         boolean tmp = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
         assert (!tmp):" The King isn't in danger";
 
-        kingBoard.displayWithIndices();
         Rook rook = new Rook(Color.WHITE);
         kingBoard.setPiece(0,3,rook);
-        kingBoard.displayWithIndices();
         boolean tmp2 = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
         assert (tmp2):" The King is in danger";
 
         kingBoard.reset();
         Rook rook2 = new Rook(Color.BLACK);
         kingBoard.setPiece(6,4,rook2);
-        kingBoard.displayWithIndices();
         boolean tmp3 = statusKingBoard.isKingInCheck(kingBoard,Color.WHITE);
         assert (tmp3):" The King is in danger";
 
     }
+//
+//    @Test
+//    public void canCastleWhiteRightSideTest(){
+//
+//        PiecesStatus statusWhiteRook = new PiecesStatus(castlingBoard);
+//        from = "H1";
+//        to = "H2";
+//
+//        Rook rook = (Rook) castlingBoard.getPiece(7, 7);
+//        King king = (King) castlingBoard.getPiece(7, 4);
+//
+//        assertFalse("Rook should not have moved", rook.isLeftRookMoved());
+//        assertFalse("King should not have moved", king.isMoved());
+//        assertTrue("Castling should be possible", statusWhiteRook.canCastleWhiteRightSide());
+//
+//        playerWhiteCastling.play(from, to);
+//
+//        castlingBoard.display();
+//
+//        assertFalse("The rook moved",  rook.isLeftRookMoved());
+//        assertFalse("Castling should not be allowed after rook moved", statusWhiteRook.canCastleWhiteRightSide());
+//
+//    }
+//
+//    @Test
+//    public void canCastleWhiteLeftSideTest() {
+//
+//        PiecesStatus statusWhite = new PiecesStatus(castlingBoard);
+//
+//        String from = "E1";
+//        String to = "A1";
+//
+//        Rook rook = (Rook) castlingBoard.getPiece(7, 0);
+//        King king = (King) castlingBoard.getPiece(7, 4);
+//
+//        castlingBoard.display();
+//
+//        assertFalse("Left white rook should not have moved", rook.isLeftRookMoved());
+//        assertFalse("White king should not have moved", king.isMoved());
+//        assertTrue("White left-side castling should be possible", statusWhite.canCastleWhiteLeftSide());
+//
+//        playerWhiteCastling.play(from, to);
+//
+//        castlingBoard.display();
+//
+//    }
+//
+//    @Test
+//    public void canCastleBlackRightSideTest() {
+//        PiecesStatus statusBlack = new PiecesStatus(castlingBoard);
+//
+//        String from = "H8";
+//        String to = "H7";
+//
+//        Rook rook = (Rook) castlingBoard.getPiece(0, 7);
+//        King king = (King) castlingBoard.getPiece(0, 4);
+//
+//        assertFalse("Right black rook should not have moved", rook.isLeftRookMoved());
+//        assertFalse("Black king should not have moved", king.isMoved());
+//        assertTrue("Black right-side castling should be possible", statusBlack.canCastleBlackRightSide());
+//
+//        playerBlackCastling.play(from, to);
+//        assertFalse("Black right-side castling should not be allowed after rook moved", statusBlack.canCastleBlackRightSide());
+//    }
+//
+//    @Test
+//    public void canCastleBlackLeftSideTest() {
+//        PiecesStatus statusBlack = new PiecesStatus(castlingBoard);
+//
+//        String from = "A8";
+//        String to = "A7";
+//
+//        Rook rook = (Rook) castlingBoard.getPiece(0, 0);
+//        King king = (King) castlingBoard.getPiece(0, 4);
+//
+//        assertFalse("Left black rook should not have moved", rook.isLeftRookMoved());
+//        assertFalse("Black king should not have moved", king.isMoved());
+//        assertTrue("Black left-side castling should be possible", statusBlack.canCastleBlackLeftSide());
+//
+//        playerBlackCastling.play(from, to);
+//        assertFalse("Black left-side castling should not be allowed after rook moved", statusBlack.canCastleBlackLeftSide());
+//    }
+
+
+    @Test
+    public void testCannotCastleWhenOnlyRookMoved() {
+        PiecesStatus status = new PiecesStatus(castlingBoard);
+
+        Rook rook = (Rook) castlingBoard.getPiece(0, 0);
+        King king = (King) castlingBoard.getPiece(0, 4);
+
+        rook.setLeftRookMoved(true);
+        king.setHasMoved(false);
+
+        assertFalse(status.canCastleBlackLeftSide());
+    }
+
+    @Test
+    public void testCannotCastleWhenOnlyKingMoved() {
+        PiecesStatus status = new PiecesStatus(castlingBoard);
+
+        Rook rook = (Rook) castlingBoard.getPiece(0, 0);
+        King king = (King) castlingBoard.getPiece(0, 4);
+
+        rook.setLeftRookMoved(false);
+        king.setHasMoved(true);
+
+        assertFalse(status.canCastleBlackLeftSide());
+    }
+
 
 }

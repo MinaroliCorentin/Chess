@@ -1,11 +1,9 @@
 package src.chess.model.players;
 
 import src.chess.factory.Board;
-import src.chess.model.pieces.Color;
-import src.chess.model.pieces.Localisation;
-import src.chess.model.pieces.Pieces;
+import src.chess.model.handler.CastlingHandler;
+import src.chess.model.pieces.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Player {
@@ -86,20 +84,61 @@ public abstract class Player {
             throw new IllegalStateException("No piece at source location");
         }
 
-        if (destinationPiece != null && movingPiece.getColor() == destinationPiece.getColor()) {
-            throw new IllegalStateException("You can't attack your own piece");
-        }
-
         if (movingPiece.getColor() != this.color) {
             throw new IllegalStateException("You can only move your own pieces");
         }
 
-        List<Localisation> allMoves = movingPiece.movements(x, y, board);
+        if (movingPiece.isKing()) {
 
+            System.out.println("TEST");
+            CastlingHandler castling = new CastlingHandler(board);
+
+            if (movingPiece.getColor() == Color.WHITE) {
+                if (x == 7 && y == 4 && newX == 7 && newY == 7) {
+                    System.out.println("EXIT 1");
+                    castling.handleWhiteKingsideCastling(x, y, newX, newY);
+                    return;
+                } else if (x == 7 && y == 4 && newX == 7 && newY == 0) {
+                    System.out.println("EXIT 2");
+                    castling.handleWhiteQueensideCastling(x, y, newX, newY);
+                    return;
+                }
+            } else if (movingPiece.getColor() == Color.BLACK) {
+                if (x == 0 && y == 4 && newX == 0 && newY == 7) {
+                    System.out.println("EXIT 3");
+                    castling.handleBlackKingsideCastling(x, y, newX, newY);
+                    return;
+                } else if (x == 0 && y == 4 && newX == 0 && newY == 0) {
+                    System.out.println("EXIT 4");
+                    castling.handleBlackQueensideCastling(x, y, newX, newY);
+                    return;
+                }
+                System.out.println("EXIT 5");
+            }
+        }
+
+        if (destinationPiece != null && movingPiece.getColor() == destinationPiece.getColor()) {
+            throw new IllegalStateException("You can't attack your own piece");
+        }
+
+        List<Localisation> allMoves = movingPiece.movements(x, y, board);
         for (Localisation localisation : allMoves) {
             if (localisation.getX() == newX && localisation.getY() == newY) {
+
                 board.setPiece(newX, newY, movingPiece);
                 board.setPiece(x, y, null);
+
+                if ( movingPiece.isKing()){
+                    ((King) movingPiece).setHasMoved(true);
+                }
+
+                if ( movingPiece.isRook()){
+                    if ( y == 0 ){
+                        ((Rook) movingPiece).setLeftRookMoved(true);
+                    } else if ( y == 7){
+                        ((Rook) movingPiece).setRightRookMoved(true);
+                    }
+                }
                 return;
             }
         }

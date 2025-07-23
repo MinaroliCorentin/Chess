@@ -3,7 +3,10 @@ package src.chess.test;
 import org.junit.Test;
 import src.chess.factory.Board;
 import src.chess.factory.EmptyBoard;
+import src.chess.factory.RookBoard;
 import src.chess.model.pieces.*;
+import src.chess.model.players.HumanPlayer;
+import src.chess.model.players.Player;
 
 import java.util.Random;
 
@@ -109,6 +112,85 @@ public class RookTest {
 
             }
         }
+    }
+
+    @Test
+    public void leftRookMovedBlackTest(){
+
+        RookBoard rookBoard = new RookBoard();
+        Player playerBlackRook = new HumanPlayer(rookBoard, Color.BLACK);
+
+        String from = "A8";
+        String to = "A7";
+
+        Rook rookBefore = (Rook) rookBoard.getPiece(0, 0);
+        assert (!rookBefore.isLeftRookMoved()): "The left rook didn't move yet";
+
+        playerBlackRook.play(from,to);
+
+        Rook rookAfter = (Rook) rookBoard.getPiece(1, 0);
+        assert (rookAfter.isLeftRookMoved()): "The left rook did move";
+
+    }
+
+    @Test
+    public void rightRookMovedBlackTest(){
+
+        RookBoard rookBoard = new RookBoard();
+        Player playerBlackRook = new HumanPlayer(rookBoard, Color.BLACK);
+
+        String from = "H8";
+        String to = "H7";
+
+        Rook rookBefore = (Rook) rookBoard.getPiece(0, 7);
+        assert (!rookBefore.isRightRookMoved()): "The left rook didn't move yet";
+
+        playerBlackRook.play(from,to);
+
+        Rook rookAfter = (Rook) rookBoard.getPiece(1, 7);
+        assert (rookAfter.isRightRookMoved()): "The left rook did move";
+
+    }
+
+    @Test
+    public void leftRookMovedWhiteTest(){
+
+        RookBoard rookBoard = new RookBoard();
+        Player playerWhiteRook = new HumanPlayer(rookBoard, Color.WHITE);
+
+        String from = "A1"; // (7, 0)
+        String to = "B1";   // (7, 1)
+
+        Rook rookBefore = (Rook) rookBoard.getPiece(7, 0);
+        assert (!rookBefore.isLeftRookMoved()): "The left rook didn't move yet";
+
+        playerWhiteRook.play(from, to);
+
+        Rook rookAfter = (Rook) rookBoard.getPiece(7, 1); // et non (1, 7)
+        assert (rookAfter.isLeftRookMoved()): "The left rook did move";
+
+        rookBoard.displayWithIndices();
+        rookBoard.display();
+
+    }
+
+    @Test
+    public void rightRookMovedWhiteTest(){
+
+        RookBoard rookBoard = new RookBoard();
+        Player playerWhiteRook = new HumanPlayer(rookBoard, Color.WHITE);
+
+        String from = "H1";
+        String to = "H2";
+
+        Rook rookBefore = (Rook) rookBoard.getPiece(7, 7);
+        assert (!rookBefore.isRightRookMoved()): "The right rook didn't move yet";
+
+        playerWhiteRook.play(from, to);
+
+        Rook rookAfter = (Rook) rookBoard.getPiece(6, 7);
+        assert (rookAfter.isRightRookMoved()): "The right rook did move";
+
     }
 
 }

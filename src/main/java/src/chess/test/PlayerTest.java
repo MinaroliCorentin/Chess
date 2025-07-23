@@ -3,12 +3,12 @@ package src.chess.test;
 import org.junit.Before;
 import org.junit.Test;
 import src.chess.factory.*;
+import src.chess.model.pieces.Pieces;
 import src.chess.model.players.HumanPlayer;
 import src.chess.model.players.Player;
 import src.chess.model.pieces.Color;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 
 public class PlayerTest {
@@ -18,6 +18,7 @@ public class PlayerTest {
     private Board rookBoard;
     private Board board;
     private Board queenBoard;
+    private Board castlingBoard ;
 
 
     private Player playerBlackBishop;
@@ -30,6 +31,8 @@ public class PlayerTest {
     private Player playerWhite;
     private Player playerBlackQueen;
     private Player playerWhiteQueen;
+    private Player playerBlackCastling ;
+    private Player playerWhiteCastling;
     String from ;
     String to;
 
@@ -56,6 +59,10 @@ public class PlayerTest {
         playerBlackQueen = new HumanPlayer(queenBoard, Color.BLACK);
         playerWhiteQueen = new HumanPlayer(queenBoard, Color.WHITE);
 
+        castlingBoard = new CastlingBoard();
+        playerBlackCastling = new HumanPlayer(castlingBoard, Color.BLACK);
+        playerWhiteCastling = new HumanPlayer(castlingBoard, Color.WHITE);
+
     }
 
     @Test
@@ -74,15 +81,12 @@ public class PlayerTest {
         from = "h2";
         to = "h4";
         playerWhite.play(from,to);
-        board.displayWithIndices();
         assertNull("must be empty cause the pawn has been moved", board.getPiece(2,7) );
         assertNotNull( " the pawn must be here now",board.getPiece(4,7));
-        board.displayWithIndices();
 
         from = "a2";
         to = "a3";
         playerWhite.play(from,to);
-        board.displayWithIndices();
         assertNull( " must be empty cause the pawn has been moved", board.getPiece(6,0) );
         assertNotNull( " the pawn must be here now", board.getPiece(5,0));
 
@@ -91,21 +95,18 @@ public class PlayerTest {
         playerBlack.play(from,to);
         assertNull("must be empty cause the pawn has been moved", board.getPiece(1,0) );
         assertNotNull( " the pawn must be here now",board.getPiece(3,0));
-        board.displayWithIndices();
 
         from = "H7";
         to = "H6";
         playerBlack.play(from,to);
         assertNull( " must be empty cause the pawn has been moved", board.getPiece(1,7) );
         assertNotNull( " the pawn must be here now", board.getPiece(2,7));
-        board.displayWithIndices();
 
     }
 
     @Test
     public void moveBishopTest(){
 
-        bishopBoard.displayWithIndices();
         from = "c1";
         to = "a3";
         playerWhiteBishop.play(from,to);
@@ -127,7 +128,6 @@ public class PlayerTest {
         from = "c8";
         to = "b7";
         playerBlackBishop.play(from,to);
-        bishopBoard.displayWithIndices();
         assertNull("must be empty because the bishop has been moved", bishopBoard.getPiece(0, 2));
         assertNotNull("the bishop must be here now", bishopBoard.getPiece(1, 1));
 
@@ -135,9 +135,6 @@ public class PlayerTest {
 
     @Test
     public void moveKingTest() {
-
-        kingBoard.display();
-        kingBoard.displayWithIndices();
 
         from = "e1";
         to = "e2";
@@ -190,9 +187,6 @@ public class PlayerTest {
     @Test
     public void moveKnightTest(){
 
-        board.display();
-        board.displayWithIndices();
-
         from = "B1";
         to = "A3";
         playerWhite.play(from, to);
@@ -226,10 +220,6 @@ public class PlayerTest {
         from = "D1";
         to = "E1";
         playerWhiteQueen.play(from, to);
-
-        queenBoard.display();
-        queenBoard.displayWithIndices();
-
         assertNull("Must be empty cause the knight has been moved from D1 ", queenBoard.getPiece(7,3));
         assertNotNull("The knight must be here now at E1 ", queenBoard.getPiece(7,4));
         queenBoard.reset();
@@ -265,35 +255,150 @@ public class PlayerTest {
     }
 
     @Test
-    public void moveRookTest(){
+    public void moveRookTest() {
 
         from = "a1";
         to = "a4";
         playerWhiteRook.play(from, to);
-        assertNull ("A1 Must be Empty", rookBoard.getPiece(7, 0));
-        assertNotNull(" White Rook must be at A4", rookBoard.getPiece(4, 0));
+        assertNull("A1 must be empty", rookBoard.getPiece(7, 0));
+        assertNotNull("White Rook must be at A4", rookBoard.getPiece(4, 0));
         rookBoard.reset();
 
         from = "a1";
-        to = "h1";
+        to = "g1";
         playerWhiteRook.play(from, to);
-        assertNull ("A1 Must be Empty", rookBoard.getPiece(7, 0));
-        assertNotNull(" White Rook must be at H1 ", rookBoard.getPiece(7, 7));
+        assertNull("A1 must be empty", rookBoard.getPiece(7, 0));
+        assertNotNull("White Rook must be at G1", rookBoard.getPiece(7, 6));
         rookBoard.reset();
 
-        from = "a8";
-        to = "h8";
+        from = "A8";
+        to = "G8";
         playerBlackRook.play(from, to);
-        assertNull ("A8 Must be Empty", rookBoard.getPiece(0, 0));
-        assertNotNull(" Black Rook must be at H8 ", rookBoard.getPiece(0, 7));
+        assertNull("A8 must be empty", rookBoard.getPiece(0, 0));
+        assertNotNull("Black Rook must be at G8", rookBoard.getPiece(0, 6));
         rookBoard.reset();
 
         from = "a8";
         to = "a5";
         playerBlackRook.play(from, to);
-        assertNull ("A8 Must be Empty", rookBoard.getPiece(0, 0));
-        assertNotNull(" Black Rook must be at A5", rookBoard.getPiece(3, 0));
+        assertNull("A8 must be empty", rookBoard.getPiece(0, 0));
+        assertNotNull("Black Rook must be at A5", rookBoard.getPiece(3, 0));
         rookBoard.reset();
+    }
+
+    @Test
+    public void kingSideBlackCastling() {
+
+        from = "E8";
+        to = "H8";
+
+        castlingBoard.displayWithIndices();
+        castlingBoard.display();
+
+        System.out.println("P1 : " + castlingBoard.getPiece(0,4).getSymbol() + " " + castlingBoard.getPiece(0,4).getColor());
+        System.out.println("P2 : " + castlingBoard.getPiece(0,7).getSymbol() + " " + castlingBoard.getPiece(0,7).getColor());
+
+        playerBlackCastling.play(from, to);
+
+        castlingBoard.display();
+
+        Pieces king = castlingBoard.getPiece(0,6);
+        assertNotNull("King must be at G8 (0,6)", king);
+        assertTrue("The piece at G8 should be the king", king.isKing());
+
+        Pieces rook = castlingBoard.getPiece(0,5);
+        assertNotNull("Rook must be at F8 (0,5)", rook);
+        assertTrue("The piece at F8 should be the rook", rook.isRook());
+
+        assertNull("E8 should be empty after castling", castlingBoard.getPiece(0,4));
+        assertNull("H8 should be empty after castling", castlingBoard.getPiece(0,7));
+    }
+
+    @Test
+    public void queenSideBlackCastling(){
+
+        from = "E8";
+        to = "A8";
+
+        castlingBoard.displayWithIndices();
+        castlingBoard.display();
+
+        System.out.println("P1 : " + castlingBoard.getPiece(0,4).getSymbol() + " " + castlingBoard.getPiece(0,4).getColor());
+        System.out.println("P2 : " + castlingBoard.getPiece(0,0).getSymbol() + " " + castlingBoard.getPiece(0,7).getColor());
+
+        playerBlackCastling.play(from, to);
+
+        castlingBoard.display();
+
+        Pieces king = castlingBoard.getPiece(0,2);
+        assertNotNull("King must be at C8 (0,2)", king);
+        assertTrue("The piece at C8 should be the king", king.isKing());
+
+        Pieces rook = castlingBoard.getPiece(0,3);
+        assertNotNull("Rook must be at D8 (0,3)", rook);
+        assertTrue("The piece at D8 should be the rook", rook.isRook());
+
+        assertNull("C8 should be empty after castling", castlingBoard.getPiece(0,4));
+        assertNull("D8 should be empty after castling", castlingBoard.getPiece(0,0));
+
+    }
+
+    @Test
+    public void kingSideWhiteCastling(){
+
+    from = "E1";
+    to = "H1";
+
+    castlingBoard.displayWithIndices();
+    castlingBoard.display();
+
+    System.out.println("P1 : " + castlingBoard.getPiece(7,4).getSymbol() + " " + castlingBoard.getPiece(7,4).getColor());
+    System.out.println("P2 : " + castlingBoard.getPiece(7,7).getSymbol() + " " + castlingBoard.getPiece(7,7).getColor());
+
+    playerWhiteCastling.play(from, to);
+
+    castlingBoard.display();
+
+    Pieces king = castlingBoard.getPiece(7,6);
+    assertNotNull("King must be at G1 (7,6)", king);
+    assertTrue("The piece at G1 should be the king", king.isKing());
+
+    Pieces rook = castlingBoard.getPiece(7,5);
+    assertNotNull("Rook must be at F1 (7,5)", rook);
+    assertTrue("The piece at F8 should be the rook", rook.isRook());
+
+    assertNull("E8 should be empty after castling", castlingBoard.getPiece(7,4));
+    assertNull("H8 should be empty after castling", castlingBoard.getPiece(7,7));
+
+    }
+
+    @Test
+    public void queenSideWhiteCastling(){
+
+        from = "E1";
+        to = "A1";
+
+        castlingBoard.displayWithIndices();
+        castlingBoard.display();
+
+        System.out.println("P1 : " + castlingBoard.getPiece(7,4).getSymbol() + " " + castlingBoard.getPiece(7,4).getColor());
+        System.out.println("P2 : " + castlingBoard.getPiece(7,0).getSymbol() + " " + castlingBoard.getPiece(7,7).getColor());
+
+        playerWhiteCastling.play(from, to);
+
+        castlingBoard.display();
+
+        Pieces king = castlingBoard.getPiece(7,2);
+        assertNotNull("King must be at C8 (7,2)", king);
+        assertTrue("The piece at C8 should be the king", king.isKing());
+
+        Pieces rook = castlingBoard.getPiece(7,3);
+        assertNotNull("Rook must be at D8 (7,3)", rook);
+        assertTrue("The piece at D8 should be the rook", rook.isRook());
+
+        assertNull("C8 should be empty after castling", castlingBoard.getPiece(7,4));
+        assertNull("D8 should be empty after castling", castlingBoard.getPiece(7,0));
+
     }
 
 }

@@ -62,8 +62,6 @@ public class PawnTest {
                 board.setPiece(x +1, y, new Pawn(Color.BLACK));
             }
 
-            board.displayWithIndices();
-
             assert (pawn.movements(x, y, board).isEmpty()) : " Black pawn should have no movement : " + pawn.movements(x, y, board).size() ;
         }
     }

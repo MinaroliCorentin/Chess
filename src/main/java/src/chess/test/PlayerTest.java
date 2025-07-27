@@ -20,7 +20,6 @@ public class PlayerTest {
     private Board queenBoard;
     private Board castlingBoard ;
 
-
     private Player playerBlackBishop;
     private Player playerWhiteBishop;
     private Player playerBlackKing;
@@ -84,11 +83,15 @@ public class PlayerTest {
         assertNull("must be empty cause the pawn has been moved", board.getPiece(2,7) );
         assertNotNull( " the pawn must be here now",board.getPiece(4,7));
 
+        board.display();
+
         from = "a2";
         to = "a3";
         playerWhite.play(from,to);
         assertNull( " must be empty cause the pawn has been moved", board.getPiece(6,0) );
         assertNotNull( " the pawn must be here now", board.getPiece(5,0));
+
+        board.display();
 
         from = "a7";
         to = "a5";
@@ -96,11 +99,15 @@ public class PlayerTest {
         assertNull("must be empty cause the pawn has been moved", board.getPiece(1,0) );
         assertNotNull( " the pawn must be here now",board.getPiece(3,0));
 
+        board.display();
+
         from = "H7";
         to = "H6";
         playerBlack.play(from,to);
         assertNull( " must be empty cause the pawn has been moved", board.getPiece(1,7) );
         assertNotNull( " the pawn must be here now", board.getPiece(2,7));
+
+        board.display();
 
     }
 
@@ -211,7 +218,6 @@ public class PlayerTest {
         assertNull("Must be empty cause the knight has been moved from A5 ", board.getPiece(3,0));
         assertNotNull("The knight must be here now at B1", board.getPiece(1,1));
 
-
     }
 
     @Test
@@ -291,16 +297,7 @@ public class PlayerTest {
 
         from = "E8";
         to = "H8";
-
-        castlingBoard.displayWithIndices();
-        castlingBoard.display();
-
-        System.out.println("P1 : " + castlingBoard.getPiece(0,4).getSymbol() + " " + castlingBoard.getPiece(0,4).getColor());
-        System.out.println("P2 : " + castlingBoard.getPiece(0,7).getSymbol() + " " + castlingBoard.getPiece(0,7).getColor());
-
         playerBlackCastling.play(from, to);
-
-        castlingBoard.display();
 
         Pieces king = castlingBoard.getPiece(0,6);
         assertNotNull("King must be at G8 (0,6)", king);
@@ -319,16 +316,7 @@ public class PlayerTest {
 
         from = "E8";
         to = "A8";
-
-        castlingBoard.displayWithIndices();
-        castlingBoard.display();
-
-        System.out.println("P1 : " + castlingBoard.getPiece(0,4).getSymbol() + " " + castlingBoard.getPiece(0,4).getColor());
-        System.out.println("P2 : " + castlingBoard.getPiece(0,0).getSymbol() + " " + castlingBoard.getPiece(0,7).getColor());
-
         playerBlackCastling.play(from, to);
-
-        castlingBoard.display();
 
         Pieces king = castlingBoard.getPiece(0,2);
         assertNotNull("King must be at C8 (0,2)", king);
@@ -348,16 +336,7 @@ public class PlayerTest {
 
     from = "E1";
     to = "H1";
-
-    castlingBoard.displayWithIndices();
-    castlingBoard.display();
-
-    System.out.println("P1 : " + castlingBoard.getPiece(7,4).getSymbol() + " " + castlingBoard.getPiece(7,4).getColor());
-    System.out.println("P2 : " + castlingBoard.getPiece(7,7).getSymbol() + " " + castlingBoard.getPiece(7,7).getColor());
-
     playerWhiteCastling.play(from, to);
-
-    castlingBoard.display();
 
     Pieces king = castlingBoard.getPiece(7,6);
     assertNotNull("King must be at G1 (7,6)", king);
@@ -377,16 +356,7 @@ public class PlayerTest {
 
         from = "E1";
         to = "A1";
-
-        castlingBoard.displayWithIndices();
-        castlingBoard.display();
-
-        System.out.println("P1 : " + castlingBoard.getPiece(7,4).getSymbol() + " " + castlingBoard.getPiece(7,4).getColor());
-        System.out.println("P2 : " + castlingBoard.getPiece(7,0).getSymbol() + " " + castlingBoard.getPiece(7,7).getColor());
-
         playerWhiteCastling.play(from, to);
-
-        castlingBoard.display();
 
         Pieces king = castlingBoard.getPiece(7,2);
         assertNotNull("King must be at C8 (7,2)", king);
@@ -400,5 +370,4 @@ public class PlayerTest {
         assertNull("D8 should be empty after castling", castlingBoard.getPiece(7,0));
 
     }
-
 }

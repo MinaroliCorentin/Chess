@@ -23,7 +23,7 @@ public class CastlingHandler {
 
             boolean safe =  !status.isKingInCheckPos(7, 4, king.getColor()) &&
                             !status.isKingInCheckPos(7, 5, king.getColor()) &&
-                            !status.isKingInCheckPos(7, 6, king.getColor());
+                            !status.isKingInCheckPos(7, 6, king.getColor()) ;
 
             if (rook.isRook() && king.isKing() && safe) {
                 board.setPiece(7, 6, king);

@@ -9,8 +9,6 @@ public class EmptyBoard extends Board {
     @Override
     public void BoardInitialize() {
 
-
-
     }
 
 }

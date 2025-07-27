@@ -40,8 +40,12 @@ public abstract class Board {
         board[x][y] = piece;
     }
 
+    public void swapPiece(int x, int y, Pieces piece) {
 
+        board[x][y] = null;
+        board[x][y] = piece;
 
+    }
 
     public boolean isEmpty(int x, int y) {
         return isBound(x,y) && board[x][y] == null;
@@ -54,7 +58,6 @@ public abstract class Board {
     public boolean hasOpponentPiece( int x, int y, Color color){
         return isBound(x,y) && board[x][y] != null && board[x][y].getColor() != color;
     }
-
 
     public void display() {
         for (int i = 0; i < 8; i++) {

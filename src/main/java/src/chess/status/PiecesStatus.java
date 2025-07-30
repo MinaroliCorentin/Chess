@@ -62,19 +62,17 @@ public class PiecesStatus {
 
                 Pieces pieces = board.getPiece(i,j);
                 if ( pieces != null && !pieces.getColor().equals(color)){
-
                     List<Localisation> checkMovement = pieces.movements(i,j,board);
                     for ( Localisation localisation : checkMovement ){
-
                         if ( localisation.getX() == posX && localisation.getY() == posY ){
                             return true ;
                         }
                     }
                 }
+
             }
         }
         return false ;
-
     }
 
     public boolean canCastleBlackLeftSide(){

@@ -195,88 +195,88 @@ public class PiecesStatusTest {
         assert (tmp3):" The King is in danger";
 
     }
-//
-//    @Test
-//    public void canCastleWhiteRightSideTest(){
-//
-//        PiecesStatus statusWhiteRook = new PiecesStatus(castlingBoard);
-//        from = "H1";
-//        to = "H2";
-//
-//        Rook rook = (Rook) castlingBoard.getPiece(7, 7);
-//        King king = (King) castlingBoard.getPiece(7, 4);
-//
-//        assertFalse("Rook should not have moved", rook.isLeftRookMoved());
-//        assertFalse("King should not have moved", king.isMoved());
-//        assertTrue("Castling should be possible", statusWhiteRook.canCastleWhiteRightSide());
-//
-//        playerWhiteCastling.play(from, to);
-//
-//        castlingBoard.display();
-//
-//        assertFalse("The rook moved",  rook.isLeftRookMoved());
-//        assertFalse("Castling should not be allowed after rook moved", statusWhiteRook.canCastleWhiteRightSide());
-//
-//    }
-//
-//    @Test
-//    public void canCastleWhiteLeftSideTest() {
-//
-//        PiecesStatus statusWhite = new PiecesStatus(castlingBoard);
-//
-//        String from = "E1";
-//        String to = "A1";
-//
-//        Rook rook = (Rook) castlingBoard.getPiece(7, 0);
-//        King king = (King) castlingBoard.getPiece(7, 4);
-//
-//        castlingBoard.display();
-//
-//        assertFalse("Left white rook should not have moved", rook.isLeftRookMoved());
-//        assertFalse("White king should not have moved", king.isMoved());
-//        assertTrue("White left-side castling should be possible", statusWhite.canCastleWhiteLeftSide());
-//
-//        playerWhiteCastling.play(from, to);
-//
-//        castlingBoard.display();
-//
-//    }
-//
-//    @Test
-//    public void canCastleBlackRightSideTest() {
-//        PiecesStatus statusBlack = new PiecesStatus(castlingBoard);
-//
-//        String from = "H8";
-//        String to = "H7";
-//
-//        Rook rook = (Rook) castlingBoard.getPiece(0, 7);
-//        King king = (King) castlingBoard.getPiece(0, 4);
-//
-//        assertFalse("Right black rook should not have moved", rook.isLeftRookMoved());
-//        assertFalse("Black king should not have moved", king.isMoved());
-//        assertTrue("Black right-side castling should be possible", statusBlack.canCastleBlackRightSide());
-//
-//        playerBlackCastling.play(from, to);
-//        assertFalse("Black right-side castling should not be allowed after rook moved", statusBlack.canCastleBlackRightSide());
-//    }
-//
-//    @Test
-//    public void canCastleBlackLeftSideTest() {
-//        PiecesStatus statusBlack = new PiecesStatus(castlingBoard);
-//
-//        String from = "A8";
-//        String to = "A7";
-//
-//        Rook rook = (Rook) castlingBoard.getPiece(0, 0);
-//        King king = (King) castlingBoard.getPiece(0, 4);
-//
-//        assertFalse("Left black rook should not have moved", rook.isLeftRookMoved());
-//        assertFalse("Black king should not have moved", king.isMoved());
-//        assertTrue("Black left-side castling should be possible", statusBlack.canCastleBlackLeftSide());
-//
-//        playerBlackCastling.play(from, to);
-//        assertFalse("Black left-side castling should not be allowed after rook moved", statusBlack.canCastleBlackLeftSide());
-//    }
+
+    @Test
+    public void canCastleWhiteRightSideTest(){
+
+        PiecesStatus statusWhiteRook = new PiecesStatus(castlingBoard);
+        from = "H1";
+        to = "H2";
+
+        Rook rook = (Rook) castlingBoard.getPiece(7, 7);
+        King king = (King) castlingBoard.getPiece(7, 4);
+
+        assertFalse("Rook should not have moved", rook.isLeftRookMoved());
+        assertFalse("King should not have moved", king.isMoved());
+        assertTrue("Castling should be possible", statusWhiteRook.canCastleWhiteRightSide());
+
+        playerWhiteCastling.play(from, to);
+
+        castlingBoard.display();
+
+        assertFalse("The rook moved",  rook.isLeftRookMoved());
+        assertFalse("Castling should not be allowed after rook moved", statusWhiteRook.canCastleWhiteRightSide());
+
+    }
+
+    @Test
+    public void canCastleWhiteLeftSideTest() {
+
+        PiecesStatus statusWhite = new PiecesStatus(castlingBoard);
+
+        String from = "E1";
+        String to = "A1";
+
+        Rook rook = (Rook) castlingBoard.getPiece(7, 0);
+        King king = (King) castlingBoard.getPiece(7, 4);
+
+        castlingBoard.display();
+
+        assertFalse("Left white rook should not have moved", rook.isLeftRookMoved());
+        assertFalse("White king should not have moved", king.isMoved());
+        assertTrue("White left-side castling should be possible", statusWhite.canCastleWhiteLeftSide());
+
+        playerWhiteCastling.play(from, to);
+
+        castlingBoard.display();
+
+    }
+
+    @Test
+    public void canCastleBlackRightSideTest() {
+        PiecesStatus statusBlack = new PiecesStatus(castlingBoard);
+
+        String from = "H8";
+        String to = "H7";
+
+        Rook rook = (Rook) castlingBoard.getPiece(0, 7);
+        King king = (King) castlingBoard.getPiece(0, 4);
+
+        assertFalse("Right black rook should not have moved", rook.isLeftRookMoved());
+        assertFalse("Black king should not have moved", king.isMoved());
+        assertTrue("Black right-side castling should be possible", statusBlack.canCastleBlackRightSide());
+
+        playerBlackCastling.play(from, to);
+        assertFalse("Black right-side castling should not be allowed after rook moved", statusBlack.canCastleBlackRightSide());
+    }
+
+    @Test
+    public void canCastleBlackLeftSideTest() {
+        PiecesStatus statusBlack = new PiecesStatus(castlingBoard);
+
+        String from = "A8";
+        String to = "A7";
+
+        Rook rook = (Rook) castlingBoard.getPiece(0, 0);
+        King king = (King) castlingBoard.getPiece(0, 4);
+
+        assertFalse("Left black rook should not have moved", rook.isLeftRookMoved());
+        assertFalse("Black king should not have moved", king.isMoved());
+        assertTrue("Black left-side castling should be possible", statusBlack.canCastleBlackLeftSide());
+
+        playerBlackCastling.play(from, to);
+        assertFalse("Black left-side castling should not be allowed after rook moved", statusBlack.canCastleBlackLeftSide());
+    }
 
 
     @Test

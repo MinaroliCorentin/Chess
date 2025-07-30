@@ -3,6 +3,7 @@ package src.chess.model.players;
 import src.chess.factory.Board;
 import src.chess.model.handler.CastlingHandler;
 import src.chess.model.pieces.*;
+import src.chess.status.PiecesStatus;
 
 import java.util.List;
 
@@ -68,6 +69,7 @@ public abstract class Player {
             throw new IllegalStateException("Out of bounds");
         }
 
+        // Transform String into Integer
         int x = 8 - (strB - '0');
         int y = strA - 'a';
         int newX = 8 - (strD - '0');

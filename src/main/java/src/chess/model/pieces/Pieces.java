@@ -42,5 +42,6 @@ public abstract class Pieces {
 
     public abstract List<Localisation> movements(int x, int y, Board board);
     public abstract String getSymbol();
+    public abstract List<Localisation> getAttackSquares(int x, int y, Board board);
 
 }

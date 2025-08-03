@@ -56,18 +56,11 @@ public abstract class Player {
         char strC = ending.toLowerCase().charAt(0);
         char strD = ending.charAt(1);
 
-        if (strA < 'a' || strA > 'h'){
-            throw new IllegalStateException("Out of bounds");
-        }
-        if (strC < 'a' || strC > 'h'){
-            throw new IllegalStateException("Out of bounds");
-        }
-        if (strB < '1' || strB > '8'){
-            throw new IllegalStateException("Out of bounds");
-        }
-        if (strD < '1' || strD > '8'){
-            throw new IllegalStateException("Out of bounds");
-        }
+        if (strA < 'a' || strA > 'h')throw new IllegalStateException("Out of bounds");
+        if (strC < 'a' || strC > 'h')throw new IllegalStateException("Out of bounds");
+        if (strB < '1' || strB > '8') throw new IllegalStateException("Out of bounds");
+        if (strD < '1' || strD > '8') throw new IllegalStateException("Out of bounds");
+
 
         // Transform String into Integer
         int x = 8 - (strB - '0');
@@ -75,60 +68,54 @@ public abstract class Player {
         int newX = 8 - (strD - '0');
         int newY = strC - 'a';
 
-        if (!board.isBound(x, y) || !board.isBound(newX, newY)) {
-            throw new IllegalArgumentException("Out of bounds");
-        }
+        if (!board.isBound(x, y) || !board.isBound(newX, newY)) throw new IllegalArgumentException("Out of bounds");
 
         Pieces movingPiece = board.getPiece(x, y);
         Pieces destinationPiece = board.getPiece(newX, newY);
 
-        if (movingPiece == null) {
-            throw new IllegalStateException("No piece at source location");
-        }
-
-        if (movingPiece.getColor() != this.color) {
-            throw new IllegalStateException("You can only move your own pieces");
-        }
+        if (movingPiece == null) throw new IllegalStateException("No piece at source location");
+        if (movingPiece.getColor() != this.color) throw new IllegalStateException("You can only move your own pieces");
 
         if (movingPiece.isKing()) {
 
-            System.out.println("TEST");
             CastlingHandler castling = new CastlingHandler(board);
-
             if (movingPiece.getColor() == Color.WHITE) {
                 if (x == 7 && y == 4 && newX == 7 && newY == 7) {
-                    System.out.println("EXIT 1");
                     castling.handleWhiteKingsideCastling(x, y, newX, newY);
                     return;
                 } else if (x == 7 && y == 4 && newX == 7 && newY == 0) {
-                    System.out.println("EXIT 2");
                     castling.handleWhiteQueensideCastling(x, y, newX, newY);
                     return;
                 }
             } else if (movingPiece.getColor() == Color.BLACK) {
                 if (x == 0 && y == 4 && newX == 0 && newY == 7) {
-                    System.out.println("EXIT 3");
                     castling.handleBlackKingsideCastling(x, y, newX, newY);
                     return;
                 } else if (x == 0 && y == 4 && newX == 0 && newY == 0) {
-                    System.out.println("EXIT 4");
                     castling.handleBlackQueensideCastling(x, y, newX, newY);
                     return;
                 }
-                System.out.println("EXIT 5");
             }
         }
 
-        if (destinationPiece != null && movingPiece.getColor() == destinationPiece.getColor()) {
-            throw new IllegalStateException("You can't attack your own piece");
-        }
+        if (destinationPiece != null && movingPiece.getColor() == destinationPiece.getColor()) throw new IllegalStateException("You can't attack your own piece");
 
         List<Localisation> allMoves = movingPiece.movements(x, y, board);
         for (Localisation localisation : allMoves) {
+            // newX and newY are the destinationPieces coordinates
             if (localisation.getX() == newX && localisation.getY() == newY) {
 
                 board.setPiece(newX, newY, movingPiece);
                 board.setPiece(x, y, null);
+
+                PiecesStatus status = new PiecesStatus(board);
+                Boolean threat = status.isKingInCheck(board,board.getPiece(newX,newY).getColor());
+
+                if (threat){
+                    board.setPiece(x,y, movingPiece);
+                    board.setPiece(newX, newY, null);
+                    throw new IllegalStateException( " This move will threat your own king" );
+                }
 
                 if ( movingPiece.isKing()){
                     ((King) movingPiece).setHasMoved(true);
@@ -144,6 +131,9 @@ public abstract class Player {
                 return;
             }
         }
+
+        if ( board.getPiece(newX, newY) == null) throw new IllegalStateException(" The move is impossible");
+
     }
 
     public String toString(){

@@ -55,25 +55,25 @@ public class PiecesStatus {
         return false ;
     }
 
-    public boolean isKingInCheckPos(int posX, int posY, Color color){
+        public boolean isKingInCheckPos(int posX, int posY, Color color){
 
-        for ( int i = 0 ; i < 8 ; i++){
-            for ( int j = 0 ; j < 8 ; j++){
+            for ( int i = 0 ; i < 8 ; i++){
+                for ( int j = 0 ; j < 8 ; j++){
 
-                Pieces pieces = board.getPiece(i,j);
-                if ( pieces != null && !pieces.getColor().equals(color)){
-                    List<Localisation> checkMovement = pieces.movements(i,j,board);
-                    for ( Localisation localisation : checkMovement ){
-                        if ( localisation.getX() == posX && localisation.getY() == posY ){
-                            return true ;
+                    Pieces pieces = board.getPiece(i,j);
+                    if ( pieces != null && !pieces.getColor().equals(color)){
+                        List<Localisation> checkMovement = pieces.getAttackSquares(i,j,board);
+                        for ( Localisation localisation : checkMovement ){
+                            if ( localisation.getX() == posX && localisation.getY() == posY ){
+                                return true ;
+                            }
                         }
                     }
-                }
 
+                }
             }
+            return false ;
         }
-        return false ;
-    }
 
     public boolean canCastleBlackLeftSide(){
 

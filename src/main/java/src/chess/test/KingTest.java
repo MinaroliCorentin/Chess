@@ -4,8 +4,12 @@ import org.junit.Test;
 import src.chess.factory.Board;
 import src.chess.factory.EmptyBoard;
 import src.chess.model.pieces.*;
+import src.chess.model.players.HumanPlayer;
+import src.chess.model.players.Player;
 
 import java.util.Random;
+
+import static org.junit.Assert.assertThrows;
 
 public class KingTest {
 
@@ -121,5 +125,54 @@ public class KingTest {
         }
     }
 
+    @Test
+    public void kingMoveInCheckTest(){
+
+        Board board = new EmptyBoard();
+        Pieces king = new King(Color.BLACK);
+        Pieces rook1 = new Rook(Color.WHITE);
+
+        board.setPiece(0,1,king);
+        board.setPiece(1,0,rook1);
+
+        board.display();
+
+        Player p1 = new HumanPlayer(board,Color.BLACK);
+        assertThrows(IllegalStateException.class,()->{ p1.play("B8","A8");});
+
+    }
+
+    @Test
+    public void PiecesMoveKingInCheckTest(){
+
+        Board board = new EmptyBoard();
+        Pieces king = new King(Color.BLACK);
+        Pieces rook = new Rook(Color.WHITE);
+        Pieces bishop = new Bishop(Color.BLACK);
+
+        board.setPiece(0,1,king);
+        board.setPiece(1,1,bishop);
+        board.setPiece(2,1,rook);
+
+        Player p1 = new HumanPlayer(board,Color.BLACK);
+        assertThrows(IllegalStateException.class,()->{ p1.play("B7","C6");});
+
+        board.display();
+        board.reset();
+
+        Pieces king1 = new King(Color.WHITE);
+        Pieces rook1 = new Rook(Color.BLACK);
+        Pieces bishop1 = new Bishop(Color.WHITE);
+
+        board.setPiece(0,1,king1);
+        board.setPiece(1,1,bishop1);
+        board.setPiece(2,1,rook1);
+
+        Player p2 = new HumanPlayer(board,Color.WHITE);
+        assertThrows(IllegalStateException.class,()->{ p2.play("B7","C6");});
+
+        board.display();
+
+    }
 
 }

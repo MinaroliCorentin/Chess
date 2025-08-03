@@ -57,6 +57,7 @@ public class King extends Pieces {
     public List<Localisation> movements(int x, int y, Board board) {
 
         List<Localisation> moves = new ArrayList<>();
+        PiecesStatus status = new PiecesStatus(board);
 
         int[][] directions = {
 
@@ -78,15 +79,29 @@ public class King extends Pieces {
             int newX = x + dx;
             int newY = y + dy;
 
-            if (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
-                if (board.isEmpty(newX, newY) || board.hasOpponentPiece(newX, newY, this.getColor())) {
-                    moves.add(new Localisation(newX, newY));
+            if (board.isBound(newX, newY)) {
+
+                Pieces target = board.getPiece(newX, newY);
+
+                if (target == null || target.getColor() != this.getColor()) {
+
+                    board.setPiece(x, y, null);
+                    Pieces oldTarget = board.getPiece(newX, newY);
+                    board.setPiece(newX, newY, this);
+
+                    boolean safe = !status.isKingInCheckPos(newX, newY, this.getColor());
+
+                    board.setPiece(x, y, this);
+                    board.setPiece(newX, newY, oldTarget);
+
+                    if (safe) {
+                        moves.add(new Localisation(newX, newY));
+                    }
                 }
             }
 
         }
 
-        PiecesStatus status = new PiecesStatus(board);
 
         // White
         if (this.getColor() == Color.WHITE && !this.isMoved() && x == 7 && y == 4) {
@@ -110,6 +125,27 @@ public class King extends Pieces {
 
         return moves;
     }
+
+    @Override
+    public List<Localisation> getAttackSquares(int x, int y, Board board) {
+        List<Localisation> attacks = new ArrayList<>();
+
+        int[][] directions = {
+                {0, -1}, {1, -1}, {1, 0}, {1, 1},
+                {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}
+        };
+
+        for (int[] dir : directions) {
+            int newX = x + dir[0];
+            int newY = y + dir[1];
+            if (board.isBound(newX, newY)) {
+                attacks.add(new Localisation(newX, newY));
+            }
+        }
+
+        return attacks;
+    }
+
 
 
     @Override

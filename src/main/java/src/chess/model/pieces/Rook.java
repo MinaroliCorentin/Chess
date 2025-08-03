@@ -98,10 +98,32 @@ public class Rook extends Pieces {
             }
         }
 
-        // Ne pas oublier code pour roque depuis rook
-
         return moves;
     }
+
+    @Override
+    public List<Localisation> getAttackSquares(int x, int y, Board board) {
+        List<Localisation> attacks = new ArrayList<>();
+
+        int[][] directions = {
+                {1, 0}, {-1, 0}, {0, 1}, {0, -1}
+        };
+
+        for (int[] dir : directions) {
+            int newX = x + dir[0];
+            int newY = y + dir[1];
+
+            while (board.isBound(newX, newY)) {
+                attacks.add(new Localisation(newX, newY));
+                if (board.getPiece(newX, newY) != null) break;
+                newX += dir[0];
+                newY += dir[1];
+            }
+        }
+
+        return attacks;
+    }
+
 
     @Override
     public String getSymbol(){

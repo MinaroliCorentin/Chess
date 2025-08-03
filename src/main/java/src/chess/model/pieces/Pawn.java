@@ -76,6 +76,27 @@ public class Pawn extends Pieces {
     }
 
 
+    @Override
+    public List<Localisation> getAttackSquares(int x, int y, Board board) {
+        List<Localisation> attacks = new ArrayList<>();
+
+        int direction = this.getColor() == Color.WHITE ? -1 : 1;
+
+        int newX = x + direction;
+        int newY1 = y - 1;
+        int newY2 = y + 1;
+
+        if (board.isBound(newX, newY1)) {
+            attacks.add(new Localisation(newX, newY1));
+        }
+
+        if (board.isBound(newX, newY2)) {
+            attacks.add(new Localisation(newX, newY2));
+        }
+
+        return attacks;
+    }
+
 
     @Override
     public String getSymbol(){

@@ -84,6 +84,26 @@ public class Knight extends Pieces {
     }
 
     @Override
+    public List<Localisation> getAttackSquares(int x, int y, Board board) {
+        List<Localisation> attacks = new ArrayList<>();
+
+        int[][] moves = {
+                {1, 2}, {2, 1}, {2, -1}, {1, -2},
+                {-1, -2}, {-2, -1}, {-2, 1}, {-1, 2}
+        };
+
+        for (int[] move : moves) {
+            int newX = x + move[0];
+            int newY = y + move[1];
+            if (board.isBound(newX, newY)) {
+                attacks.add(new Localisation(newX, newY));
+            }
+        }
+
+        return attacks;
+    }
+
+    @Override
     public String getSymbol(){
         if ( this.getColor() == Color.BLACK){
             return UnicodePieces.KNIGHT_BLACK;

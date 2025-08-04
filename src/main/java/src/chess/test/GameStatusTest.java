@@ -1,9 +1,13 @@
 package src.chess.test;
 
 import org.junit.Test;
+import src.chess.factory.EmptyBoard;
 import src.chess.factory.PawnBoard;
 import src.chess.model.handler.PromoteHandler;
 import src.chess.model.pieces.Color;
+import src.chess.model.pieces.King;
+import src.chess.model.pieces.Pawn;
+import src.chess.model.pieces.Queen;
 import src.chess.model.players.HumanPlayer;
 import src.chess.model.players.Player;
 import src.chess.status.GameStatus;
@@ -243,4 +247,63 @@ public class GameStatusTest {
         }
 
     }
+
+    @Test
+    public void checkMateWhiteTest(){
+
+        EmptyBoard board = new EmptyBoard();
+        board.setPiece(0,2,new King(Color.WHITE));
+        board.setPiece(0,1,new Pawn(Color.BLACK));
+        board.setPiece(0,3,new Pawn(Color.BLACK));
+        board.setPiece(1,3,new Pawn(Color.BLACK));
+        board.setPiece(1,1,new Pawn(Color.BLACK));
+        board.setPiece(1,2,new Pawn(Color.BLACK));
+
+        board.displayWithIndices();
+        GameStatus gameStatus = new GameStatus(board);
+        Boolean checkmate1 = gameStatus.whiteCheckmate();
+        assert( !checkmate1 ):" The king is surrounded by pawn but can move ";
+        board.reset();
+
+        board.setPiece(0,2,new King(Color.WHITE));
+        board.setPiece(0,1,new Queen(Color.BLACK));
+        board.setPiece(0,3,new Queen(Color.BLACK));
+        board.setPiece(1,3,new Queen(Color.BLACK));
+        board.setPiece(1,1,new Queen(Color.BLACK));
+        board.setPiece(1,2,new Queen(Color.BLACK));
+        board.displayWithIndices();
+        Boolean checkmate2 = gameStatus.whiteCheckmate();
+        assert( checkmate2 ):" The king is surrounded by Queen and cannot move";
+
+    }
+
+    @Test
+    public void checkMateBlackTest(){
+
+        EmptyBoard board = new EmptyBoard();
+        board.setPiece(0,2,new King(Color.BLACK));
+        board.setPiece(0,1,new Pawn(Color.WHITE));
+        board.setPiece(0,3,new Pawn(Color.WHITE));
+        board.setPiece(1,3,new Pawn(Color.WHITE));
+        board.setPiece(1,1,new Pawn(Color.WHITE));
+        board.setPiece(1,2,new Pawn(Color.WHITE));
+
+        board.displayWithIndices();
+        GameStatus gameStatus = new GameStatus(board);
+        Boolean checkmate1 = gameStatus.blackCheckmate();
+        assert( !checkmate1 ):" The king is surrounded by pawn but can move ";
+        board.reset();
+
+        board.setPiece(0,2,new King(Color.BLACK));
+        board.setPiece(0,1,new Queen(Color.WHITE));
+        board.setPiece(0,3,new Queen(Color.WHITE));
+        board.setPiece(1,3,new Queen(Color.WHITE));
+        board.setPiece(1,1,new Queen(Color.WHITE));
+        board.setPiece(1,2,new Queen(Color.WHITE));
+        board.displayWithIndices();
+        Boolean checkmate2 = gameStatus.blackCheckmate();
+        assert( checkmate2 ):" The king is surrounded by Queen and cannot move";
+
+    }
+
 }

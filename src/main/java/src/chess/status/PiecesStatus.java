@@ -30,7 +30,7 @@ public class PiecesStatus {
             }
         }
 
-        if ( posXKing == -1 || posYKing == -1){
+        if ( posXKing == -1){
             throw new RuntimeException(" King not found ");
         }
 

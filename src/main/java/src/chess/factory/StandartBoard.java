@@ -10,6 +10,9 @@ public class StandartBoard extends Board {
 
     }
 
+    /**
+     * Board made with the real Pieces and position
+     */
     @Override
     public void BoardInitialize() {
 

@@ -9,58 +9,71 @@ import java.util.List;
 
 public abstract class Player {
 
-    private int score ;
     private Board board;
     private Color color;
 
     public Player(Board board, Color color) {
 
-        this.score = 0;
         this.board = board;
         this.color = color;
 
     }
 
-    public void setScore(int score){
-        this.score = score;
-    }
-
-    public int getScore(){
-        return score ;
-    }
-
+    /**
+     * @return Getter of the curent Board
+     */
     public Board getBoard() {
         return board;
     }
 
+    /**
+     * Setter of the current board
+     * @param board The board is player is in
+     */
     public void setBoard(Board board) {
         this.board = board;
     }
 
-    public void evaluate(){
-
-    }
-
+    /**
+     * @return Getter for the color of the player, white or black
+     */
     public Color getColor() {
         return color;
     }
 
+    /**
+     * Setter for the color of the player, white or black
+     * @param color White or Black only. Defined by the enum
+     */
     public void setColor(Color color) {
         this.color = color;
     }
 
+    /**
+     * Use 2 strings. The first one is the piece the playare if willing to play, the second is the move is want to do.
+     * Verify if the move is current, then play it.
+     * Allow Castling if everything is correct.
+     * Every time a player want to play a Piece, the method verify if it's safe for the king
+     * @param beginning The localisation where the desire Piece is located.
+     * @param ending The Position the player want to move the Piece Located the beginning String.
+     */
     public void play(String beginning, String ending) {
+
+        // Remove the spaces
+        beginning = beginning.replaceAll("\\s","");
+        ending = ending.replaceAll("\\s","");
+
+        if ( beginning.isBlank() || beginning.length() != 2|| ending.isBlank() || ending.length() != 2  ) throw new IllegalArgumentException("Inputs are wrong. Please use 2 Strings with positions, ex. From: B2 To: B4");
 
         char strA = beginning.toLowerCase().charAt(0);
         char strB = beginning.charAt(1);
         char strC = ending.toLowerCase().charAt(0);
         char strD = ending.charAt(1);
 
-        if (strA < 'a' || strA > 'h')throw new IllegalStateException("Out of bounds");
-        if (strC < 'a' || strC > 'h')throw new IllegalStateException("Out of bounds");
+        if (strA < 'a' || strA > 'h') throw new IllegalStateException("Out of bounds");
+        if (strC < 'a' || strC > 'h') throw new IllegalStateException("Out of bounds");
         if (strB < '1' || strB > '8') throw new IllegalStateException("Out of bounds");
         if (strD < '1' || strD > '8') throw new IllegalStateException("Out of bounds");
-
 
         // Transform String into Integer
         int x = 8 - (strB - '0');
@@ -109,7 +122,7 @@ public abstract class Player {
                 board.setPiece(x, y, null);
 
                 PiecesStatus status = new PiecesStatus(board);
-                Boolean threat = status.isKingInCheck(board,board.getPiece(newX,newY).getColor());
+                boolean threat = status.isKingInCheck(board,board.getPiece(newX,newY).getColor());
 
                 if (threat){
                     board.setPiece(x,y, movingPiece);

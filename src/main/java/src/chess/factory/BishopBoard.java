@@ -9,6 +9,9 @@ public class BishopBoard extends Board{
         super();
     }
 
+    /**
+     * Create a board made to test the bishop
+     */
     @Override
     public void BoardInitialize(){
 

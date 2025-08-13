@@ -14,6 +14,14 @@ public class CastlingHandler {
         this.board = board;
     }
 
+    /**
+     * Verify if the Castling king side is safe for the white, then do it.
+     * Set the king and the rook boolean to false, so it's not possible to do it twice.
+     * @param fromX King X position
+     * @param fromY King Y position
+     * @param toX Rook X position
+     * @param toY Rook Y postion
+     */
     public void handleWhiteKingsideCastling(int fromX, int fromY, int toX, int toY) {
         PiecesStatus status = new PiecesStatus(board);
 
@@ -36,6 +44,14 @@ public class CastlingHandler {
         }
     }
 
+    /**
+     * Verify if the Castling queen side is safe for the white, then do it.
+     * Set the king and the rook boolean to false, so it's not possible to do it twice.
+     * @param fromX King X position
+     * @param fromY King Y position
+     * @param toX Rook X position
+     * @param toY Rook Y postion
+     */
     public void handleWhiteQueensideCastling(int fromX, int fromY, int toX, int toY) {
         PiecesStatus status = new PiecesStatus(board);
 
@@ -59,6 +75,14 @@ public class CastlingHandler {
         }
     }
 
+    /**
+     * Verify if the Castling king side is safe for the black, then do it.
+     * Set the king and the rook boolean to false, so it's not possible to do it twice.
+     * @param fromX King X position
+     * @param fromY King Y position
+     * @param toX Rook X position
+     * @param toY Rook Y postion
+     */
     public void handleBlackKingsideCastling(int fromX, int fromY, int toX, int toY) {
 
         PiecesStatus status = new PiecesStatus(board);
@@ -82,7 +106,14 @@ public class CastlingHandler {
         }
     }
 
-
+    /**
+     * Verify if the Castling queen side is safe for the black, then do it.
+     * Set the king and the rook boolean to false, so it's not possible to do it twice.
+     * @param fromX King X position
+     * @param fromY King Y position
+     * @param toX Rook X position
+     * @param toY Rook Y postion
+     */
     public void handleBlackQueensideCastling(int fromX, int fromY, int toX, int toY) {
         PiecesStatus status = new PiecesStatus(board);
 

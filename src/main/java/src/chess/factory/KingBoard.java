@@ -9,6 +9,9 @@ public class KingBoard extends Board{
         super();
     }
 
+    /**
+     * Board made to test King
+     */
     @Override
     public void BoardInitialize(){
 

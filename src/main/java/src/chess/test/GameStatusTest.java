@@ -261,7 +261,7 @@ public class GameStatusTest {
 
         board.displayWithIndices();
         GameStatus gameStatus = new GameStatus(board);
-        Boolean checkmate1 = gameStatus.whiteCheckmate();
+        boolean checkmate1 = gameStatus.whiteCheckmate();
         assert( !checkmate1 ):" The king is surrounded by pawn but can move ";
         board.reset();
 
@@ -272,7 +272,7 @@ public class GameStatusTest {
         board.setPiece(1,1,new Queen(Color.BLACK));
         board.setPiece(1,2,new Queen(Color.BLACK));
         board.displayWithIndices();
-        Boolean checkmate2 = gameStatus.whiteCheckmate();
+        boolean checkmate2 = gameStatus.whiteCheckmate();
         assert( checkmate2 ):" The king is surrounded by Queen and cannot move";
 
     }
@@ -290,7 +290,7 @@ public class GameStatusTest {
 
         board.displayWithIndices();
         GameStatus gameStatus = new GameStatus(board);
-        Boolean checkmate1 = gameStatus.blackCheckmate();
+        boolean checkmate1 = gameStatus.blackCheckmate();
         assert( !checkmate1 ):" The king is surrounded by pawn but can move ";
         board.reset();
 
@@ -301,7 +301,7 @@ public class GameStatusTest {
         board.setPiece(1,1,new Queen(Color.WHITE));
         board.setPiece(1,2,new Queen(Color.WHITE));
         board.displayWithIndices();
-        Boolean checkmate2 = gameStatus.blackCheckmate();
+        boolean checkmate2 = gameStatus.blackCheckmate();
         assert( checkmate2 ):" The king is surrounded by Queen and cannot move";
 
     }

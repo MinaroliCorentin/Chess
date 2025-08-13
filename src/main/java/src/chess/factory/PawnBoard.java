@@ -10,6 +10,9 @@ public class PawnBoard extends Board{
         super();
     }
 
+    /**
+     * Board made to test Pawn
+     */
     @Override
     public void BoardInitialize(){
 

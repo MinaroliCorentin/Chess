@@ -13,6 +13,13 @@ public class PromoteHandler {
         this.board = board;
     }
 
+    /**
+     * Deal with the promotion.
+     * Let the user decide what he want with a scanner, have to be Rook,Knight,Bishop or Queen
+     * @param x row
+     * @param y col
+     * @param color color of the pawn
+     */
     public void promotion(int x, int y, Color color){
 
         Scanner scanner =  new Scanner(System.in);
@@ -45,6 +52,4 @@ public class PromoteHandler {
 
         }
     }
-
-
 }

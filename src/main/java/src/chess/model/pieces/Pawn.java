@@ -11,36 +11,69 @@ public class Pawn extends Pieces {
         super(color);
     }
 
+    /**
+     * Boolean used to identify the piece due to the extends Pieces
+     * @return false because the Pawn isn't a bishop
+     */
     @Override
     public boolean isBishop(){
         return false ;
     }
 
+    /**
+     * Boolean used to identify the piece due to the extends Pieces
+     * @return false because the Pawn isn't a king
+     */
     @Override
     public boolean isKing(){
         return false ;
     }
 
+    /**
+     * Boolean used to identify the piece due to the extends Pieces
+     * @return false because the Pawn isn't a knight
+     */
     @Override
     public boolean isKnight(){
         return false ;
     }
 
+    /**
+     * Boolean used to identify the piece due to the extends Pieces
+     * @return true because the Pawn is a pawn
+     */
     @Override
     public boolean isPawn(){
         return true;
     }
 
+    /**
+     * Boolean used to identify the piece due to the extends Pieces
+     * @return false because the Pawn isn't a queen
+     */
     @Override
     public boolean isQueen(){
         return false;
     }
 
+
+    /**
+     * Boolean used to identify the piece due to the extends Pieces
+     * @return false because the Pawn isn't a rook
+     */
     @Override
     public boolean isRook(){
         return false;
     }
 
+    /**
+     * Return all the moves available for the Pawn.
+     * Includes forward movement and diagonal captures.
+     * @param x row
+     * @param y column
+     * @param board the chess board
+     * @return list of possible move locations
+     */
     @Override
     public List<Localisation> movements(int x, int y, Board board){
 
@@ -75,29 +108,22 @@ public class Pawn extends Pieces {
         return moves;
     }
 
-
+    /**
+     * Return all squares attacked by the Pawn. this method is only needed for King.
+     * @param x row
+     * @param y column
+     * @param board the chess board
+     * @return list of squares the Pawn can attack
+     */
     @Override
     public List<Localisation> getAttackSquares(int x, int y, Board board) {
-        List<Localisation> attacks = new ArrayList<>();
-
-        int direction = this.getColor() == Color.WHITE ? -1 : 1;
-
-        int newX = x + direction;
-        int newY1 = y - 1;
-        int newY2 = y + 1;
-
-        if (board.isBound(newX, newY1)) {
-            attacks.add(new Localisation(newX, newY1));
-        }
-
-        if (board.isBound(newX, newY2)) {
-            attacks.add(new Localisation(newX, newY2));
-        }
-
-        return attacks;
+        return this.movements(x, y, board);
     }
 
-
+    /**
+     * Return the Unicode symbol of the Pawn depending on its color.
+     * @return Unicode string of the Pawn
+     */
     @Override
     public String getSymbol(){
         if (this.getColor() == Color.BLACK){

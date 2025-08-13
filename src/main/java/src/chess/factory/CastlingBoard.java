@@ -10,6 +10,9 @@ public class CastlingBoard extends Board{
         super();
     }
 
+    /**
+     * Board made to test Castling
+     */
     @Override
     public void BoardInitialize(){
 

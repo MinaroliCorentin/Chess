@@ -9,6 +9,9 @@ public class QueenBoard extends Board{
         super();
     }
 
+    /**
+     * Board made to test queen
+     */
     @Override
     public void BoardInitialize(){
 

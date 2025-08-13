@@ -9,9 +9,18 @@ public class Localisation {
         this.y = y;
     }
 
+    /**
+     * Getter
+     * @return return X, the row pos
+     */
     public int getX() {
         return x;
     }
+
+    /**
+     * Getter
+     * @return return Y, the col pos
+     */
     public int getY() {
         return y;
     }

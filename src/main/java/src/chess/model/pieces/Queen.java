@@ -11,36 +11,68 @@ public class Queen extends Pieces{
         super(color);
     }
 
+    /**
+     * Used for the override
+     * @return False cause Queen isn't a Bishop
+     */
     @Override
     public boolean isBishop(){
         return false ;
     }
 
+    /**
+     * Used for the override
+     * @return False cause Queen isn't a King
+     */
     @Override
     public boolean isKing(){
         return false ;
     }
 
+    /**
+     * Used for the override
+     * @return False cause Queen isn't a Knight
+     */
     @Override
     public boolean isKnight(){
         return false ;
     }
 
+    /**
+     * Used for the override
+     * @return False cause Queen isn't a Pawn
+     */
     @Override
     public boolean isPawn(){
         return false;
     }
 
+    /**
+     * Used for the override
+     * @return True cause Queen is a Queen
+     */
     @Override
     public boolean isQueen(){
         return true;
     }
 
+    /**
+     * Used for the override
+     * @return False cause Queen isn't a Rook
+     */
     @Override
     public boolean isRook(){
         return false;
     }
 
+    /**
+     * Returns all possible moves for the Queen.
+     * The Queen can move diagonally, vertically, and horizontally until blocked.
+     * @param x row
+     * @param y column
+     * @param board the chess board
+     * @return list of possible move locations
+     */
     @Override
     public List<Localisation> movements(int x, int y, Board board) {
 
@@ -84,30 +116,23 @@ public class Queen extends Pieces{
         return moves;
     }
 
+    /**
+     * Returns all squares attacked by the Queen. This method is only used by the king
+     * @param x row
+     * @param y column
+     * @param board the chess board
+     * @return list of squares the Queen can attack
+     */
     @Override
     public List<Localisation> getAttackSquares(int x, int y, Board board) {
-        List<Localisation> attacks = new ArrayList<>();
-
-        int[][] directions = {
-                {0, -1}, {1, -1}, {1, 0}, {1, 1},
-                {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}
-        };
-
-        for (int[] dir : directions) {
-            int newX = x + dir[0];
-            int newY = y + dir[1];
-
-            while (board.isBound(newX, newY)) {
-                attacks.add(new Localisation(newX, newY));
-                if (board.getPiece(newX, newY) != null) break;
-                newX += dir[0];
-                newY += dir[1];
-            }
-        }
-
-        return attacks;
+        return this.movements(x, y, board);
     }
 
+
+    /**
+     * Returns the Unicode symbol of the Queen depending on its color.
+     * @return Unicode string of the Queen
+     */
     @Override
     public String getSymbol(){
         if (this.getColor() == Color.BLACK){

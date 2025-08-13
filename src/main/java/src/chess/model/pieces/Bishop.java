@@ -11,36 +11,66 @@ public class Bishop extends Pieces{
         super(color);
     }
 
+    /**
+     * Boolean used to idenfity the pieces due the extends Pieces
+     * @return true cause the Bishop is a bishop
+     */
     @Override
     public boolean isBishop(){
         return true ;
     }
 
+    /**
+     * Boolean used to idenfity the pieces due the extends Pieces
+     * @return false cause the Bishop isn't a king
+     */
     @Override
     public boolean isKing(){
         return false ;
     }
-
+    /**
+     * Boolean used to idenfity the pieces due the extends Pieces
+     * @return false cause the Bishop isn't a Knight
+     */
     @Override
     public boolean isKnight(){
         return false ;
     }
 
+    /**
+     * Boolean used to idenfity the pieces due the extends Pieces
+     * @return false cause the Bishop isn't a Pawn
+     */
     @Override
     public boolean isPawn(){
         return false;
     }
 
+    /**
+     * Boolean used to idenfity the pieces due the extends Pieces
+     * @return false cause the Bishop isn't a queen
+     */
     @Override
     public boolean isQueen(){
         return false;
     }
 
+    /**
+     * Boolean used to idenfity the pieces due the extends Pieces
+     * @return false cause the Bishop isn't a rook
+     */
     @Override
     public boolean isRook(){
         return false;
     }
 
+    /**
+     * Return all the move available. Used for the function play.
+     * @param x row
+     * @param y col
+     * @param board board
+     * @return all the move available
+     */
     @Override
     public List<Localisation> movements(int x, int y, Board board) {
 
@@ -80,29 +110,20 @@ public class Bishop extends Pieces{
         return moves;
     }
 
+    /**
+     * @param x row
+     * @param y col
+     * @param board the board
+     * @return Return this.movements(x,y,board). This method is only needed for king.
+     */
     @Override
     public List<Localisation> getAttackSquares(int x, int y, Board board) {
-        List<Localisation> attacks = new ArrayList<>();
-
-        int[][] directions = {
-                {1, 1}, {-1, 1}, {-1, -1}, {1, -1}
-        };
-
-        for (int[] dir : directions) {
-            int newX = x + dir[0];
-            int newY = y + dir[1];
-
-            while (board.isBound(newX, newY)) {
-                attacks.add(new Localisation(newX, newY));
-                if (board.getPiece(newX, newY) != null) break;
-                newX += dir[0];
-                newY += dir[1];
-            }
-        }
-
-        return attacks;
+       return this.movements(x, y, board);
     }
 
+    /**
+     * @return Depending of the color of the Pieces, return the appropriate Unicode
+     */
     @Override
     public String getSymbol(){
         if ( this.getColor() == Color.BLACK){

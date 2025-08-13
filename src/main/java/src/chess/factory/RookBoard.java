@@ -9,6 +9,9 @@ public class RookBoard extends Board{
         super();
     }
 
+    /**
+     * Board made to test Rook
+     */
     @Override
     public void BoardInitialize(){
 

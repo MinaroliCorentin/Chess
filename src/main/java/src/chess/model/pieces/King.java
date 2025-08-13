@@ -10,49 +10,92 @@ public class King extends Pieces {
 
     private boolean hasMoved ;
 
+    /**
+     * Create a king with the boolean hasMoved at False. hasMoved is set as true when moved or used in Castling
+     * @param color
+     */
     public King(Color color) {
         super(color);
         this.hasMoved = false;
     }
 
+    /**
+     * Getter of hasMoved, used for the Castling
+     * @return hasMoved
+     */
     public boolean isMoved() {
         return hasMoved;
     }
 
+    /**
+     * Setter of hasMoved, used for the Castling
+     * @param hasMoved hasMoved
+     */
     public void setHasMoved(boolean hasMoved) {
         this.hasMoved = hasMoved;
     }
 
+    /**
+     * Boolean used to idenfity the pieces due the extends Pieces
+     * @return false cause the King isn't a bishop
+     */
     @Override
     public boolean isBishop(){
         return false ;
     }
 
+    /**
+     * Boolean used to idenfity the pieces due the extends Pieces
+     * @return true cause the King is a King
+     */
     @Override
     public boolean isKing(){
         return true ;
     }
 
+    /**
+     * Boolean used to idenfity the pieces due the extends Pieces
+     * @return false cause the King isn't a Knight
+     */
     @Override
     public boolean isKnight(){
         return false ;
     }
 
+    /**
+     * Boolean used to idenfity the pieces due the extends Pieces
+     * @return false cause the King isn't a Pawn
+     */
     @Override
     public boolean isPawn(){
         return false;
     }
 
+    /**
+     * Boolean used to idenfity the pieces due the extends Pieces
+     * @return false cause the King isn't a Queen
+     */
     @Override
     public boolean isQueen(){
         return false;
     }
 
+    /**
+     * Boolean used to idenfity the pieces due the extends Pieces
+     * @return false cause the King isn't a Rook
+     */
     @Override
     public boolean isRook(){
         return false;
     }
 
+    /**
+     * Return all the moves available as long it is save for the king. the moves also include the move available with Castling
+     * @param x row
+     * @param y col
+     * @param board board
+     * @return all the available moves for the king
+     */
     @Override
     public List<Localisation> movements(int x, int y, Board board) {
 
@@ -126,6 +169,14 @@ public class King extends Pieces {
         return moves;
     }
 
+    /**
+     * return all the moves possible but don't check if the check is in danger.
+     * This method was mode for kingInCheck to avoid StackOverflow when using movements
+     * @param x row
+     * @param y col
+     * @param board board
+     * @return return all the moves available
+     */
     @Override
     public List<Localisation> getAttackSquares(int x, int y, Board board) {
         List<Localisation> attacks = new ArrayList<>();
@@ -146,8 +197,9 @@ public class King extends Pieces {
         return attacks;
     }
 
-
-
+    /**
+     * @return Return the unicode Symbol of the Pieces
+     */
     @Override
     public String getSymbol(){
         if ( this.getColor() == Color.BLACK){

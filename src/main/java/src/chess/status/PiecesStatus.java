@@ -13,6 +13,12 @@ public class PiecesStatus {
         this.board = board ;
     }
 
+    /**
+     * Verify is the King of the param color is in Check
+     * @param board The board the player are using
+     * @param color The color we want ot verify
+     * @return True if the king of @param color is in danger
+     */
     public boolean isKingInCheck(Board board, Color color){
 
         int posXKing = -1 ;
@@ -28,10 +34,6 @@ public class PiecesStatus {
                 }
 
             }
-        }
-
-        if ( posXKing == -1){
-            throw new RuntimeException(" King not found ");
         }
 
         for ( int i = 0 ; i < 8 ; i++){
@@ -55,26 +57,37 @@ public class PiecesStatus {
         return false ;
     }
 
-        public boolean isKingInCheckPos(int posX, int posY, Color color){
+    /**
+     * Verify if the king is in check using the position X and Y
+     * @param posX The position X of the king
+     * @param posY The position Y of the King
+     * @param color The color of the king
+     * @return True if the king in @param Color is in danger
+     */
+    public boolean isKingInCheckPos(int posX, int posY, Color color){
 
-            for ( int i = 0 ; i < 8 ; i++){
-                for ( int j = 0 ; j < 8 ; j++){
+        for ( int i = 0 ; i < 8 ; i++){
+            for ( int j = 0 ; j < 8 ; j++){
 
-                    Pieces pieces = board.getPiece(i,j);
-                    if ( pieces != null && !pieces.getColor().equals(color)){
-                        List<Localisation> checkMovement = pieces.getAttackSquares(i,j,board);
-                        for ( Localisation localisation : checkMovement ){
-                            if ( localisation.getX() == posX && localisation.getY() == posY ){
-                                return true ;
-                            }
+                Pieces pieces = board.getPiece(i,j);
+                if ( pieces != null && !pieces.getColor().equals(color)){
+                    List<Localisation> checkMovement = pieces.getAttackSquares(i,j,board);
+                    for ( Localisation localisation : checkMovement ){
+                        if ( localisation.getX() == posX && localisation.getY() == posY ){
+                            return true ;
                         }
                     }
-
                 }
-            }
-            return false ;
-        }
 
+            }
+        }
+        return false ;
+    }
+
+    /**
+     * Verify if the Black King can do a Casting Left Side
+     * @return True if the castling is possible and if he rook.isLeftRookMOved and the king.IsMoved are false
+     */
     public boolean canCastleBlackLeftSide(){
 
         Pieces pieces = board.getPiece(0,0);
@@ -95,6 +108,10 @@ public class PiecesStatus {
         return false ;
     }
 
+    /**
+     * Verify if the White King can do a Casting Left Side
+     * @return True if the castling is possible and if he rook.isLeftRookMOved and the king.IsMoved are false
+     */
     public boolean canCastleWhiteLeftSide(){
 
         Pieces pieces = board.getPiece(7,0);
@@ -114,6 +131,11 @@ public class PiecesStatus {
         }
         return false ;
     }
+
+    /**
+     * Verify if the Black King can do a Casting Right Side
+     * @return True if the castling is possible and if he rook.isRightRookMOved and the king.IsMoved are false
+     */
     public boolean canCastleBlackRightSide(){
 
         Pieces pieces = board.getPiece(0,7);
@@ -134,6 +156,10 @@ public class PiecesStatus {
         return false ;
     }
 
+    /**
+     * Verify if the White King can do a Casting Right  Side
+     * @return True if the castling is possible and if he rook.isRightRookMoved and the king.IsMoved are false
+     */
     public boolean canCastleWhiteRightSide(){
 
         Pieces pieces = board.getPiece(7,7);

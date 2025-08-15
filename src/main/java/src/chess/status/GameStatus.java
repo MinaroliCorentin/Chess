@@ -6,6 +6,7 @@ import src.chess.model.pieces.Color;
 import src.chess.model.pieces.Localisation;
 import src.chess.model.pieces.Pieces;
 import java.util.List;
+import java.util.Map;
 
 public class GameStatus {
 
@@ -22,76 +23,46 @@ public class GameStatus {
      * Then promoteHandler to promote the pawn.
      */
     public void promoting() {
-
         PromoteHandler promoteHandler = new PromoteHandler(board);
-        for (int i = 0; i < 8; i++) {
+        Map<Localisation, Pieces> allPieces = board.getPiecesMap();
 
-            if ( board.getPiece(0, i) != null && board.getPiece(0, i).isPawn() && board.getPiece(0, i).getColor() == Color.WHITE) {
-                board.setPiece(0, i, null);
-                promoteHandler.promotion(0, i, Color.WHITE);
-            }
-            if (board.getPiece(7, i)!= null && board.getPiece(7, i).isPawn() && board.getPiece(7, i).getColor() == Color.BLACK) {
-                board.setPiece(7, i, null);
-                promoteHandler.promotion(7, i, Color.BLACK);
+        for (Map.Entry<Localisation, Pieces> entry : allPieces.entrySet()) {
+            Localisation loc = entry.getKey();
+            Pieces piece = entry.getValue();
+
+            if (piece.isPawn()) {
+                if (piece.getColor() == Color.WHITE && loc.getX() == 0) {
+                    board.setPiece(loc.getX(), loc.getY(), null);
+                    promoteHandler.promotion(loc.getX(), loc.getY(), Color.WHITE);
+                } else if (piece.getColor() == Color.BLACK && loc.getX() == 7) {
+                    board.setPiece(loc.getX(), loc.getY(), null);
+                    promoteHandler.promotion(loc.getX(), loc.getY(), Color.BLACK);
+                }
             }
         }
     }
 
     /**
-     * Verify if the White is in CheckMate thanks to the method isKingInCheck in PiecesStatus.java
-     * @return True if the White is in CheckMate ( Black Wins )
+     * Verify if there is a checkmate thanks to PiecesStatus.java
+     * @return True @Color is in checkmate
      */
-    public boolean whiteCheckmate(){
-
+    public boolean isCheckmate(Color color) {
         PiecesStatus piecesStatus = new PiecesStatus(board);
-        boolean checkWhite = piecesStatus.isKingInCheck(board,Color.WHITE);
-        if ( checkWhite ){
+        if (!piecesStatus.isKingInCheck(board, color)) return false;
 
-            for ( int i = 0 ; i < 8 ; i++){
-                for ( int j = 0 ; j < 8 ; j++){
-                    if ( board.getPiece(i, j) != null && board.getPiece(i, j).isKing()){
-
-                        Pieces king = board.getPiece(i, j);
-                        List<Localisation> kingmove = king.movements(i,j,board);
-                        if ( kingmove.isEmpty()){
-                            System.out.println("Black wins");
-                            return true;
-                        }
-
-                    }
+        Map<Localisation, Pieces> allPieces = board.getPiecesMap();
+        for (Map.Entry<Localisation, Pieces> entry : allPieces.entrySet()) {
+            Pieces piece = entry.getValue();
+            if (piece.isKing() && piece.getColor() == color) {
+                List<Localisation> kingMoves = piece.movements(entry.getKey().getX(), entry.getKey().getY(), board);
+                if (kingMoves.isEmpty()) {
+                    return true;
                 }
             }
         }
-        return false ;
+        return false;
     }
 
 
-    /**
-     * Verify if the Black is in CheckMate thanks to the method isKingInCheck in PiecesStatus.java
-     * @return True if the Black is in CheckMate ( White Wins )
-     */
-    public boolean blackCheckmate(){
-
-        PiecesStatus piecesStatus = new PiecesStatus(board);
-        boolean checkBlack = piecesStatus.isKingInCheck(board,Color.BLACK);
-        if ( checkBlack ){
-
-            for ( int i = 0 ; i < 8 ; i++){
-                for ( int j = 0 ; j < 8 ; j++){
-                    if ( board.getPiece(i, j) != null && board.getPiece(i, j).isKing()){
-
-                        Pieces king = board.getPiece(i, j);
-                        List<Localisation> kingmove = king.movements(i,j,board);
-                        if ( kingmove.isEmpty()){
-                            System.out.println("White wins");
-                            return true;
-                        }
-
-                    }
-                }
-            }
-        }
-        return false ;
-    }
 
 }

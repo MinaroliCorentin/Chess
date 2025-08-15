@@ -23,14 +23,27 @@ public class GameManagement {
         this.rounds = 0;
     }
 
+    /**
+     * Setter
+     * @param rounds the desire round
+     */
     public void setRounds(int rounds) {
         this.rounds = rounds;
     }
 
+    /**
+     * Getter
+     * @return the current round
+     */
     public int getRounds() {
         return this.rounds;
     }
 
+    /**
+     * Based on the current round, return the player currently playing
+     * @param rounds
+     * @return WHITE if round % 2 == 0 else BLACK
+     */
     public String getPlayerNameBasedOnRound(int rounds) {
 
         if (rounds % 2 == 0) return "WHITE";
@@ -38,6 +51,10 @@ public class GameManagement {
 
     }
 
+    /**
+     * Generate a random to find you start.
+     * Then, according to the current round, ask the move of the current player, play it and display the board
+     */
     public void chess() {
 
         GameStatus gameStatus = new GameStatus(board);
@@ -75,6 +92,6 @@ public class GameManagement {
                 System.err.println("Erreur : " + e.getMessage());
             }
 
-        } while (!gameStatus.blackCheckmate() && !gameStatus.whiteCheckmate());
+        } while (!gameStatus.isCheckmate(Color.WHITE) && !gameStatus.isCheckmate(Color.BLACK));
     }
 }

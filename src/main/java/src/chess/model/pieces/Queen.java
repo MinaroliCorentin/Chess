@@ -102,7 +102,7 @@ public class Queen extends Pieces{
                 if (board.isEmpty(newX, newY)) {
                     moves.add(new Localisation(newX, newY));
                 } else {
-                    if (board.hasOpponentPiece(newX, newY, this.getColor())) {
+                    if (board.hasOpponentPieceOrNull(newX, newY, this.getColor())) {
                         moves.add(new Localisation(newX, newY));
                     }
                     break;

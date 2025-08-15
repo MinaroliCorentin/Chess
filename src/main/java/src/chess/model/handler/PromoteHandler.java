@@ -28,27 +28,30 @@ public class PromoteHandler {
                 A promotion has been detected
                 Please select your new Pieces : 
                 1. Rook
-                2. Knigth 
+                2. Knight 
                 3. Bishop
                 4. Queen
                 """
         );
         String str = scanner.nextLine();
+        while ( !str.matches("[1-4]") ) {
+            System.out.println("Invalid input. Please try again.");
+            str = scanner.nextLine();
+        }
 
         switch (str){
             case "1":
-                board.swapPiece(x,y,new Rook(color));
+                board.setPiece(x,y,new Rook(color));
                 break;
             case "2":
-                board.swapPiece(x,y,new Knight(color));
+                board.setPiece(x,y,new Knight(color));
                 break;
             case "3":
-                board.swapPiece(x,y,new Bishop(color));
+                board.setPiece(x,y,new Bishop(color));
                 break;
             case "4":
-                board.swapPiece(x,y,new Queen(color));
+                board.setPiece(x,y,new Queen(color));
                 break;
-            default:
 
         }
     }

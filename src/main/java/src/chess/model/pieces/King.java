@@ -5,6 +5,7 @@ import src.chess.status.PiecesStatus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class King extends Pieces {
 
@@ -103,48 +104,49 @@ public class King extends Pieces {
         PiecesStatus status = new PiecesStatus(board);
 
         int[][] directions = {
-
-                {0, -1},   // Up
-                {+1, -1},   // Up-Right
-                {+1, 0},    // Right
-                {+1, +1},    // Down-Right
-                {0, +1},    // Down
-                {-1, +1},   // Down-Left
-                {-1, 0},   // Left
-                {-1, -1}   // Up-Left
+                {0, -1}, {1, -1}, {1, 0}, {1, 1},
+                {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}
         };
 
         for (int[] dir : directions) {
+            int newX = x + dir[0];
+            int newY = y + dir[1];
 
-            int dx = dir[0];
-            int dy = dir[1];
-
-            int newX = x + dx;
-            int newY = y + dy;
-
-            if (board.isBound(newX, newY)) {
-
-                Pieces target = board.getPiece(newX, newY);
-
-                if (target == null || target.getColor() != this.getColor()) {
-
-                    board.setPiece(x, y, null);
-                    Pieces oldTarget = board.getPiece(newX, newY);
-                    board.setPiece(newX, newY, this);
-
-                    boolean safe = !status.isKingInCheckPos(newX, newY, this.getColor());
-
-                    board.setPiece(x, y, this);
-                    board.setPiece(newX, newY, oldTarget);
-
-                    if (safe) {
-                        moves.add(new Localisation(newX, newY));
-                    }
-                }
+            if (!board.isBound(newX, newY)) {
+                continue;
             }
 
-        }
+            Pieces target = board.getPiece(newX, newY);
 
+            if (target == null || target.getColor() != this.getColor()) {
+
+                board.setPiece(x, y, null);
+                Pieces oldTarget = board.getPiece(newX, newY);
+                board.setPiece(newX, newY, this);
+
+                boolean safe = true;
+                for (Map.Entry<Localisation, Pieces> entry : board.getPiecesMap().entrySet()) {
+                    Pieces piece = entry.getValue();
+                    if (piece.getColor() != this.getColor()) {
+                        List<Localisation> attacks = piece.getAttackSquares(entry.getKey().getX(), entry.getKey().getY(), board);
+                        for (Localisation loc : attacks) {
+                            if (loc.getX() == newX && loc.getY() == newY) {
+                                safe = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (!safe){
+                        break;
+                    }
+                }
+
+                board.setPiece(x, y, this);
+                board.setPiece(newX, newY, oldTarget);
+
+                if (safe) moves.add(new Localisation(newX, newY));
+            }
+        }
 
         // White
         if (this.getColor() == Color.WHITE && !this.isMoved() && x == 7 && y == 4) {

@@ -97,11 +97,11 @@ public class Pawn extends Pieces {
             }
         }
 
-        if (y > 0 && board.hasOpponentPiece(x + direction, y - 1, this.getColor())) {
+        if (y > 0 && board.hasOpponentPieceOrNull(x + direction, y - 1, this.getColor())) {
             moves.add(new Localisation(x + direction, y - 1));
         }
 
-        if (y < 7 && board.hasOpponentPiece(x + direction, y + 1, this.getColor())) {
+        if (y < 7 && board.hasOpponentPieceOrNull(x + direction, y + 1, this.getColor())) {
             moves.add(new Localisation(x + direction, y + 1));
         }
 
@@ -117,8 +117,19 @@ public class Pawn extends Pieces {
      */
     @Override
     public List<Localisation> getAttackSquares(int x, int y, Board board) {
-        return this.movements(x, y, board);
+        List<Localisation> attacks = new ArrayList<>();
+        int direction = (this.getColor() == Color.WHITE) ? -1 : 1;
+
+        if (y > 0) {
+            attacks.add(new Localisation(x + direction, y - 1));
+        }
+        if (y < 7) {
+            attacks.add(new Localisation(x + direction, y + 1));
+        }
+
+        return attacks;
     }
+
 
     /**
      * Return the Unicode symbol of the Pawn depending on its color.

@@ -20,21 +20,6 @@ public abstract class Player {
     }
 
     /**
-     * @return Getter of the curent Board
-     */
-    public Board getBoard() {
-        return board;
-    }
-
-    /**
-     * Setter of the current board
-     * @param board The board is player is in
-     */
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-    /**
      * @return Getter for the color of the player, white or black
      */
     public Color getColor() {
@@ -91,6 +76,7 @@ public abstract class Player {
 
         if (movingPiece.isKing()) {
 
+            // Castling
             CastlingHandler castling = new CastlingHandler(board);
             if (movingPiece.getColor() == Color.WHITE) {
                 if (x == 7 && y == 4 && newX == 7 && newY == 7) {
@@ -118,23 +104,24 @@ public abstract class Player {
             // newX and newY are the destinationPieces coordinates
             if (localisation.getX() == newX && localisation.getY() == newY) {
 
+                // Simulation the move to see if it threat the king
                 board.setPiece(newX, newY, movingPiece);
                 board.setPiece(x, y, null);
 
                 PiecesStatus status = new PiecesStatus(board);
                 boolean threat = status.isKingInCheck(board,board.getPiece(newX,newY).getColor());
 
+                // Prevent a move if it threat the king
                 if (threat){
                     board.setPiece(x,y, movingPiece);
                     board.setPiece(newX, newY, null);
                     throw new IllegalStateException( " This move will threat your own king" );
                 }
 
+                // Prevent Castling
                 if ( movingPiece.isKing()){
                     ((King) movingPiece).setHasMoved(true);
-                }
-
-                if ( movingPiece.isRook()){
+                } else if ( movingPiece.isRook()){
                     if ( y == 0 ){
                         ((Rook) movingPiece).setLeftRookMoved(true);
                     } else if ( y == 7){
@@ -145,13 +132,13 @@ public abstract class Player {
             }
         }
 
-        if ( board.getPiece(newX, newY) == null) throw new IllegalStateException(" The move is impossible");
+        if ( board.getPiece(newX, newY) == null) throw new IllegalStateException(" This move is impossible");
 
     }
 
     public String toString(){
 
-        return "";
+        return "Player : " + getColor() ;
 
     }
 

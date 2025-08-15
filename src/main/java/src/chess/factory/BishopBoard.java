@@ -15,6 +15,8 @@ public class BishopBoard extends Board{
     @Override
     public void BoardInitialize(){
 
+
+
         this.setPiece(7, 2, new Bishop(Color.WHITE));
         this.setPiece(0, 2, new Bishop(Color.BLACK));
 

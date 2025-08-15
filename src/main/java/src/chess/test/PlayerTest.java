@@ -69,8 +69,6 @@ public class PlayerTest {
 ;
         assert ( playerBlack.getColor() == Color.BLACK):" Player1 is black";
         assert ( playerWhite.getColor() == Color.WHITE):" Player2 is white";
-        assert ( playerBlack.getScore() == 0 ):" Player1 have a score of 0";
-        assert ( playerWhite.getScore() == 0 ):" Player2 have a score of 0";
 
     }
 
@@ -193,6 +191,9 @@ public class PlayerTest {
 
     @Test
     public void moveKnightTest(){
+
+        board.display();
+        board.displayWithIndices();
 
         from = "B1";
         to = "A3";

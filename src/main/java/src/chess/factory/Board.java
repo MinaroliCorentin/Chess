@@ -2,115 +2,130 @@ package src.chess.factory;
 
 import src.chess.model.pieces.*;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 public abstract class Board {
 
-    private Pieces[][] board;
+    private final Map<Localisation, Pieces> board = new ConcurrentHashMap<>();
 
-    /**
-     * Standart board
-     */
     public Board() {
-
-        this.board = new Pieces[8][8];
         this.BoardInitialize();
-
     }
 
     /**
-     * Create the board
+     * Create the board. Override by the several class that build the board
      */
     public abstract void BoardInitialize();
 
     /**
-     * Reset the board
+     * Clear the board and call initialize
      */
-    public void reset(){
-        for ( int i = 0 ; i < 8 ; i++){
-            for ( int j = 0 ; j < 8 ; j++){
-                this.board[i][j] = null;
-            }
-        }
+    public void reset() {
+        board.clear();
         this.BoardInitialize();
     }
 
     /**
-     * Set a piece on the board
-     * @param board the desire board
+     * Clear the board then fill it with the @param board
+     * @param newBoard the new board
      */
-    public void setBoard(Pieces[][] board) {
-        this.board = board;
+    public void setBoard(Pieces[][] newBoard) {
+        board.clear();
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                Pieces p = newBoard[x][y];
+                if (p != null) {
+                    board.put(new Localisation(x, y), p);
+                }
+            }
+        }
     }
 
     /**
-     * Getter board
-     * @return Return the board
+     * @return a array of Pieces[][] that contain every Pieces
      */
     public Pieces[][] getBoard() {
-        return board;
+        Pieces[][] array = new Pieces[8][8];
+        for (Map.Entry<Localisation, Pieces> entry : board.entrySet()) {
+            Localisation loc = entry.getKey();
+            array[loc.getX()][loc.getY()] = entry.getValue();
+        }
+        return array;
     }
 
     /**
-     * Getter piece
-     * @param x col
-     * @param y row
-     * @return the piece at x,y
+     * @param x row
+     * @param y col
+     * @return the Pieces at x,y, position
      */
     public Pieces getPiece(int x, int y) {
-        return board[x][y];
+        return board.get(new Localisation(x, y));
     }
 
     /**
-     * Set a piece at the desire col/row
-     * @param x col
-     * @param y row
-     * @param piece Piece
+     * Set a new pieces if the pieces isn't null
+     * @param x row
+     * @param y col
+     * @param piece the new pieces
      */
     public void setPiece(int x, int y, Pieces piece) {
-        board[x][y] = piece;
-    }
-
-    /**
-     * Delete the piece at x,y and swap it with the new piece
-     * @param x col
-     * @param y row
-     * @param piece the new piece
-     */
-    public void swapPiece(int x, int y, Pieces piece) {
-
-        board[x][y] = null;
-        board[x][y] = piece;
-
-    }
-
-    /**
-     * verify is col/row isBound and if the coordonnate are null
-     * @param x col
-     * @param y row
-     * @return boolean, true if the col/row is null, else false
-     */
-    public boolean isEmpty(int x, int y) {
-        return isBound(x,y) && board[x][y] == null;
+        Localisation loc = new Localisation(x, y);
+        if (piece != null) {
+            board.put(loc, piece);
+        } else {
+            board.remove(loc);
+        }
     }
 
     /**
      *
-     * @param x col
-     * @param y row
-     * @return return true if col/row are in bound of the board
+     * @param x row
+     * @param y col
+     * @return true if the pos dont contain a piece and is in bound
+     */
+    public boolean isEmpty(int x, int y) {
+        return isBound(x, y) && !board.containsKey(new Localisation(x, y));
+    }
+
+    /**
+     *
+     * @param x row
+     * @param y col
+     * @return true if x and y are in bound ( >= 0 && < 8 )
      */
     public boolean isBound(int x, int y) {
         return x >= 0 && x < 8 && y >= 0 && y < 8;
     }
 
     /**
-     * @param x col
-     * @param y row
-     * @param color ennemy color
-     * @return return true if col/row is in Bound, not null and if the col/row color is different of the param color
+     *
+     * @param x row
+     * @param y col
+     * @param color enemy color
+     * @return true if the piece at x,y is null or != color
      */
-    public boolean hasOpponentPiece( int x, int y, Color color){
-        return isBound(x,y) && board[x][y] != null && board[x][y].getColor() != color;
+    public boolean hasOpponentPieceOrNull(int x, int y, Color color) {
+        Pieces p = board.get(new Localisation(x, y));
+        return isBound(x, y) && p != null && p.getColor() != color;
     }
+
+    /**
+     * @return a map with every Pieces on the board
+     */
+    public Map<Localisation, Pieces> getPiecesMap() {
+        Map<Localisation, Pieces> piecesMap = new ConcurrentHashMap<>();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Pieces p = this.getPiece(i, j);
+                if (p != null) {
+                    piecesMap.put(new Localisation(i, j), p);
+                }
+            }
+        }
+        return piecesMap;
+    }
+
 
     /**
      * Used to display the board if the standard coordonates
@@ -119,7 +134,7 @@ public abstract class Board {
         for (int i = 0; i < 8; i++) {
             System.out.print((8 - i) + "    ");
             for (int j = 0; j < 8; j++) {
-                Pieces piece = board[i][j];
+                Pieces piece = getPiece(i,j);
                 System.out.print(piece != null ? piece.getSymbol() + " " : ". ");
             }
             System.out.println();
@@ -146,5 +161,6 @@ public abstract class Board {
         }
         System.out.println("\n");
     }
+
 
 }

@@ -4,6 +4,7 @@ import src.chess.factory.Board;
 import src.chess.model.pieces.*;
 
 import java.util.List;
+import java.util.Map;
 
 public class PiecesStatus {
 
@@ -21,40 +22,35 @@ public class PiecesStatus {
      */
     public boolean isKingInCheck(Board board, Color color){
 
-        int posXKing = -1 ;
-        int posYKing = -1 ;
+        Localisation kingLoc = null;
+        Map<Localisation, Pieces> allPieces = board.getPiecesMap();
 
-        for ( int i = 0 ; i < 8 ; i++) {
-            for (int j = 0; j < 8; j++) {
-
-                Pieces piece = board.getPiece(i, j);
-                if ( piece != null && piece.isKing() && piece.getColor().equals(color)){
-                    posXKing = i ;
-                    posYKing = j ;
-                }
-
+        // Find the king
+        for (Map.Entry<Localisation, Pieces> entry : allPieces.entrySet()) {
+            Pieces piece = entry.getValue();
+            if (piece.isKing() && piece.getColor().equals(color)) {
+                kingLoc = entry.getKey();
+                break;
             }
         }
 
-        for ( int i = 0 ; i < 8 ; i++){
-            for ( int j = 0 ; j < 8 ; j++){
+        if (kingLoc == null){
+            return false;
+        }
 
-                Pieces pieces = board.getPiece(i,j);
-                if ( pieces != null && !pieces.getColor().equals(color)){
-
-                    List<Localisation> checkMovement = pieces.movements(i,j,board);
-                    for ( Localisation localisation : checkMovement ){
-
-                        if ( localisation.getX() == posXKing && localisation.getY() == posYKing ){
-                            return true ;
-                        }
+        for (Map.Entry<Localisation, Pieces> entry : allPieces.entrySet()) {
+            Pieces piece = entry.getValue();
+            if (!piece.getColor().equals(color)) {
+                List<Localisation> moves = piece.movements(entry.getKey().getX(), entry.getKey().getY(), board);
+                for (Localisation loc : moves) {
+                    if (loc.equals(kingLoc)) {
+                        return true;
                     }
-
                 }
             }
         }
 
-        return false ;
+        return false;
     }
 
     /**
@@ -65,23 +61,20 @@ public class PiecesStatus {
      * @return True if the king in @param Color is in danger
      */
     public boolean isKingInCheckPos(int posX, int posY, Color color){
+        Map<Localisation, Pieces> allPieces = board.getPiecesMap();
 
-        for ( int i = 0 ; i < 8 ; i++){
-            for ( int j = 0 ; j < 8 ; j++){
-
-                Pieces pieces = board.getPiece(i,j);
-                if ( pieces != null && !pieces.getColor().equals(color)){
-                    List<Localisation> checkMovement = pieces.getAttackSquares(i,j,board);
-                    for ( Localisation localisation : checkMovement ){
-                        if ( localisation.getX() == posX && localisation.getY() == posY ){
-                            return true ;
-                        }
+        for (Map.Entry<Localisation, Pieces> entry : allPieces.entrySet()) {
+            Pieces piece = entry.getValue();
+            if (!piece.getColor().equals(color)) {
+                List<Localisation> attackSquares = piece.getAttackSquares(entry.getKey().getX(), entry.getKey().getY(), board);
+                for (Localisation loc : attackSquares) {
+                    if (loc.getX() == posX && loc.getY() == posY) {
+                        return true;
                     }
                 }
-
             }
         }
-        return false ;
+        return false;
     }
 
     /**

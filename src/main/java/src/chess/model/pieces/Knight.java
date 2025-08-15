@@ -89,25 +89,13 @@ public class Knight extends Pieces {
         };
 
         for (int[] dir : directions) {
-            int dx = dir[0];
-            int dy = dir[1];
+            int newX = x + dir[0];
+            int newY = y + dir[1];
 
-            int newX = x + dx;
-            int newY = y + dy;
-
-            while (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
-
-                if (board.isEmpty(newX, newY)) {
+            if (board.isBound(newX, newY)) {
+                if (board.isEmpty(newX, newY) || board.hasOpponentPieceOrNull(newX, newY, this.getColor())) {
                     moves.add(new Localisation(newX, newY));
-                } else {
-                    if (board.hasOpponentPiece(newX, newY, this.getColor())) {
-                        moves.add(new Localisation(newX, newY));
-                    }
-                    break;
                 }
-
-                newX += dx;
-                newY += dy;
             }
         }
         return moves;

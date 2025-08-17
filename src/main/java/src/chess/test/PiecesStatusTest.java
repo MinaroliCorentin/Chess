@@ -19,6 +19,7 @@ public class PiecesStatusTest {
     private Board board;
     private Board queenBoard;
     private CastlingBoard castlingBoard;
+    private EmptyBoard emptyBoard;
 
     private Player playerBlackBishop;
     private Player playerWhiteBishop;
@@ -32,6 +33,8 @@ public class PiecesStatusTest {
     private Player playerWhiteQueen;
     private Player playerBlackCastling ;
     private Player playerWhiteCastling;
+    private Player playerWhiteEmpty;
+    private Player playerBlackEmpty;
 
     String from ;
     String to;
@@ -62,6 +65,10 @@ public class PiecesStatusTest {
         queenBoard = new QueenBoard();
         playerBlackQueen = new HumanPlayer(queenBoard, Color.BLACK);
         playerWhiteQueen = new HumanPlayer(queenBoard, Color.WHITE);
+
+        emptyBoard = new EmptyBoard();
+        playerBlackEmpty = new HumanPlayer(emptyBoard, Color.BLACK);
+        playerWhiteEmpty = new HumanPlayer(emptyBoard, Color.WHITE);
 
     }
 
@@ -305,5 +312,30 @@ public class PiecesStatusTest {
         assertFalse(status.canCastleBlackLeftSide());
     }
 
+    @Test
+    public void stalemateTest(){
 
+        PiecesStatus status = new PiecesStatus(emptyBoard);
+
+        emptyBoard.setPiece(2,6,new Queen(Color.BLACK));
+        emptyBoard.setPiece(0,7,new King(Color.WHITE));
+        assertTrue(status.stalemate(emptyBoard,Color.BLACK));
+        emptyBoard.reset();
+
+        emptyBoard.setPiece(0,5,new King(Color.WHITE));
+        emptyBoard.setPiece(1,5,new Pawn(Color.BLACK));
+        emptyBoard.setPiece(2,5,new King(Color.BLACK));
+        assertTrue(status.stalemate(emptyBoard,Color.WHITE));
+        emptyBoard.reset();
+
+        emptyBoard.setPiece(0,0,new King(Color.WHITE));
+        emptyBoard.setPiece(2,1,new Rook(Color.BLACK));
+        assertFalse(status.stalemate(emptyBoard,Color.WHITE));
+        emptyBoard.reset();
+
+        emptyBoard.setPiece(0,0,new King(Color.BLACK));
+        emptyBoard.setPiece(2,1,new Rook(Color.WHITE));
+        assertFalse(status.stalemate(emptyBoard,Color.BLACK));
+
+    }
 }

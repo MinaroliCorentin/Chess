@@ -73,11 +73,17 @@ public class GameManagement {
 
             try {
                 if ((this.rounds + randint) % 2 == 0) {
+                    if ( piecesStatus.stalemate(board,Color.WHITE)){
+                        System.out.println("Black Wins");
+                    }
                     white.play(from, to);
                     if (piecesStatus.isKingInCheck(board, Color.WHITE)) {
                         System.out.println("White King in check");
                     }
                 } else {
+                    if ( piecesStatus.stalemate(board,Color.BLACK)){
+                        System.out.println("White Wins");
+                    }
                     black.play(from, to);
                     if (piecesStatus.isKingInCheck(board, Color.BLACK)) {
                         System.out.println("Black King in check");

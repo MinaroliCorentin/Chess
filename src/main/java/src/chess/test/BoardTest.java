@@ -129,17 +129,16 @@ public class BoardTest {
         Board standardBoard = new StandartBoard();
         this.board.setBoard(standardBoard.getBoard());
         assertEquals(32, board.getPiecesMap().size());
-        board.display();
 
         Player white = new HumanPlayer(board,Color.WHITE);
         Player black = new HumanPlayer(board,Color.BLACK);
 
         white.play("B2","B4");
         black.play("A7","A5");
-        white.play("B4","A5");
-
-        assertEquals(31, board.getPiecesMap().size());
         board.display();
+        white.play("B4","A5");
+        board.display();
+        assertEquals(31, board.getPiecesMap().size());
 
     }
 }

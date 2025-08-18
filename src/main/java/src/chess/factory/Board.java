@@ -29,6 +29,10 @@ public abstract class Board {
         this.enPassantPawn.setLocation(X,Y);
     }
 
+    public void setEnPassantPawnDefaultValue(){
+        this.enPassantPawn.setLocation(-1,-1);
+    }
+
     /**
      * Create the board. Override by the several class that build the board
      */

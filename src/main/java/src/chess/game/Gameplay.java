@@ -57,27 +57,8 @@ public class Gameplay {
         if (movingPiece == null) throw new IllegalStateException("No piece at source location");
         if (movingPiece.getColor() != this.color) throw new IllegalStateException("You can only move your own pieces");
 
-        if (movingPiece.isKing()) {
-
-            // Castling
-            CastlingHandler castling = new CastlingHandler(board);
-            if (movingPiece.getColor() == Color.WHITE) {
-                if (x == 7 && y == 4 && newX == 7 && newY == 7) {
-                    castling.handleWhiteKingsideCastling(x, y, newX, newY);
-                    return;
-                } else if (x == 7 && y == 4 && newX == 7 && newY == 0) {
-                    castling.handleWhiteQueensideCastling(x, y, newX, newY);
-                    return;
-                }
-            } else if (movingPiece.getColor() == Color.BLACK) {
-                if (x == 0 && y == 4 && newX == 0 && newY == 7) {
-                    castling.handleBlackKingsideCastling(x, y, newX, newY);
-                    return;
-                } else if (x == 0 && y == 4 && newX == 0 && newY == 0) {
-                    castling.handleBlackQueensideCastling(x, y, newX, newY);
-                    return;
-                }
-            }
+        if (playCastling(movingPiece, x, y, newX, newY)) {
+            return;
         }
 
         if (destinationPiece != null && movingPiece.getColor() == destinationPiece.getColor()) throw new IllegalStateException("You can't attack your own piece");
@@ -105,10 +86,20 @@ public class Gameplay {
                     throw new IllegalStateException( " This move will threat your own king" );
                 }
 
-                // Meaning if the pawn moved with the 2 cases
                 if (movingPiece.isPawn()){
-                    if ( x - newX == 2 || x - newX == -2 ){
+
+//                    // If black used enPassant
+//                    if (movingPiece.getColor() == Color.BLACK) {
+//                        if ( x - 1 == board.getEnPassantPawnX() && y == board.getEnPassantPawnY() && newX == board.getEnPassantPawnX() +1 && newY == board.getEnPassantPawnY() -1) {
+//                            board.setPiece(board.getEnPassantPawnX(), board.getEnPassantPawnY(), null);
+//                        }
+//                    }
+
+                    // set EnPassant pos or not
+                    if ( x - newX == 2 || x - newX == -2 ) {
                         board.setEnPassantPawn(newX,newY);
+                    } else {
+                        board.setEnPassantPawnDefaultValue();
                     }
                 }
 
@@ -127,6 +118,32 @@ public class Gameplay {
         }
         if ( board.getPiece(newX, newY) == null) throw new IllegalStateException(" This move is impossible");
 
+    }
+
+    private boolean playCastling(Pieces movingPiece, int x, int y, int newX, int newY) {
+
+        if (movingPiece.isKing()) {
+            // Castling
+            CastlingHandler castling = new CastlingHandler(board);
+            if (movingPiece.getColor() == Color.WHITE) {
+                if (x == 7 && y == 4 && newX == 7 && newY == 7) {
+                    castling.handleWhiteKingsideCastling(x, y, newX, newY);
+                    return true;
+                } else if (x == 7 && y == 4 && newX == 7 && newY == 0) {
+                    castling.handleWhiteQueensideCastling(x, y, newX, newY);
+                    return true;
+                }
+            } else if (movingPiece.getColor() == Color.BLACK) {
+                if (x == 0 && y == 4 && newX == 0 && newY == 7) {
+                    castling.handleBlackKingsideCastling(x, y, newX, newY);
+                    return true;
+                } else if (x == 0 && y == 4 && newX == 0 && newY == 0) {
+                    castling.handleBlackQueensideCastling(x, y, newX, newY);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

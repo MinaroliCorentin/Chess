@@ -383,6 +383,7 @@ public class GameplayTest {
 
         //assertNull("The pawn have to be null", board.getPiece(4,1));
 
+
     }
 
 }

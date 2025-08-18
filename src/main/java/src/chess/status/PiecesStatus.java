@@ -182,40 +182,36 @@ public class PiecesStatus {
 
     public boolean stalemate(Board board, Color color) {
 
-        Map<Localisation, Pieces> allPieces = board.getPiecesMap();
-        int[][] directions = {
-            {0, -1},
-            {1, -1},
-            {1, 0},
-            {1, 1},
-            {0, 1},
-            {-1, 1},
-            {-1, 0},
-            {-1, -1}
-        };
+        if (isKingInCheck(board, color)) {
+            return false;
+        }
 
-        for (Map.Entry<Localisation, Pieces> entry : allPieces.entrySet()) {
-
-            if (entry.getValue().getColor().equals(color) && entry.getValue().isKing()) {
-
+        for (Map.Entry<Localisation, Pieces> entry : board.getPiecesMap().entrySet()) {
+            Pieces piece = entry.getValue();
+            if (piece.getColor() == color) {
                 int x = entry.getKey().getX();
                 int y = entry.getKey().getY();
+                List<Localisation> moves = piece.movements(x, y, board);
 
-                for (int[] dir : directions) {
-                    int dx = x + dir[0];
-                    int dy = y + dir[1];
+                for (Localisation move : moves) {
 
-                    int newX = x + dx;
-                    int newY = y + dy;
+                    Pieces target = board.getPiece(move.getX(), move.getY());
+                    board.setPiece(move.getX(), move.getY(), piece);
+                    board.setPiece(x, y, null);
 
-                    if (board.isBound(newX, newY)) {
-                        if (!this.isKingInCheckPos(newX, newY, color)) {
-                            return false;
-                        }
+                    boolean kingSafe = !isKingInCheck(board, color);
+
+                    board.setPiece(x, y, piece);
+                    board.setPiece(move.getX(), move.getY(), target);
+
+                    if (kingSafe) {
+                        return false;
                     }
                 }
             }
         }
-    return true;
+        return true;
     }
+
+
 }

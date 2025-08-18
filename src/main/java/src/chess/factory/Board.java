@@ -1,16 +1,32 @@
 package src.chess.factory;
 
 import src.chess.model.pieces.*;
+import src.chess.model.pieces.Color;
 
+import java.awt.*;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class Board {
 
     private final Map<Localisation, Pieces> board = new ConcurrentHashMap<>();
+    private Point enPassantPawn ;
 
     public Board() {
         this.BoardInitialize();
+        this.enPassantPawn = new Point(-2,-2);
+    }
+
+    public int getEnPassantPawnX() {
+        return enPassantPawn.getLocation().x;
+    }
+
+    public int getEnPassantPawnY() {
+        return enPassantPawn.getLocation().y;
+    }
+
+    public void setEnPassantPawn(int X, int Y) {
+        this.enPassantPawn.setLocation(X,Y);
     }
 
     /**

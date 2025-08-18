@@ -319,23 +319,25 @@ public class PiecesStatusTest {
 
         emptyBoard.setPiece(2,6,new Queen(Color.BLACK));
         emptyBoard.setPiece(0,7,new King(Color.WHITE));
-        assertTrue(status.stalemate(emptyBoard,Color.BLACK));
-        emptyBoard.reset();
-
-        emptyBoard.setPiece(0,5,new King(Color.WHITE));
-        emptyBoard.setPiece(1,5,new Pawn(Color.BLACK));
-        emptyBoard.setPiece(2,5,new King(Color.BLACK));
         assertTrue(status.stalemate(emptyBoard,Color.WHITE));
         emptyBoard.reset();
 
-        emptyBoard.setPiece(0,0,new King(Color.WHITE));
-        emptyBoard.setPiece(2,1,new Rook(Color.BLACK));
-        assertFalse(status.stalemate(emptyBoard,Color.WHITE));
+        emptyBoard.setPiece(0,5,new King(Color.BLACK));
+        emptyBoard.setPiece(1,5,new Pawn(Color.WHITE));
+        emptyBoard.setPiece(2,5,new King(Color.WHITE));
+        assertTrue(status.stalemate(emptyBoard,Color.BLACK));
         emptyBoard.reset();
 
-        emptyBoard.setPiece(0,0,new King(Color.BLACK));
-        emptyBoard.setPiece(2,1,new Rook(Color.WHITE));
-        assertFalse(status.stalemate(emptyBoard,Color.BLACK));
+        emptyBoard.setPiece(0,0, new King(Color.BLACK));
+        emptyBoard.setPiece(1,2, new Rook(Color.WHITE));
+        emptyBoard.setPiece(2,1, new Rook(Color.WHITE));
+
+        emptyBoard.setPiece(6,6, new Pawn(Color.BLACK));
+        emptyBoard.setPiece(7,6, new Pawn(Color.WHITE));
+
+        emptyBoard.display();
+        assertTrue(status.stalemate(emptyBoard, Color.BLACK));
+        emptyBoard.reset();
 
     }
 }

@@ -2,6 +2,7 @@ package src.chess;
 
 import src.chess.factory.Board;
 import src.chess.factory.StandartBoard;
+import src.chess.game.GameManagement;
 import src.chess.model.pieces.Color;
 import src.chess.model.players.HumanPlayer;
 import src.chess.model.players.Player;

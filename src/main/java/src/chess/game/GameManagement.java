@@ -1,4 +1,4 @@
-package src.chess;
+package src.chess.game;
 
 import src.chess.factory.Board;
 import src.chess.model.pieces.Color;
@@ -74,7 +74,7 @@ public class GameManagement {
             try {
                 if ((this.rounds + randint) % 2 == 0) {
                     if ( piecesStatus.stalemate(board,Color.WHITE)){
-                        System.out.println("Black Wins");
+                        System.out.println("Stalemate Black Wins");
                     }
                     white.play(from, to);
                     if (piecesStatus.isKingInCheck(board, Color.WHITE)) {
@@ -82,7 +82,7 @@ public class GameManagement {
                     }
                 } else {
                     if ( piecesStatus.stalemate(board,Color.BLACK)){
-                        System.out.println("White Wins");
+                        System.out.println("Stalemate White Wins");
                     }
                     black.play(from, to);
                     if (piecesStatus.isKingInCheck(board, Color.BLACK)) {

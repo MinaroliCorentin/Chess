@@ -65,6 +65,7 @@ public class GameManagement {
         board.display();
 
         do {
+
             System.out.println("What is your move : " + getPlayerNameBasedOnRound(this.rounds + randint));
             System.out.print("From : ");
             String from = input.nextLine();
@@ -93,11 +94,12 @@ public class GameManagement {
                 gameStatus.promoting();
                 board.display();
                 setRounds(getRounds() + 1);
+                gameStatus.setDrawCounter(getRounds() + 1 );
 
             } catch (RuntimeException e) {
                 System.err.println("Erreur : " + e.getMessage());
             }
 
-        } while (!gameStatus.isCheckmate(Color.WHITE) && !gameStatus.isCheckmate(Color.BLACK));
+        } while (!gameStatus.isCheckmate(Color.WHITE) && !gameStatus.isCheckmate(Color.BLACK) && !gameStatus.isDraw());
     }
 }

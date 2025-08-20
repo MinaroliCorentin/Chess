@@ -3,6 +3,7 @@ package src.chess.game;
 import src.chess.factory.Board;
 import src.chess.model.handler.CastlingHandler;
 import src.chess.model.pieces.*;
+import src.chess.status.GameStatus;
 import src.chess.status.PiecesStatus;
 
 import java.util.List;
@@ -26,6 +27,9 @@ public class Gameplay {
      * @param ending The Position the player want to move the Piece Located the beginning String.
      */
     public void play(String beginning, String ending) {
+
+        // Used to reset the drawCounter if attacking a piece
+        GameStatus gameStatus = new GameStatus(board);
 
         // Remove the spaces
         beginning = beginning.replaceAll("\\s","");
@@ -63,7 +67,7 @@ public class Gameplay {
 
         if (destinationPiece != null && movingPiece.getColor() == destinationPiece.getColor()) throw new IllegalStateException("You can't attack your own piece");
 
-        Pieces enemyPiece = null ;
+        Pieces enemyPiece = null;
 
         List<Localisation> allMoves = movingPiece.movements(x, y, board);
         for (Localisation localisation : allMoves) {
@@ -88,25 +92,30 @@ public class Gameplay {
 
                 if (movingPiece.isPawn()){
 
-                    // If black used enPassant
+                    // If black use enPassant
                     if (movingPiece.getColor() == Color.BLACK) {
                         if ( x == board.getEnPassantPawnX() && y + 1 == board.getEnPassantPawnY() && newX == board.getEnPassantPawnX() + 1 && newY == board.getEnPassantPawnY() && enemyPiece == null) {
                             board.setPiece(board.getEnPassantPawnX(), board.getEnPassantPawnY(), null);
+                            gameStatus.resetDrawCounter();
                         }
                         if ( x == board.getEnPassantPawnX() && y - 1 == board.getEnPassantPawnY() && newX == board.getEnPassantPawnX() + 1 && newY == board.getEnPassantPawnY() && enemyPiece == null) {
                             board.setPiece(board.getEnPassantPawnX(), board.getEnPassantPawnY(), null);
+                            gameStatus.resetDrawCounter();
                         }
                     }
+                    // If white use enPassant
                     if (movingPiece.getColor() == Color.WHITE) {
                         if ( x == board.getEnPassantPawnX() && y + 1 == board.getEnPassantPawnY() && newX == board.getEnPassantPawnX() - 1 && newY == board.getEnPassantPawnY() && enemyPiece == null) {
                             board.setPiece(board.getEnPassantPawnX(), board.getEnPassantPawnY(), null);
+                            gameStatus.resetDrawCounter();
                         }
                         if ( x == board.getEnPassantPawnX() && y - 1 == board.getEnPassantPawnY() && newX == board.getEnPassantPawnX() - 1 && newY == board.getEnPassantPawnY() && enemyPiece == null) {
                             board.setPiece(board.getEnPassantPawnX(), board.getEnPassantPawnY(), null);
+                            gameStatus.resetDrawCounter();
                         }
                     }
 
-                    // set EnPassant pos or not
+                    // set EnPassant pos if pawn double move
                     if ( x - newX == 2 || x - newX == -2 ) {
                         board.setEnPassantPawn(newX,newY);
                     } else {
@@ -124,9 +133,14 @@ public class Gameplay {
                         ((Rook) movingPiece).setRightRookMoved(true);
                     }
                 }
-                return;
+
             }
         }
+
+        if ( enemyPiece != null){
+            gameStatus.resetDrawCounter();
+        }
+
         if ( board.getPiece(newX, newY) == null) throw new IllegalStateException(" This move is impossible");
 
     }

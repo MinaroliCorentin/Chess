@@ -11,10 +11,32 @@ import java.util.Map;
 public class GameStatus {
 
     private Board board;
+    private int drawCounter ;
 
     public GameStatus(Board board) {
 
         this.board = board;
+        this.drawCounter = 0;
+
+    }
+
+    public int getDrawCounter() {
+        return drawCounter;
+    }
+
+    public void setDrawCounter(int drawCounter) {
+        this.drawCounter = drawCounter;
+    }
+
+    public boolean isDraw(){
+
+        return drawCounter == 50;
+
+    }
+
+    public void resetDrawCounter(){
+
+        this.drawCounter = 0;
 
     }
 

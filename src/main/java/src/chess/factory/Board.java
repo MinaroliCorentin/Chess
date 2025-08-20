@@ -1,5 +1,6 @@
 package src.chess.factory;
 
+import src.chess.controller.ObserverSubject;
 import src.chess.model.pieces.*;
 import src.chess.model.pieces.Color;
 
@@ -7,7 +8,7 @@ import java.awt.*;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class Board {
+public abstract class Board extends ObserverSubject {
 
     private final Map<Localisation, Pieces> board = new ConcurrentHashMap<>();
     private Point enPassantPawn ;

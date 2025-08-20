@@ -1,6 +1,7 @@
 package src.chess.test;
 
 import org.junit.Test;
+import src.chess.factory.Board;
 import src.chess.factory.EmptyBoard;
 import src.chess.factory.PawnBoard;
 import src.chess.model.handler.PromoteHandler;
@@ -14,6 +15,9 @@ import src.chess.status.GameStatus;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class GameStatusTest {
 
@@ -305,5 +309,63 @@ public class GameStatusTest {
         assert( checkmate2 ):" The king is surrounded by Queen and cannot move";
 
     }
+
+    @Test
+    public void drawnCounterGetterAndSetterTest(){
+
+        Board board = new EmptyBoard();
+        GameStatus gameStatus = new GameStatus(board);
+        assert (gameStatus.getDrawCounter() == 0):"Have to be 0";
+        gameStatus.setDrawCounter(10);
+        assert (gameStatus.getDrawCounter() == 10):"Have to be 10";
+
+
+    }
+
+
+    @Test
+    public void drawnCounterTest(){
+
+        Board board = new EmptyBoard();
+        GameStatus gameStatus = new GameStatus(board);
+        assert (gameStatus.getDrawCounter() == 0):"Have to be 0";
+        assertFalse("Have to be false",gameStatus.isDraw());
+
+        gameStatus.setDrawCounter(10);
+        assertFalse("Have to be false",gameStatus.isDraw());
+
+        gameStatus.setDrawCounter(20);
+        assertFalse("Have to be false",gameStatus.isDraw());
+
+        gameStatus.setDrawCounter(30);
+        assertFalse("Have to be false",gameStatus.isDraw());
+
+        gameStatus.setDrawCounter(40);
+        assertFalse("Have to be false",gameStatus.isDraw());
+
+        gameStatus.setDrawCounter(50);
+        assertTrue("Have to be true",gameStatus.isDraw());
+
+        gameStatus.setDrawCounter(60);
+        assertFalse("Have to be false",gameStatus.isDraw());
+
+        gameStatus.setDrawCounter(-10);
+        assertFalse("Have to be false",gameStatus.isDraw());
+
+    }
+
+    @Test
+    public void resetDrawCounterTest(){
+
+        Board board = new EmptyBoard();
+        GameStatus gameStatus = new GameStatus(board);
+        gameStatus.setDrawCounter(10);
+        assert (gameStatus.getDrawCounter() == 10):"Have to be 10";
+
+        gameStatus.resetDrawCounter();
+        assert (gameStatus.getDrawCounter() == 0):"Have to be 0";
+
+    }
+
 
 }

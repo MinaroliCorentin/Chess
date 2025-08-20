@@ -88,12 +88,23 @@ public class Gameplay {
 
                 if (movingPiece.isPawn()){
 
-//                    // If black used enPassant
-//                    if (movingPiece.getColor() == Color.BLACK) {
-//                        if ( x - 1 == board.getEnPassantPawnX() && y == board.getEnPassantPawnY() && newX == board.getEnPassantPawnX() +1 && newY == board.getEnPassantPawnY() -1) {
-//                            board.setPiece(board.getEnPassantPawnX(), board.getEnPassantPawnY(), null);
-//                        }
-//                    }
+                    // If black used enPassant
+                    if (movingPiece.getColor() == Color.BLACK) {
+                        if ( x == board.getEnPassantPawnX() && y + 1 == board.getEnPassantPawnY() && newX == board.getEnPassantPawnX() + 1 && newY == board.getEnPassantPawnY() && enemyPiece == null) {
+                            board.setPiece(board.getEnPassantPawnX(), board.getEnPassantPawnY(), null);
+                        }
+                        if ( x == board.getEnPassantPawnX() && y - 1 == board.getEnPassantPawnY() && newX == board.getEnPassantPawnX() + 1 && newY == board.getEnPassantPawnY() && enemyPiece == null) {
+                            board.setPiece(board.getEnPassantPawnX(), board.getEnPassantPawnY(), null);
+                        }
+                    }
+                    if (movingPiece.getColor() == Color.WHITE) {
+                        if ( x == board.getEnPassantPawnX() && y + 1 == board.getEnPassantPawnY() && newX == board.getEnPassantPawnX() - 1 && newY == board.getEnPassantPawnY() && enemyPiece == null) {
+                            board.setPiece(board.getEnPassantPawnX(), board.getEnPassantPawnY(), null);
+                        }
+                        if ( x == board.getEnPassantPawnX() && y - 1 == board.getEnPassantPawnY() && newX == board.getEnPassantPawnX() - 1 && newY == board.getEnPassantPawnY() && enemyPiece == null) {
+                            board.setPiece(board.getEnPassantPawnX(), board.getEnPassantPawnY(), null);
+                        }
+                    }
 
                     // set EnPassant pos or not
                     if ( x - newX == 2 || x - newX == -2 ) {

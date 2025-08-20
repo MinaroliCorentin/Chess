@@ -359,7 +359,7 @@ public class GameplayTest {
     }
 
     @Test
-    public void enPassantTest(){
+    public void enPassantBlackLeftTest(){
 
         from = "A7";
         to = "A5";
@@ -377,12 +377,100 @@ public class GameplayTest {
         to = "B4";
         playerWhite.play(from,to);
 
+        board.display();
+
         from = "A4";
         to = "B3";
         playerBlack.play(from,to);
 
-        //assertNull("The pawn have to be null", board.getPiece(4,1));
+        assertNull("The pawn have to be null", board.getPiece(4,1));
 
+    }
+
+    @Test
+    public void enPassantBlackRightTest(){
+
+        from = "C7";
+        to = "C5";
+        playerBlack.play(from,to);
+
+        from = "H2";
+        to = "H3";
+        playerWhite.play(from,to);
+
+        from = "C5";
+        to = "C4";
+        playerBlack.play(from,to);
+
+        from = "B2";
+        to = "B4";
+        playerWhite.play(from,to);
+
+        board.display();
+
+        from = "C4";
+        to = "B3";
+        playerBlack.play(from,to);
+
+
+
+        assertNull("The pawn have to be null", board.getPiece(4,1));
+
+    }
+
+    @Test
+    public void enPassantWhiteRightTest(){
+
+        from = "B2";
+        to = "B4";
+        playerWhite.play(from,to);
+
+        from = "H7";
+        to = "H6";
+        playerBlack.play(from,to);
+
+        from = "B4";
+        to = "B5";
+        playerWhite.play(from,to);
+
+        from = "C7";
+        to = "C5";
+        playerBlack.play(from,to);
+
+        from ="B5";
+        to = "C6";
+        playerWhite.play(from,to);
+
+        board.displayWithIndices();
+
+        assertNull("The piece got attacked by enPassant",board.getPiece(3,2));
+
+    }
+
+    @Test
+    public void enPassantWhiteLeftTest(){
+
+        from = "B2";
+        to = "B4";
+        playerWhite.play(from,to);
+
+        from = "H7";
+        to = "H6";
+        playerBlack.play(from,to);
+
+        from = "B4";
+        to = "B5";
+        playerWhite.play(from,to);
+
+        from = "A7";
+        to = "A5";
+        playerBlack.play(from,to);
+
+        from ="B5";
+        to = "A6";
+        playerWhite.play(from,to);
+
+        assertNull("The piece got attacked by enPassant",board.getPiece(3,0));
 
     }
 

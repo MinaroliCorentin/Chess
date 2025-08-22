@@ -12,7 +12,7 @@ public class QueenTest {
     @Test
     public void queenTest(){
         
-        Pieces queen_Black = new Queen(Color.BLACK);
+        Pieces queen_Black = new Queen(PiecesColor.BLACK);
         assert( !queen_Black.isBishop()): " queen is not a Bishop";
         assert( !queen_Black.isKing()) : " queen is not a king";
         assert( !queen_Black.isKnight()) : " queen is not a Knight";
@@ -20,7 +20,7 @@ public class QueenTest {
         assert( queen_Black.isQueen()) : " queen is a Queen";
         assert( !queen_Black.isRook()) : " queen is not a Rook";
 
-        Pieces queen_White = new Queen(Color.WHITE);
+        Pieces queen_White = new Queen(PiecesColor.WHITE);
         assert( !queen_White.isBishop()): " queen is not a Bishop";
         assert( !queen_White.isKing()) : "queen is not a king";
         assert( !queen_White.isKnight()) : " queen is not a Knight";
@@ -33,8 +33,8 @@ public class QueenTest {
     @Test
     public void getSymbolTest(){
 
-        Pieces Queen_Black = new Queen(Color.BLACK);
-        Pieces Queen_White = new Queen(Color.WHITE);
+        Pieces Queen_Black = new Queen(PiecesColor.BLACK);
+        Pieces Queen_White = new Queen(PiecesColor.WHITE);
 
         assert ( Queen_White.getSymbol().equals(UnicodePieces.QUEEN_WHITE)) : " Must display a White Queen ";
         assert ( Queen_White.getSymbol().equals("\u265B")) : " Must display a White Queen ";
@@ -51,7 +51,7 @@ public class QueenTest {
         for (int i = 0; i < 100; i++) {
 
             Board board = new EmptyBoard();
-            Pieces queen = new Queen(Color.BLACK);
+            Pieces queen = new Queen(PiecesColor.BLACK);
             int x = rand.nextInt(8);
             int y = rand.nextInt(8);
 
@@ -72,7 +72,7 @@ public class QueenTest {
                 int mx = x + dir[0];
                 int my = y + dir[1];
                 if (board.isBound(mx, my)) {
-                    board.setPiece(mx, my, new King(Color.BLACK));
+                    board.setPiece(mx, my, new King(PiecesColor.BLACK));
                 }
             }
 
@@ -87,7 +87,7 @@ public class QueenTest {
 
         for (int i = 0; i < 100; i++) {
 
-            Pieces queen = new Queen(Color.BLACK);
+            Pieces queen = new Queen(PiecesColor.BLACK);
             Board board = new EmptyBoard();
             int x = rand.nextInt(8);
             int y = rand.nextInt(8);
@@ -112,7 +112,7 @@ public class QueenTest {
                 int mx = move[0];
                 int my = move[1];
                 if (board.isBound(mx, my)) {
-                    board.setPiece(mx, my, new Queen(Color.BLACK));
+                    board.setPiece(mx, my, new Queen(PiecesColor.BLACK));
                 }
 
                 int test2 = queen.movements(x, y, board).size();

@@ -13,10 +13,10 @@ public class King extends Pieces {
 
     /**
      * Create a king with the boolean hasMoved at False. hasMoved is set as true when moved or used in Castling
-     * @param color
+     * @param piecesColor
      */
-    public King(Color color) {
-        super(color);
+    public King(PiecesColor piecesColor) {
+        super(piecesColor);
         this.hasMoved = false;
     }
 
@@ -149,7 +149,7 @@ public class King extends Pieces {
         }
 
         // White
-        if (this.getColor() == Color.WHITE && !this.isMoved() && x == 7 && y == 4) {
+        if (this.getColor() == PiecesColor.WHITE && !this.isMoved() && x == 7 && y == 4) {
             if (status.canCastleWhiteRightSide()) {
                 moves.add(new Localisation(7, 6));
             }
@@ -159,7 +159,7 @@ public class King extends Pieces {
         }
 
         // Black
-        if (this.getColor() == Color.BLACK && !this.isMoved() && x == 0 && y == 4) {
+        if (this.getColor() == PiecesColor.BLACK && !this.isMoved() && x == 0 && y == 4) {
             if (status.canCastleBlackRightSide()) {
                 moves.add(new Localisation(0, 6));
             }
@@ -204,7 +204,7 @@ public class King extends Pieces {
      */
     @Override
     public String getSymbol(){
-        if ( this.getColor() == Color.BLACK){
+        if ( this.getColor() == PiecesColor.BLACK){
             return UnicodePieces.KING_BLACK;
         } else {
             return UnicodePieces.KING_WHITE;

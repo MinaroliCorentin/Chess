@@ -11,7 +11,7 @@ public class BishopTest {
     @Test
     public void bishopTest() {
 
-        Pieces bishop_Black = new Bishop(Color.BLACK);
+        Pieces bishop_Black = new Bishop(PiecesColor.BLACK);
         assert (bishop_Black.isBishop()) : " Bishop is a Bishop";
         assert (!bishop_Black.isKing()) : " Bishop isn't a King";
         assert (!bishop_Black.isKnight()) : " Bishop is not a Knight";
@@ -19,7 +19,7 @@ public class BishopTest {
         assert (!bishop_Black.isQueen()) : " Bishop is not a Queen";
         assert (!bishop_Black.isRook()) : " Bishop is not a Rook";
 
-        Pieces bishop_White = new Bishop(Color.WHITE);
+        Pieces bishop_White = new Bishop(PiecesColor.WHITE);
         assert (bishop_White.isBishop()) : " Bishop is a Bishop";
         assert (!bishop_White.isKing()) : " Bishop isn't a King";
         assert (!bishop_White.isKnight()) : " Bishop is not a Knight";
@@ -32,8 +32,8 @@ public class BishopTest {
     @Test
     public void getSymboleTest() {
 
-        Pieces bishop_Black = new Bishop(Color.BLACK);
-        Pieces bishop_White = new Bishop(Color.WHITE);
+        Pieces bishop_Black = new Bishop(PiecesColor.BLACK);
+        Pieces bishop_White = new Bishop(PiecesColor.WHITE);
 
         assert (bishop_Black.getSymbol().equals("\u2657")) : " Should display black bishop ";
         assert (bishop_White.getSymbol().equals("\u265D")) : " Should display white bishop ";
@@ -51,7 +51,7 @@ public class BishopTest {
 
         for (int i = 0; i < 100; i++) {
 
-            Pieces bishop_Black = new Bishop(Color.BLACK);
+            Pieces bishop_Black = new Bishop(PiecesColor.BLACK);
             Board board = new EmptyBoard();
             int x = rand.nextInt(8);
             int y = rand.nextInt(8);
@@ -69,7 +69,7 @@ public class BishopTest {
                 int mx = move[0];
                 int my = move[1];
                 if (board.isBound(mx, my)) {
-                    board.setPiece(mx, my, new Bishop(Color.BLACK));
+                    board.setPiece(mx, my, new Bishop(PiecesColor.BLACK));
                 }
             }
 
@@ -85,7 +85,7 @@ public class BishopTest {
 
         for (int i = 0; i < 100; i++) {
 
-            Pieces bishop_Black = new Bishop(Color.BLACK);
+            Pieces bishop_Black = new Bishop(PiecesColor.BLACK);
             Board board = new EmptyBoard();
             int x = rand.nextInt(8);
             int y = rand.nextInt(8);
@@ -105,7 +105,7 @@ public class BishopTest {
                 int mx = move[0];
                 int my = move[1];
                 if (board.isBound(mx, my)) {
-                    board.setPiece(mx, my, new Bishop(Color.BLACK));
+                    board.setPiece(mx, my, new Bishop(PiecesColor.BLACK));
                 }
 
                 int test2 = bishop_Black.movements(x, y, board).size();

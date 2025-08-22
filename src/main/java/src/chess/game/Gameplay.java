@@ -11,25 +11,20 @@ import java.util.List;
 public class Gameplay {
 
     private Board board;
-    private Color color ;
+    private PiecesColor piecesColor;
 
-    public Gameplay(Board board, Color color) {
+    public Gameplay(Board board, PiecesColor piecesColor) {
         this.board = board ;
-        this.color = color;
+        this.piecesColor = piecesColor;
     }
 
     /**
-     * Use 2 strings. The first one is the piece the playare if willing to play, the second is the move is want to do.
-     * Verify if the move is current, then play it.
-     * Allow Castling if everything is correct.
-     * Every time a player want to play a Piece, the method verify if it's safe for the king
-     * @param beginning The localisation where the desire Piece is located.
-     * @param ending The Position the player want to move the Piece Located the beginning String.
+     * Convert two string into x,y coordinate to play.
+     * @param beginning Starting Piece
+     * @param ending Ending Piece
+     * @return array of int. First and second value are Starting x,y coordinate. Third and 4th are ending coordinate.
      */
-    public void play(String beginning, String ending) {
-
-        // Used to reset the drawCounter if attacking a piece
-        GameStatus gameStatus = new GameStatus(board);
+    public int[] StringToIntegerPlay(String beginning, String ending){
 
         // Remove the spaces
         beginning = beginning.replaceAll("\\s","");
@@ -53,13 +48,43 @@ public class Gameplay {
         int newX = 8 - (strD - '0');
         int newY = strC - 'a';
 
+        int[] value = new int [4];
+        value[0] = x;
+        value[1] = y;
+        value[2] = newX;
+        value[3] = newY;
+
+        return value;
+
+    }
+
+    /**
+     * Use 2 strings. The first one is the piece the playare if willing to play, the second is the move is want to do.
+     * Verify if the move is current, then play it.
+     * Allow Castling if everything is correct.
+     * Every time a player want to play a Piece, the method verify if it's safe for the king
+     * @param beginning The localisation where the desire Piece is located.
+     * @param ending The Position the player want to move the Piece Located the beginning String.
+     */
+    public void play(String beginning, String ending) {
+
+        // Used to reset the drawCounter if attacking a piece
+        GameStatus gameStatus = new GameStatus(board);
+
+        int[] value = StringToIntegerPlay(beginning,ending);
+
+        int x = value[0];
+        int y = value[1];
+        int newX = value[2];
+        int newY = value[3];
+
         if (!board.isBound(x, y) || !board.isBound(newX, newY)) throw new IllegalArgumentException("Out of bounds");
 
         Pieces movingPiece = board.getPiece(x, y);
         Pieces destinationPiece = board.getPiece(newX, newY);
 
         if (movingPiece == null) throw new IllegalStateException("No piece at source location");
-        if (movingPiece.getColor() != this.color) throw new IllegalStateException("You can only move your own pieces");
+        if (movingPiece.getColor() != this.piecesColor) throw new IllegalStateException("You can only move your own pieces");
 
         if (playCastling(movingPiece, x, y, newX, newY)) {
             return;
@@ -93,7 +118,7 @@ public class Gameplay {
                 if (movingPiece.isPawn()){
 
                     // If black use enPassant
-                    if (movingPiece.getColor() == Color.BLACK) {
+                    if (movingPiece.getColor() == PiecesColor.BLACK) {
                         if ( x == board.getEnPassantPawnX() && y + 1 == board.getEnPassantPawnY() && newX == board.getEnPassantPawnX() + 1 && newY == board.getEnPassantPawnY() && enemyPiece == null) {
                             board.setPiece(board.getEnPassantPawnX(), board.getEnPassantPawnY(), null);
                             gameStatus.resetDrawCounter();
@@ -104,7 +129,7 @@ public class Gameplay {
                         }
                     }
                     // If white use enPassant
-                    if (movingPiece.getColor() == Color.WHITE) {
+                    if (movingPiece.getColor() == PiecesColor.WHITE) {
                         if ( x == board.getEnPassantPawnX() && y + 1 == board.getEnPassantPawnY() && newX == board.getEnPassantPawnX() - 1 && newY == board.getEnPassantPawnY() && enemyPiece == null) {
                             board.setPiece(board.getEnPassantPawnX(), board.getEnPassantPawnY(), null);
                             gameStatus.resetDrawCounter();
@@ -150,7 +175,7 @@ public class Gameplay {
         if (movingPiece.isKing()) {
             // Castling
             CastlingHandler castling = new CastlingHandler(board);
-            if (movingPiece.getColor() == Color.WHITE) {
+            if (movingPiece.getColor() == PiecesColor.WHITE) {
                 if (x == 7 && y == 4 && newX == 7 && newY == 7) {
                     castling.handleWhiteKingsideCastling(x, y, newX, newY);
                     return true;
@@ -158,7 +183,7 @@ public class Gameplay {
                     castling.handleWhiteQueensideCastling(x, y, newX, newY);
                     return true;
                 }
-            } else if (movingPiece.getColor() == Color.BLACK) {
+            } else if (movingPiece.getColor() == PiecesColor.BLACK) {
                 if (x == 0 && y == 4 && newX == 0 && newY == 7) {
                     castling.handleBlackKingsideCastling(x, y, newX, newY);
                     return true;

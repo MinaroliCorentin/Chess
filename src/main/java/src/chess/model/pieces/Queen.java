@@ -7,8 +7,8 @@ import java.util.List;
 
 public class Queen extends Pieces{
 
-    public Queen(Color color) {
-        super(color);
+    public Queen(PiecesColor piecesColor) {
+        super(piecesColor);
     }
 
     /**
@@ -135,7 +135,7 @@ public class Queen extends Pieces{
      */
     @Override
     public String getSymbol(){
-        if (this.getColor() == Color.BLACK){
+        if (this.getColor() == PiecesColor.BLACK){
             return UnicodePieces.QUEEN_BLACK;
         } else {
             return UnicodePieces.QUEEN_WHITE;

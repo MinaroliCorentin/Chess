@@ -1,6 +1,6 @@
 package src.chess.factory;
 
-import src.chess.model.pieces.Color;
+import src.chess.model.pieces.PiecesColor;
 import src.chess.model.pieces.King;
 
 public class KingBoard extends Board{
@@ -16,8 +16,8 @@ public class KingBoard extends Board{
     public void BoardInitialize(){
 
 
-        this.setPiece(0, 4, new King(Color.BLACK));
-        this.setPiece(7, 4, new King(Color.WHITE));
+        this.setPiece(0, 4, new King(PiecesColor.BLACK));
+        this.setPiece(7, 4, new King(PiecesColor.WHITE));
 
 
     }

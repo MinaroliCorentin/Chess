@@ -3,7 +3,6 @@ package src.chess.status;
 import src.chess.factory.Board;
 import src.chess.model.pieces.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,13 +15,13 @@ public class PiecesStatus {
     }
 
     /**
-     * Verify is the King of the param color is in Check
+     * Verify is the King of the param piecesColor is in Check
      *
      * @param board The board the player are using
-     * @param color The color we want ot verify
-     * @return True if the king of @param color is in danger
+     * @param piecesColor The piecesColor we want ot verify
+     * @return True if the king of @param piecesColor is in danger
      */
-    public boolean isKingInCheck(Board board, Color color) {
+    public boolean isKingInCheck(Board board, PiecesColor piecesColor) {
 
         Localisation kingLoc = null;
         Map<Localisation, Pieces> allPieces = board.getPiecesMap();
@@ -30,7 +29,7 @@ public class PiecesStatus {
         // Find the king
         for (Map.Entry<Localisation, Pieces> entry : allPieces.entrySet()) {
             Pieces piece = entry.getValue();
-            if (piece.isKing() && piece.getColor().equals(color)) {
+            if (piece.isKing() && piece.getColor().equals(piecesColor)) {
                 kingLoc = entry.getKey();
                 break;
             }
@@ -42,7 +41,7 @@ public class PiecesStatus {
 
         for (Map.Entry<Localisation, Pieces> entry : allPieces.entrySet()) {
             Pieces piece = entry.getValue();
-            if (!piece.getColor().equals(color)) {
+            if (!piece.getColor().equals(piecesColor)) {
                 List<Localisation> moves = piece.movements(entry.getKey().getX(), entry.getKey().getY(), board);
                 for (Localisation loc : moves) {
                     if (loc.equals(kingLoc)) {
@@ -60,15 +59,15 @@ public class PiecesStatus {
      *
      * @param posX  The position X of the king
      * @param posY  The position Y of the King
-     * @param color The color of the king
-     * @return True if the king in @param Color is in danger
+     * @param piecesColor The piecesColor of the king
+     * @return True if the king in @param PiecesColor is in danger
      */
-    public boolean isKingInCheckPos(int posX, int posY, Color color) {
+    public boolean isKingInCheckPos(int posX, int posY, PiecesColor piecesColor) {
         Map<Localisation, Pieces> allPieces = board.getPiecesMap();
 
         for (Map.Entry<Localisation, Pieces> entry : allPieces.entrySet()) {
             Pieces piece = entry.getValue();
-            if (!piece.getColor().equals(color)) {
+            if (!piece.getColor().equals(piecesColor)) {
                 List<Localisation> attackSquares = piece.getAttackSquares(entry.getKey().getX(), entry.getKey().getY(), board);
                 for (Localisation loc : attackSquares) {
                     if (loc.getX() == posX && loc.getY() == posY) {
@@ -180,15 +179,15 @@ public class PiecesStatus {
         return false;
     }
 
-    public boolean stalemate(Board board, Color color) {
+    public boolean stalemate(Board board, PiecesColor piecesColor) {
 
-        if (isKingInCheck(board, color)) {
+        if (isKingInCheck(board, piecesColor)) {
             return false;
         }
 
         for (Map.Entry<Localisation, Pieces> entry : board.getPiecesMap().entrySet()) {
             Pieces piece = entry.getValue();
-            if (piece.getColor() == color) {
+            if (piece.getColor() == piecesColor) {
                 int x = entry.getKey().getX();
                 int y = entry.getKey().getY();
                 List<Localisation> moves = piece.movements(x, y, board);
@@ -199,7 +198,7 @@ public class PiecesStatus {
                     board.setPiece(move.getX(), move.getY(), piece);
                     board.setPiece(x, y, null);
 
-                    boolean kingSafe = !isKingInCheck(board, color);
+                    boolean kingSafe = !isKingInCheck(board, piecesColor);
 
                     board.setPiece(x, y, piece);
                     board.setPiece(move.getX(), move.getY(), target);

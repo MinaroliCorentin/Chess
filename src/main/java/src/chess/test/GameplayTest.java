@@ -3,7 +3,7 @@ package src.chess.test;
 import org.junit.Before;
 import org.junit.Test;
 import src.chess.factory.*;
-import src.chess.model.pieces.Color;
+import src.chess.model.pieces.PiecesColor;
 import src.chess.model.pieces.Pieces;
 import src.chess.model.players.HumanPlayer;
 import src.chess.model.players.Player;
@@ -40,28 +40,28 @@ public class GameplayTest {
     public void setUp() {
 
         board = new StandartBoard();
-        playerBlack = new HumanPlayer(board, Color.BLACK);
-        playerWhite = new HumanPlayer(board, Color.WHITE);
+        playerBlack = new HumanPlayer(board, PiecesColor.BLACK);
+        playerWhite = new HumanPlayer(board, PiecesColor.WHITE);
 
         bishopBoard = new BishopBoard();
-        playerBlackBishop = new HumanPlayer(bishopBoard, Color.BLACK);
-        playerWhiteBishop = new HumanPlayer(bishopBoard, Color.WHITE);
+        playerBlackBishop = new HumanPlayer(bishopBoard, PiecesColor.BLACK);
+        playerWhiteBishop = new HumanPlayer(bishopBoard, PiecesColor.WHITE);
 
         kingBoard = new KingBoard();
-        playerBlackKing = new HumanPlayer(kingBoard, Color.BLACK);
-        playerWhiteKing = new HumanPlayer(kingBoard, Color.WHITE);
+        playerBlackKing = new HumanPlayer(kingBoard, PiecesColor.BLACK);
+        playerWhiteKing = new HumanPlayer(kingBoard, PiecesColor.WHITE);
 
         rookBoard = new RookBoard();
-        playerBlackRook = new HumanPlayer(rookBoard, Color.BLACK);
-        playerWhiteRook = new HumanPlayer(rookBoard, Color.WHITE);
+        playerBlackRook = new HumanPlayer(rookBoard, PiecesColor.BLACK);
+        playerWhiteRook = new HumanPlayer(rookBoard, PiecesColor.WHITE);
 
         queenBoard = new QueenBoard();
-        playerBlackQueen = new HumanPlayer(queenBoard, Color.BLACK);
-        playerWhiteQueen = new HumanPlayer(queenBoard, Color.WHITE);
+        playerBlackQueen = new HumanPlayer(queenBoard, PiecesColor.BLACK);
+        playerWhiteQueen = new HumanPlayer(queenBoard, PiecesColor.WHITE);
 
         castlingBoard = new CastlingBoard();
-        playerBlackCastling = new HumanPlayer(castlingBoard, Color.BLACK);
-        playerWhiteCastling = new HumanPlayer(castlingBoard, Color.WHITE);
+        playerBlackCastling = new HumanPlayer(castlingBoard, PiecesColor.BLACK);
+        playerWhiteCastling = new HumanPlayer(castlingBoard, PiecesColor.WHITE);
 
     }
 

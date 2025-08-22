@@ -2,7 +2,7 @@ package src.chess.status;
 
 import src.chess.factory.Board;
 import src.chess.model.handler.PromoteHandler;
-import src.chess.model.pieces.Color;
+import src.chess.model.pieces.PiecesColor;
 import src.chess.model.pieces.Localisation;
 import src.chess.model.pieces.Pieces;
 import java.util.List;
@@ -53,12 +53,12 @@ public class GameStatus {
             Pieces piece = entry.getValue();
 
             if (piece.isPawn()) {
-                if (piece.getColor() == Color.WHITE && loc.getX() == 0) {
+                if (piece.getColor() == PiecesColor.WHITE && loc.getX() == 0) {
                     board.setPiece(loc.getX(), loc.getY(), null);
-                    promoteHandler.promotion(loc.getX(), loc.getY(), Color.WHITE);
-                } else if (piece.getColor() == Color.BLACK && loc.getX() == 7) {
+                    promoteHandler.promotion(loc.getX(), loc.getY(), PiecesColor.WHITE);
+                } else if (piece.getColor() == PiecesColor.BLACK && loc.getX() == 7) {
                     board.setPiece(loc.getX(), loc.getY(), null);
-                    promoteHandler.promotion(loc.getX(), loc.getY(), Color.BLACK);
+                    promoteHandler.promotion(loc.getX(), loc.getY(), PiecesColor.BLACK);
                 }
             }
         }
@@ -66,16 +66,16 @@ public class GameStatus {
 
     /**
      * Verify if there is a checkmate thanks to PiecesStatus.java
-     * @return True @Color is in checkmate
+     * @return True @PiecesColor is in checkmate
      */
-    public boolean isCheckmate(Color color) {
+    public boolean isCheckmate(PiecesColor piecesColor) {
         PiecesStatus piecesStatus = new PiecesStatus(board);
-        if (!piecesStatus.isKingInCheck(board, color)) return false;
+        if (!piecesStatus.isKingInCheck(board, piecesColor)) return false;
 
         Map<Localisation, Pieces> allPieces = board.getPiecesMap();
         for (Map.Entry<Localisation, Pieces> entry : allPieces.entrySet()) {
             Pieces piece = entry.getValue();
-            if (piece.isKing() && piece.getColor() == color) {
+            if (piece.isKing() && piece.getColor() == piecesColor) {
                 List<Localisation> kingMoves = piece.movements(entry.getKey().getX(), entry.getKey().getY(), board);
                 if (kingMoves.isEmpty()) {
                     return true;

@@ -4,8 +4,7 @@ import org.junit.Test;
 import src.chess.factory.Board;
 import src.chess.factory.EmptyBoard;
 import src.chess.factory.PawnBoard;
-import src.chess.model.handler.PromoteHandler;
-import src.chess.model.pieces.Color;
+import src.chess.model.pieces.PiecesColor;
 import src.chess.model.pieces.King;
 import src.chess.model.pieces.Pawn;
 import src.chess.model.pieces.Queen;
@@ -31,7 +30,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player BlackPawnPlayer = new HumanPlayer(board, Color.BLACK);
+            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK);
 
             BlackPawnPlayer.play("H7","H5");
             BlackPawnPlayer.play("H5","H4");
@@ -60,7 +59,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player BlackPawnPlayer = new HumanPlayer(board, Color.BLACK);
+            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK);
 
             BlackPawnPlayer.play("H7","H5");
             BlackPawnPlayer.play("H5","H4");
@@ -89,7 +88,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player BlackPawnPlayer = new HumanPlayer(board, Color.BLACK);
+            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK);
 
             BlackPawnPlayer.play("H7","H5");
             BlackPawnPlayer.play("H5","H4");
@@ -118,7 +117,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player BlackPawnPlayer = new HumanPlayer(board, Color.BLACK);
+            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK);
 
             BlackPawnPlayer.play("H7","H5");
             BlackPawnPlayer.play("H5","H4");
@@ -147,7 +146,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player WhitePawnPlayer = new HumanPlayer(board, Color.WHITE);
+            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE);
 
             WhitePawnPlayer.play("A2","A4");
             WhitePawnPlayer.play("A4","A5");
@@ -176,7 +175,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player WhitePawnPlayer = new HumanPlayer(board, Color.WHITE);
+            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE);
 
             WhitePawnPlayer.play("A2","A4");
             WhitePawnPlayer.play("A4","A5");
@@ -205,7 +204,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player WhitePawnPlayer = new HumanPlayer(board, Color.WHITE);
+            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE);
 
             WhitePawnPlayer.play("A2","A4");
             WhitePawnPlayer.play("A4","A5");
@@ -233,7 +232,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player WhitePawnPlayer = new HumanPlayer(board, Color.WHITE);
+            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE);
 
             WhitePawnPlayer.play("A2","A4");
             WhitePawnPlayer.play("A4","A5");
@@ -256,27 +255,27 @@ public class GameStatusTest {
     public void checkMateWhiteTest(){
 
         EmptyBoard board = new EmptyBoard();
-        board.setPiece(0,2,new King(Color.WHITE));
-        board.setPiece(0,1,new Pawn(Color.BLACK));
-        board.setPiece(0,3,new Pawn(Color.BLACK));
-        board.setPiece(1,3,new Pawn(Color.BLACK));
-        board.setPiece(1,1,new Pawn(Color.BLACK));
-        board.setPiece(1,2,new Pawn(Color.BLACK));
+        board.setPiece(0,2,new King(PiecesColor.WHITE));
+        board.setPiece(0,1,new Pawn(PiecesColor.BLACK));
+        board.setPiece(0,3,new Pawn(PiecesColor.BLACK));
+        board.setPiece(1,3,new Pawn(PiecesColor.BLACK));
+        board.setPiece(1,1,new Pawn(PiecesColor.BLACK));
+        board.setPiece(1,2,new Pawn(PiecesColor.BLACK));
 
         board.displayWithIndices();
         GameStatus gameStatus = new GameStatus(board);
-        boolean checkmate1 = gameStatus.isCheckmate(Color.WHITE);
+        boolean checkmate1 = gameStatus.isCheckmate(PiecesColor.WHITE);
         assert( !checkmate1 ):" The king is surrounded by pawn but can move ";
         board.reset();
 
-        board.setPiece(0,2,new King(Color.WHITE));
-        board.setPiece(0,1,new Queen(Color.BLACK));
-        board.setPiece(0,3,new Queen(Color.BLACK));
-        board.setPiece(1,3,new Queen(Color.BLACK));
-        board.setPiece(1,1,new Queen(Color.BLACK));
-        board.setPiece(1,2,new Queen(Color.BLACK));
+        board.setPiece(0,2,new King(PiecesColor.WHITE));
+        board.setPiece(0,1,new Queen(PiecesColor.BLACK));
+        board.setPiece(0,3,new Queen(PiecesColor.BLACK));
+        board.setPiece(1,3,new Queen(PiecesColor.BLACK));
+        board.setPiece(1,1,new Queen(PiecesColor.BLACK));
+        board.setPiece(1,2,new Queen(PiecesColor.BLACK));
         board.displayWithIndices();
-        boolean checkmate2 = gameStatus.isCheckmate(Color.WHITE);
+        boolean checkmate2 = gameStatus.isCheckmate(PiecesColor.WHITE);
         assert( checkmate2 ):" The king is surrounded by Queen and cannot move";
 
     }
@@ -285,27 +284,27 @@ public class GameStatusTest {
     public void checkMateBlackTest(){
 
         EmptyBoard board = new EmptyBoard();
-        board.setPiece(0,2,new King(Color.BLACK));
-        board.setPiece(0,1,new Pawn(Color.WHITE));
-        board.setPiece(0,3,new Pawn(Color.WHITE));
-        board.setPiece(1,3,new Pawn(Color.WHITE));
-        board.setPiece(1,1,new Pawn(Color.WHITE));
-        board.setPiece(1,2,new Pawn(Color.WHITE));
+        board.setPiece(0,2,new King(PiecesColor.BLACK));
+        board.setPiece(0,1,new Pawn(PiecesColor.WHITE));
+        board.setPiece(0,3,new Pawn(PiecesColor.WHITE));
+        board.setPiece(1,3,new Pawn(PiecesColor.WHITE));
+        board.setPiece(1,1,new Pawn(PiecesColor.WHITE));
+        board.setPiece(1,2,new Pawn(PiecesColor.WHITE));
 
         board.displayWithIndices();
         GameStatus gameStatus = new GameStatus(board);
-        boolean checkmate1 = gameStatus.isCheckmate(Color.BLACK);
+        boolean checkmate1 = gameStatus.isCheckmate(PiecesColor.BLACK);
         assert( !checkmate1 ):" The king is surrounded by pawn but can move ";
         board.reset();
 
-        board.setPiece(0,2,new King(Color.BLACK));
-        board.setPiece(0,1,new Queen(Color.WHITE));
-        board.setPiece(0,3,new Queen(Color.WHITE));
-        board.setPiece(1,3,new Queen(Color.WHITE));
-        board.setPiece(1,1,new Queen(Color.WHITE));
-        board.setPiece(1,2,new Queen(Color.WHITE));
+        board.setPiece(0,2,new King(PiecesColor.BLACK));
+        board.setPiece(0,1,new Queen(PiecesColor.WHITE));
+        board.setPiece(0,3,new Queen(PiecesColor.WHITE));
+        board.setPiece(1,3,new Queen(PiecesColor.WHITE));
+        board.setPiece(1,1,new Queen(PiecesColor.WHITE));
+        board.setPiece(1,2,new Queen(PiecesColor.WHITE));
         board.displayWithIndices();
-        boolean checkmate2 = gameStatus.isCheckmate(Color.BLACK);
+        boolean checkmate2 = gameStatus.isCheckmate(PiecesColor.BLACK);
         assert( checkmate2 ):" The king is surrounded by Queen and cannot move";
 
     }

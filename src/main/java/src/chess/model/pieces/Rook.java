@@ -10,8 +10,8 @@ public class Rook extends Pieces {
     private boolean leftRookMoved ;
     private boolean rightRookMoved;
 
-    public Rook(Color color) {
-        super(color);
+    public Rook(PiecesColor piecesColor) {
+        super(piecesColor);
         this.leftRookMoved = false ;
         this.rightRookMoved = false ;
     }
@@ -169,7 +169,7 @@ public class Rook extends Pieces {
      */
     @Override
     public String getSymbol(){
-        if (this.getColor() == Color.BLACK){
+        if (this.getColor() == PiecesColor.BLACK){
             return UnicodePieces.ROOK_BLACK;
         } else {
             return UnicodePieces.ROOK_WHITE;

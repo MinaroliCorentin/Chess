@@ -15,7 +15,7 @@ public class RookTest {
     @Test
     public void rookTest(){
 
-        Pieces rook_Black = new Rook(Color.BLACK);
+        Pieces rook_Black = new Rook(PiecesColor.BLACK);
         assert( !rook_Black.isBishop()): " rook is not a Bishop";
         assert( !rook_Black.isKing()) : " rook is not a king";
         assert( !rook_Black.isKnight()) : " rook is not a Knight";
@@ -23,7 +23,7 @@ public class RookTest {
         assert( !rook_Black.isQueen()) : " rook is not a Queen";
         assert( rook_Black.isRook()) : " rook is a Rook";
 
-        Pieces rook_White = new Rook(Color.WHITE);
+        Pieces rook_White = new Rook(PiecesColor.WHITE);
         assert( !rook_White.isBishop()): " rook is not a Bishop";
         assert( !rook_White.isKing()) : " rook is not a king";
         assert( !rook_White.isKnight()) : " rook is not a Knight";
@@ -36,8 +36,8 @@ public class RookTest {
     @Test
     public void getSymbolTest(){
 
-        Pieces Rook_Black = new Rook(Color.BLACK);
-        Pieces Rook_White = new Rook(Color.WHITE);
+        Pieces Rook_Black = new Rook(PiecesColor.BLACK);
+        Pieces Rook_White = new Rook(PiecesColor.WHITE);
 
         assert ( Rook_White.getSymbol().equals(UnicodePieces.ROOK_WHITE)) : " Must display a White Rook ";
         assert ( Rook_White.getSymbol().equals("\u265C")) : " Must display a White Rook ";
@@ -53,7 +53,7 @@ public class RookTest {
 
         for (int i = 0; i < 100; i++) {
             Board board = new EmptyBoard();
-            Pieces rook = new Rook(Color.BLACK);
+            Pieces rook = new Rook(PiecesColor.BLACK);
             int x = rand.nextInt(8);
             int y = rand.nextInt(8);
 
@@ -70,7 +70,7 @@ public class RookTest {
                 int mx = x + dir[0];
                 int my = y + dir[1];
                 if (board.isBound(mx, my)) {
-                    board.setPiece(mx, my, new King(Color.BLACK));
+                    board.setPiece(mx, my, new King(PiecesColor.BLACK));
                 }
             }
 
@@ -84,7 +84,7 @@ public class RookTest {
 
         for (int i = 0; i < 100; i++) {
 
-            Pieces bishop_Black = new Bishop(Color.BLACK);
+            Pieces bishop_Black = new Bishop(PiecesColor.BLACK);
             Board board = new EmptyBoard();
             int x = rand.nextInt(8);
             int y = rand.nextInt(8);
@@ -104,7 +104,7 @@ public class RookTest {
                 int mx = move[0];
                 int my = move[1];
                 if (board.isBound(mx, my)) {
-                    board.setPiece(mx, my, new Bishop(Color.BLACK));
+                    board.setPiece(mx, my, new Bishop(PiecesColor.BLACK));
                 }
 
                 int test2 = bishop_Black.movements(x, y, board).size();
@@ -118,7 +118,7 @@ public class RookTest {
     public void leftRookMovedBlackTest(){
 
         RookBoard rookBoard = new RookBoard();
-        Player playerBlackRook = new HumanPlayer(rookBoard, Color.BLACK);
+        Player playerBlackRook = new HumanPlayer(rookBoard, PiecesColor.BLACK);
 
         String from = "A8";
         String to = "A7";
@@ -137,7 +137,7 @@ public class RookTest {
     public void rightRookMovedBlackTest(){
 
         RookBoard rookBoard = new RookBoard();
-        Player playerBlackRook = new HumanPlayer(rookBoard, Color.BLACK);
+        Player playerBlackRook = new HumanPlayer(rookBoard, PiecesColor.BLACK);
 
         String from = "H8";
         String to = "H7";
@@ -156,7 +156,7 @@ public class RookTest {
     public void leftRookMovedWhiteTest(){
 
         RookBoard rookBoard = new RookBoard();
-        Player playerWhiteRook = new HumanPlayer(rookBoard, Color.WHITE);
+        Player playerWhiteRook = new HumanPlayer(rookBoard, PiecesColor.WHITE);
 
         String from = "A1"; // (7, 0)
         String to = "B1";   // (7, 1)
@@ -178,7 +178,7 @@ public class RookTest {
     public void rightRookMovedWhiteTest(){
 
         RookBoard rookBoard = new RookBoard();
-        Player playerWhiteRook = new HumanPlayer(rookBoard, Color.WHITE);
+        Player playerWhiteRook = new HumanPlayer(rookBoard, PiecesColor.WHITE);
 
         String from = "H1";
         String to = "H2";

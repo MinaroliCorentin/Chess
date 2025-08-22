@@ -2,43 +2,39 @@ package src.chess.model.players;
 
 import src.chess.factory.Board;
 import src.chess.game.Gameplay;
-import src.chess.model.handler.CastlingHandler;
 import src.chess.model.pieces.*;
-import src.chess.status.PiecesStatus;
-
-import java.util.List;
 
 public abstract class Player {
 
     private Board board;
-    private Color color;
+    private PiecesColor piecesColor;
 
-    public Player(Board board, Color color) {
+    public Player(Board board, PiecesColor piecesColor) {
 
         this.board = board;
-        this.color = color;
+        this.piecesColor = piecesColor;
 
     }
 
     /**
-     * @return Getter for the color of the player, white or black
+     * @return Getter for the piecesColor of the player, white or black
      */
-    public Color getColor() {
-        return color;
+    public PiecesColor getColor() {
+        return piecesColor;
     }
 
     /**
-     * Setter for the color of the player, white or black
-     * @param color White or Black only. Defined by the enum
+     * Setter for the piecesColor of the player, white or black
+     * @param piecesColor White or Black only. Defined by the enum
      */
-    public void setColor(Color color) {
-        this.color = color;
+    public void setColor(PiecesColor piecesColor) {
+        this.piecesColor = piecesColor;
     }
 
 
     public void play(String beginning, String ending) {
 
-        Gameplay gameplay = new Gameplay(board,color);
+        Gameplay gameplay = new Gameplay(board, piecesColor);
         gameplay.play(beginning,ending);
 
     }

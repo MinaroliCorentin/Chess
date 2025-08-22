@@ -7,8 +7,8 @@ import java.util.List;
 
 public class Bishop extends Pieces{
 
-    public Bishop(Color color) {
-        super(color);
+    public Bishop(PiecesColor piecesColor) {
+        super(piecesColor);
     }
 
     /**
@@ -126,7 +126,7 @@ public class Bishop extends Pieces{
      */
     @Override
     public String getSymbol(){
-        if ( this.getColor() == Color.BLACK){
+        if ( this.getColor() == PiecesColor.BLACK){
             return UnicodePieces.BISHOP_BLACK;
         } else {
             return UnicodePieces.BISHOP_WHITE;

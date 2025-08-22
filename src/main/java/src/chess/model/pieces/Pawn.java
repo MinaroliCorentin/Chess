@@ -7,8 +7,8 @@ import java.util.List;
 
 public class Pawn extends Pieces {
 
-    public Pawn(Color color) {
-        super(color);
+    public Pawn(PiecesColor piecesColor) {
+        super(piecesColor);
     }
 
     /**
@@ -81,7 +81,7 @@ public class Pawn extends Pieces {
         int direction ;
         int startRow ;
 
-        if ( this.getColor() == Color.WHITE){
+        if ( this.getColor() == PiecesColor.WHITE){
             direction = -1 ;
             startRow = 6 ;
         } else {
@@ -126,7 +126,7 @@ public class Pawn extends Pieces {
     @Override
     public List<Localisation> getAttackSquares(int x, int y, Board board) {
         List<Localisation> attacks = new ArrayList<>();
-        int direction = (this.getColor() == Color.WHITE) ? -1 : 1;
+        int direction = (this.getColor() == PiecesColor.WHITE) ? -1 : 1;
 
         if (y > 0) {
             attacks.add(new Localisation(x + direction, y - 1));
@@ -145,7 +145,7 @@ public class Pawn extends Pieces {
      */
     @Override
     public String getSymbol(){
-        if (this.getColor() == Color.BLACK){
+        if (this.getColor() == PiecesColor.BLACK){
             return UnicodePieces.PAWN_BLACK;
         } else {
             return UnicodePieces.PAWN_WHITE;

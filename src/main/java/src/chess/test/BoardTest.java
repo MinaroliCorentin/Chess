@@ -25,7 +25,7 @@ public class BoardTest {
     @Test
     public void resetTest() {
 
-        board.setPiece(1,1,new King(Color.WHITE));
+        board.setPiece(1,1,new King(PiecesColor.WHITE));
         assertNotNull("The board contain a piece ",board.getPiece(1, 1));
         board.reset();
         assertNull("The board don't contain a piece",board.getPiece(1, 1));
@@ -43,7 +43,7 @@ public class BoardTest {
     @Test
     public void getBoardTest(){
 
-        Knight knight = new Knight(Color.WHITE);
+        Knight knight = new Knight(PiecesColor.WHITE);
         Pieces[][] boardArray = board.getBoard();
         assertNull(boardArray[0][0]);
 
@@ -56,7 +56,7 @@ public class BoardTest {
 
     @Test
     public void GetSetPieceTest() {
-        Knight knight = new Knight(Color.WHITE);
+        Knight knight = new Knight(PiecesColor.WHITE);
         board.setPiece(4, 4, knight);
         assertEquals(knight, board.getPiece(4, 4));
 
@@ -67,7 +67,7 @@ public class BoardTest {
     @Test
     public void isEmptyTest(){
 
-        board.setPiece(1,1,new King(Color.WHITE));
+        board.setPiece(1,1,new King(PiecesColor.WHITE));
         assertFalse("Have to be true",board.isEmpty(1,1));
         assertTrue("Have to be true",board.isEmpty(1,0));
 
@@ -83,20 +83,20 @@ public class BoardTest {
 
     @Test
     public void HasOpponentPieceOrNullTest() {
-        board.setPiece(6, 1, new Knight(Color.BLACK));
-        assertTrue(board.hasOpponentPieceOrNull(6, 1, Color.WHITE));
-        assertFalse(board.hasOpponentPieceOrNull(7, 1, Color.WHITE));
-        assertFalse(board.hasOpponentPieceOrNull(0, 0, Color.WHITE));
+        board.setPiece(6, 1, new Knight(PiecesColor.BLACK));
+        assertTrue(board.hasOpponentPieceOrNull(6, 1, PiecesColor.WHITE));
+        assertFalse(board.hasOpponentPieceOrNull(7, 1, PiecesColor.WHITE));
+        assertFalse(board.hasOpponentPieceOrNull(0, 0, PiecesColor.WHITE));
     }
 
     @Test
     public void getPiecesMapTest(){
 
-        Rook rook = new Rook(Color.WHITE);
-        Queen queen = new Queen(Color.WHITE);
-        Knight knight = new Knight(Color.BLACK);
-        King king = new King(Color.WHITE);
-        Pawn pawn = new Pawn(Color.WHITE);
+        Rook rook = new Rook(PiecesColor.WHITE);
+        Queen queen = new Queen(PiecesColor.WHITE);
+        Knight knight = new Knight(PiecesColor.BLACK);
+        King king = new King(PiecesColor.WHITE);
+        Pawn pawn = new Pawn(PiecesColor.WHITE);
 
         assertEquals(0, board.getPiecesMap().size());
 
@@ -130,8 +130,8 @@ public class BoardTest {
         this.board.setBoard(standardBoard.getBoard());
         assertEquals(32, board.getPiecesMap().size());
 
-        Player white = new HumanPlayer(board,Color.WHITE);
-        Player black = new HumanPlayer(board,Color.BLACK);
+        Player white = new HumanPlayer(board, PiecesColor.WHITE);
+        Player black = new HumanPlayer(board, PiecesColor.BLACK);
 
         white.play("B2","B4");
         black.play("A7","A5");

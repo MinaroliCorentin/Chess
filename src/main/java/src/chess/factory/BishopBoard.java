@@ -1,7 +1,7 @@
 package src.chess.factory;
 
 import src.chess.model.pieces.Bishop;
-import src.chess.model.pieces.Color;
+import src.chess.model.pieces.PiecesColor;
 
 public class BishopBoard extends Board{
 
@@ -17,11 +17,11 @@ public class BishopBoard extends Board{
 
 
 
-        this.setPiece(7, 2, new Bishop(Color.WHITE));
-        this.setPiece(0, 2, new Bishop(Color.BLACK));
+        this.setPiece(7, 2, new Bishop(PiecesColor.WHITE));
+        this.setPiece(0, 2, new Bishop(PiecesColor.BLACK));
 
-        this.setPiece(7, 5, new Bishop(Color.WHITE));
-        this.setPiece(0, 5, new Bishop(Color.BLACK));
+        this.setPiece(7, 5, new Bishop(PiecesColor.WHITE));
+        this.setPiece(0, 5, new Bishop(PiecesColor.BLACK));
 
     }
 

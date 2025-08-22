@@ -16,7 +16,7 @@ public class KingTest {
     @Test
     public void kingTest() {
 
-        Pieces king_Black = new King(Color.BLACK);
+        Pieces king_Black = new King(PiecesColor.BLACK);
         assert( !king_Black.isBishop()): " King is not a Bishop";
         assert( king_Black.isKing()) : " King is a King";
         assert( !king_Black.isKnight()) : " King is not a Knight";
@@ -24,7 +24,7 @@ public class KingTest {
         assert( !king_Black.isQueen()) : " King is not a Queen";
         assert( !king_Black.isRook()) : " King is not a Rook";
 
-        Pieces king_White = new King(Color.WHITE);
+        Pieces king_White = new King(PiecesColor.WHITE);
         assert( !king_White.isBishop()): " King is not a Bishop";
         assert( king_White.isKing()) : "King is a King";
         assert( !king_White.isKnight()) : " King is not a Knight";
@@ -37,8 +37,8 @@ public class KingTest {
     @Test
     public void getSymbolTest(){
 
-        Pieces King_Black = new King(Color.BLACK);
-        Pieces King_White = new King(Color.WHITE);
+        Pieces King_Black = new King(PiecesColor.BLACK);
+        Pieces King_White = new King(PiecesColor.WHITE);
 
         assert ( King_Black.getSymbol().equals(UnicodePieces.KING_BLACK)):" Should display a black king ";
         assert ( King_Black.getSymbol().equals("\u2654")):" Should display a black king ";
@@ -55,7 +55,7 @@ public class KingTest {
         for ( int i = 0 ; i < 100 ; i ++ ){
 
             Board board = new EmptyBoard();
-            Pieces king_black = new King(Color.BLACK);
+            Pieces king_black = new King(PiecesColor.BLACK);
             int x = rand.nextInt(8);
             int y = rand.nextInt(8);
 
@@ -76,7 +76,7 @@ public class KingTest {
                 int mx = move[0];
                 int my = move[1];
                 if (board.isBound(mx, my)) {
-                    board.setPiece(mx, my, new King(Color.BLACK));
+                    board.setPiece(mx, my, new King(PiecesColor.BLACK));
                 }
             }
 
@@ -91,7 +91,7 @@ public class KingTest {
 
         for (int i = 0; i < 100; i++) {
 
-            Pieces king = new King(Color.BLACK);
+            Pieces king = new King(PiecesColor.BLACK);
             Board board = new EmptyBoard();
             int x = rand.nextInt(8);
             int y = rand.nextInt(8);
@@ -116,7 +116,7 @@ public class KingTest {
                 int mx = move[0];
                 int my = move[1];
                 if (board.isBound(mx, my)) {
-                    board.setPiece(mx, my, new King(Color.BLACK));
+                    board.setPiece(mx, my, new King(PiecesColor.BLACK));
                 }
 
                 int test2 = king.movements(x, y, board).size();
@@ -129,15 +129,15 @@ public class KingTest {
     public void kingMoveInCheckTest(){
 
         Board board = new EmptyBoard();
-        Pieces king = new King(Color.BLACK);
-        Pieces rook1 = new Rook(Color.WHITE);
+        Pieces king = new King(PiecesColor.BLACK);
+        Pieces rook1 = new Rook(PiecesColor.WHITE);
 
         board.setPiece(0,1,king);
         board.setPiece(1,0,rook1);
 
         board.display();
 
-        Player p1 = new HumanPlayer(board,Color.BLACK);
+        Player p1 = new HumanPlayer(board, PiecesColor.BLACK);
         assertThrows(IllegalStateException.class,()->{ p1.play("B8","A8");});
 
     }
@@ -146,29 +146,29 @@ public class KingTest {
     public void PiecesMoveKingInCheckTest(){
 
         Board board = new EmptyBoard();
-        Pieces king = new King(Color.BLACK);
-        Pieces rook = new Rook(Color.WHITE);
-        Pieces bishop = new Bishop(Color.BLACK);
+        Pieces king = new King(PiecesColor.BLACK);
+        Pieces rook = new Rook(PiecesColor.WHITE);
+        Pieces bishop = new Bishop(PiecesColor.BLACK);
 
         board.setPiece(0,1,king);
         board.setPiece(1,1,bishop);
         board.setPiece(2,1,rook);
 
-        Player p1 = new HumanPlayer(board,Color.BLACK);
+        Player p1 = new HumanPlayer(board, PiecesColor.BLACK);
         assertThrows(IllegalStateException.class,()->{ p1.play("B7","C6");});
 
         board.display();
         board.reset();
 
-        Pieces king1 = new King(Color.WHITE);
-        Pieces rook1 = new Rook(Color.BLACK);
-        Pieces bishop1 = new Bishop(Color.WHITE);
+        Pieces king1 = new King(PiecesColor.WHITE);
+        Pieces rook1 = new Rook(PiecesColor.BLACK);
+        Pieces bishop1 = new Bishop(PiecesColor.WHITE);
 
         board.setPiece(0,1,king1);
         board.setPiece(1,1,bishop1);
         board.setPiece(2,1,rook1);
 
-        Player p2 = new HumanPlayer(board,Color.WHITE);
+        Player p2 = new HumanPlayer(board, PiecesColor.WHITE);
         assertThrows(IllegalStateException.class,()->{ p2.play("B7","C6");});
 
         board.display();

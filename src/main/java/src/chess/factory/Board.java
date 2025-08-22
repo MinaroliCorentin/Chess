@@ -2,7 +2,7 @@ package src.chess.factory;
 
 import src.chess.controller.ObserverSubject;
 import src.chess.model.pieces.*;
-import src.chess.model.pieces.Color;
+import src.chess.model.pieces.PiecesColor;
 
 import java.awt.*;
 import java.util.Map;
@@ -123,12 +123,12 @@ public abstract class Board extends ObserverSubject {
      *
      * @param x row
      * @param y col
-     * @param color enemy color
-     * @return true if the piece at x,y is null or != color
+     * @param piecesColor enemy piecesColor
+     * @return true if the piece at x,y is null or != piecesColor
      */
-    public boolean hasOpponentPieceOrNull(int x, int y, Color color) {
+    public boolean hasOpponentPieceOrNull(int x, int y, PiecesColor piecesColor) {
         Pieces p = board.get(new Localisation(x, y));
-        return isBound(x, y) && p != null && p.getColor() != color;
+        return isBound(x, y) && p != null && p.getColor() != piecesColor;
     }
 
     /**

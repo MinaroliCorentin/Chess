@@ -6,17 +6,17 @@ import java.util.List;
 
 public abstract class Pieces {
 
-    private Color color;
+    private PiecesColor piecesColor;
     
-    public Pieces(Color color){
-        this.color = color;
+    public Pieces(PiecesColor piecesColor){
+        this.piecesColor = piecesColor;
     }
 
     /**
-     * @return the color of the Piece
+     * @return the piecesColor of the Piece
      */
-    public Color getColor(){
-        return color;
+    public PiecesColor getColor(){
+        return piecesColor;
     }
 
     /**

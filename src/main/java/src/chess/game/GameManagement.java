@@ -1,7 +1,7 @@
 package src.chess.game;
 
 import src.chess.factory.Board;
-import src.chess.model.pieces.Color;
+import src.chess.model.pieces.PiecesColor;
 import src.chess.model.players.Player;
 import src.chess.status.GameStatus;
 import src.chess.status.PiecesStatus;
@@ -74,19 +74,19 @@ public class GameManagement {
 
             try {
                 if ((this.rounds + randint) % 2 == 0) {
-                    if ( piecesStatus.stalemate(board,Color.WHITE)){
+                    if ( piecesStatus.stalemate(board, PiecesColor.WHITE)){
                         System.out.println("Stalemate Black Wins");
                     }
                     white.play(from, to);
-                    if (piecesStatus.isKingInCheck(board, Color.WHITE)) {
+                    if (piecesStatus.isKingInCheck(board, PiecesColor.WHITE)) {
                         System.out.println("White King in check");
                     }
                 } else {
-                    if ( piecesStatus.stalemate(board,Color.BLACK)){
+                    if ( piecesStatus.stalemate(board, PiecesColor.BLACK)){
                         System.out.println("Stalemate White Wins");
                     }
                     black.play(from, to);
-                    if (piecesStatus.isKingInCheck(board, Color.BLACK)) {
+                    if (piecesStatus.isKingInCheck(board, PiecesColor.BLACK)) {
                         System.out.println("Black King in check");
                     }
                 }
@@ -100,6 +100,6 @@ public class GameManagement {
                 System.err.println("Erreur : " + e.getMessage());
             }
 
-        } while (!gameStatus.isCheckmate(Color.WHITE) && !gameStatus.isCheckmate(Color.BLACK) && !gameStatus.isDraw());
+        } while (!gameStatus.isCheckmate(PiecesColor.WHITE) && !gameStatus.isCheckmate(PiecesColor.BLACK) && !gameStatus.isDraw());
     }
 }

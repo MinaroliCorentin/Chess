@@ -43,32 +43,32 @@ public class PiecesStatusTest {
     public void setUp() {
 
         board = new StandartBoard();
-        playerBlack = new HumanPlayer(board, Color.BLACK);
-        playerWhite = new HumanPlayer(board, Color.WHITE);
+        playerBlack = new HumanPlayer(board, PiecesColor.BLACK);
+        playerWhite = new HumanPlayer(board, PiecesColor.WHITE);
 
         bishopBoard = new BishopBoard();
-        playerBlackBishop = new HumanPlayer(bishopBoard, Color.BLACK);
-        playerWhiteBishop = new HumanPlayer(bishopBoard, Color.WHITE);
+        playerBlackBishop = new HumanPlayer(bishopBoard, PiecesColor.BLACK);
+        playerWhiteBishop = new HumanPlayer(bishopBoard, PiecesColor.WHITE);
 
         castlingBoard = new CastlingBoard();
-        playerBlackCastling = new HumanPlayer(castlingBoard, Color.BLACK);
-        playerWhiteCastling = new HumanPlayer(castlingBoard, Color.WHITE);
+        playerBlackCastling = new HumanPlayer(castlingBoard, PiecesColor.BLACK);
+        playerWhiteCastling = new HumanPlayer(castlingBoard, PiecesColor.WHITE);
 
         kingBoard = new KingBoard();
-        playerBlackKing = new HumanPlayer(kingBoard, Color.BLACK);
-        playerWhiteKing = new HumanPlayer(kingBoard, Color.WHITE);
+        playerBlackKing = new HumanPlayer(kingBoard, PiecesColor.BLACK);
+        playerWhiteKing = new HumanPlayer(kingBoard, PiecesColor.WHITE);
 
         rookBoard = new RookBoard();
-        playerBlackRook = new HumanPlayer(rookBoard, Color.BLACK);
-        playerWhiteRook = new HumanPlayer(rookBoard, Color.WHITE);
+        playerBlackRook = new HumanPlayer(rookBoard, PiecesColor.BLACK);
+        playerWhiteRook = new HumanPlayer(rookBoard, PiecesColor.WHITE);
 
         queenBoard = new QueenBoard();
-        playerBlackQueen = new HumanPlayer(queenBoard, Color.BLACK);
-        playerWhiteQueen = new HumanPlayer(queenBoard, Color.WHITE);
+        playerBlackQueen = new HumanPlayer(queenBoard, PiecesColor.BLACK);
+        playerWhiteQueen = new HumanPlayer(queenBoard, PiecesColor.WHITE);
 
         emptyBoard = new EmptyBoard();
-        playerBlackEmpty = new HumanPlayer(emptyBoard, Color.BLACK);
-        playerWhiteEmpty = new HumanPlayer(emptyBoard, Color.WHITE);
+        playerBlackEmpty = new HumanPlayer(emptyBoard, PiecesColor.BLACK);
+        playerWhiteEmpty = new HumanPlayer(emptyBoard, PiecesColor.WHITE);
 
     }
 
@@ -84,19 +84,19 @@ public class PiecesStatusTest {
     public void isKingInCheckBishopTest(){
 
         PiecesStatus statusKingBoard = new PiecesStatus(kingBoard);
-        boolean tmp = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
+        boolean tmp = statusKingBoard.isKingInCheck(kingBoard, PiecesColor.BLACK);
         assert (!tmp):" The King isn't in danger";
 
-        Bishop bishop = new Bishop(Color.WHITE);
+        Bishop bishop = new Bishop(PiecesColor.WHITE);
         kingBoard.setPiece(1,3,bishop);
-        boolean tmp2 = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
+        boolean tmp2 = statusKingBoard.isKingInCheck(kingBoard, PiecesColor.BLACK);
         assert (tmp2):" The King is in danger";
 
 
         kingBoard.reset();
-        Bishop bishop2 = new Bishop(Color.BLACK);
+        Bishop bishop2 = new Bishop(PiecesColor.BLACK);
         kingBoard.setPiece(6,3,bishop2);
-        boolean tmp3 = statusKingBoard.isKingInCheck(kingBoard,Color.WHITE);
+        boolean tmp3 = statusKingBoard.isKingInCheck(kingBoard, PiecesColor.WHITE);
         assert (tmp3):" The King is in danger";
 
 
@@ -106,18 +106,18 @@ public class PiecesStatusTest {
     public void isKingThreatnedKingTest(){
 
         PiecesStatus statusKingBoard = new PiecesStatus(kingBoard);
-        boolean tmp = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
+        boolean tmp = statusKingBoard.isKingInCheck(kingBoard, PiecesColor.BLACK);
         assert (!tmp):" The King isn't in danger";
 
-        King king = new King(Color.WHITE);
+        King king = new King(PiecesColor.WHITE);
         kingBoard.setPiece(1,3,king);
-        boolean tmp2 = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
+        boolean tmp2 = statusKingBoard.isKingInCheck(kingBoard, PiecesColor.BLACK);
         assert (tmp2):" The King is in danger";
 
         kingBoard.reset();
-        King king2 = new King(Color.BLACK);
+        King king2 = new King(PiecesColor.BLACK);
         kingBoard.setPiece(6,3,king2);
-        boolean tmp3 = statusKingBoard.isKingInCheck(kingBoard,Color.WHITE);
+        boolean tmp3 = statusKingBoard.isKingInCheck(kingBoard, PiecesColor.WHITE);
         assert (tmp3):" The King is in danger";
 
 
@@ -127,18 +127,18 @@ public class PiecesStatusTest {
     public void isKingThreatnedKnightTest(){
 
         PiecesStatus statusKingBoard = new PiecesStatus(kingBoard);
-        boolean tmp = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
+        boolean tmp = statusKingBoard.isKingInCheck(kingBoard, PiecesColor.BLACK);
         assert (!tmp):" The King isn't in danger";
 
-        Knight knight = new Knight(Color.WHITE);
+        Knight knight = new Knight(PiecesColor.WHITE);
         kingBoard.setPiece(2,3,knight);
-        boolean tmp2 = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
+        boolean tmp2 = statusKingBoard.isKingInCheck(kingBoard, PiecesColor.BLACK);
         assert (tmp2):" The King is in danger";
 
         kingBoard.reset();
-        Knight knight2 = new Knight(Color.BLACK);
+        Knight knight2 = new Knight(PiecesColor.BLACK);
         kingBoard.setPiece(5,3,knight2);
-        boolean tmp3 = statusKingBoard.isKingInCheck(kingBoard,Color.WHITE);
+        boolean tmp3 = statusKingBoard.isKingInCheck(kingBoard, PiecesColor.WHITE);
         assert (tmp3):" The King is in danger";
 
     }
@@ -147,18 +147,18 @@ public class PiecesStatusTest {
     public void isKingThreatnedPawnTest(){
 
         PiecesStatus statusKingBoard = new PiecesStatus(kingBoard);
-        boolean tmp = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
+        boolean tmp = statusKingBoard.isKingInCheck(kingBoard, PiecesColor.BLACK);
         assert (!tmp):" The King isn't in danger";
 
-        Pawn pawn = new Pawn(Color.WHITE);
+        Pawn pawn = new Pawn(PiecesColor.WHITE);
         kingBoard.setPiece(1,3,pawn);
-        boolean tmp2 = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
+        boolean tmp2 = statusKingBoard.isKingInCheck(kingBoard, PiecesColor.BLACK);
         assert (tmp2):" The King is in danger";
 
         kingBoard.reset();
-        Pawn pawn2 = new Pawn(Color.BLACK);
+        Pawn pawn2 = new Pawn(PiecesColor.BLACK);
         kingBoard.setPiece(6,3,pawn2);
-        boolean tmp3 = statusKingBoard.isKingInCheck(kingBoard,Color.WHITE);
+        boolean tmp3 = statusKingBoard.isKingInCheck(kingBoard, PiecesColor.WHITE);
         assert (tmp3):" The King is in danger";
 
     }
@@ -167,18 +167,18 @@ public class PiecesStatusTest {
     public void isKingThreatnedQueenTest(){
 
         PiecesStatus statusKingBoard = new PiecesStatus(kingBoard);
-        boolean tmp = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
+        boolean tmp = statusKingBoard.isKingInCheck(kingBoard, PiecesColor.BLACK);
         assert (!tmp):" The King isn't in danger";
 
-        Queen queen= new Queen(Color.WHITE);
+        Queen queen= new Queen(PiecesColor.WHITE);
         kingBoard.setPiece(1,3,queen);
-        boolean tmp2 = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
+        boolean tmp2 = statusKingBoard.isKingInCheck(kingBoard, PiecesColor.BLACK);
         assert (tmp2):" The King is in danger";
 
         kingBoard.reset();
-        Queen queen2 = new Queen(Color.BLACK);
+        Queen queen2 = new Queen(PiecesColor.BLACK);
         kingBoard.setPiece(6,3,queen2);
-        boolean tmp3 = statusKingBoard.isKingInCheck(kingBoard,Color.WHITE);
+        boolean tmp3 = statusKingBoard.isKingInCheck(kingBoard, PiecesColor.WHITE);
         assert (tmp3):" The King is in danger";
 
     }
@@ -187,18 +187,18 @@ public class PiecesStatusTest {
     public void isKingThreatnedRookTest(){
 
         PiecesStatus statusKingBoard = new PiecesStatus(kingBoard);
-        boolean tmp = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
+        boolean tmp = statusKingBoard.isKingInCheck(kingBoard, PiecesColor.BLACK);
         assert (!tmp):" The King isn't in danger";
 
-        Rook rook = new Rook(Color.WHITE);
+        Rook rook = new Rook(PiecesColor.WHITE);
         kingBoard.setPiece(0,3,rook);
-        boolean tmp2 = statusKingBoard.isKingInCheck(kingBoard,Color.BLACK);
+        boolean tmp2 = statusKingBoard.isKingInCheck(kingBoard, PiecesColor.BLACK);
         assert (tmp2):" The King is in danger";
 
         kingBoard.reset();
-        Rook rook2 = new Rook(Color.BLACK);
+        Rook rook2 = new Rook(PiecesColor.BLACK);
         kingBoard.setPiece(6,4,rook2);
-        boolean tmp3 = statusKingBoard.isKingInCheck(kingBoard,Color.WHITE);
+        boolean tmp3 = statusKingBoard.isKingInCheck(kingBoard, PiecesColor.WHITE);
         assert (tmp3):" The King is in danger";
 
     }
@@ -317,26 +317,26 @@ public class PiecesStatusTest {
 
         PiecesStatus status = new PiecesStatus(emptyBoard);
 
-        emptyBoard.setPiece(2,6,new Queen(Color.BLACK));
-        emptyBoard.setPiece(0,7,new King(Color.WHITE));
-        assertTrue(status.stalemate(emptyBoard,Color.WHITE));
+        emptyBoard.setPiece(2,6,new Queen(PiecesColor.BLACK));
+        emptyBoard.setPiece(0,7,new King(PiecesColor.WHITE));
+        assertTrue(status.stalemate(emptyBoard, PiecesColor.WHITE));
         emptyBoard.reset();
 
-        emptyBoard.setPiece(0,5,new King(Color.BLACK));
-        emptyBoard.setPiece(1,5,new Pawn(Color.WHITE));
-        emptyBoard.setPiece(2,5,new King(Color.WHITE));
-        assertTrue(status.stalemate(emptyBoard,Color.BLACK));
+        emptyBoard.setPiece(0,5,new King(PiecesColor.BLACK));
+        emptyBoard.setPiece(1,5,new Pawn(PiecesColor.WHITE));
+        emptyBoard.setPiece(2,5,new King(PiecesColor.WHITE));
+        assertTrue(status.stalemate(emptyBoard, PiecesColor.BLACK));
         emptyBoard.reset();
 
-        emptyBoard.setPiece(0,0, new King(Color.BLACK));
-        emptyBoard.setPiece(1,2, new Rook(Color.WHITE));
-        emptyBoard.setPiece(2,1, new Rook(Color.WHITE));
+        emptyBoard.setPiece(0,0, new King(PiecesColor.BLACK));
+        emptyBoard.setPiece(1,2, new Rook(PiecesColor.WHITE));
+        emptyBoard.setPiece(2,1, new Rook(PiecesColor.WHITE));
 
-        emptyBoard.setPiece(6,6, new Pawn(Color.BLACK));
-        emptyBoard.setPiece(7,6, new Pawn(Color.WHITE));
+        emptyBoard.setPiece(6,6, new Pawn(PiecesColor.BLACK));
+        emptyBoard.setPiece(7,6, new Pawn(PiecesColor.WHITE));
 
         emptyBoard.display();
-        assertTrue(status.stalemate(emptyBoard, Color.BLACK));
+        assertTrue(status.stalemate(emptyBoard, PiecesColor.BLACK));
         emptyBoard.reset();
 
     }

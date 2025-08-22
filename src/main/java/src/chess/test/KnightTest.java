@@ -12,7 +12,7 @@ public class KnightTest {
     @Test
     public void knightTest() {
 
-        Pieces knight_Black = new Knight(Color.BLACK);
+        Pieces knight_Black = new Knight(PiecesColor.BLACK);
         assert( !knight_Black.isBishop()): " knight is not a Bishop";
         assert( !knight_Black.isKing()) : " knight is not a king";
         assert( knight_Black.isKnight()) : " knight is a Knight";
@@ -20,7 +20,7 @@ public class KnightTest {
         assert( !knight_Black.isQueen()) : " knight is not a Queen";
         assert( !knight_Black.isRook()) : " knight is not a Rook";
 
-        Pieces knight_White = new Knight(Color.WHITE);
+        Pieces knight_White = new Knight(PiecesColor.WHITE);
         assert( !knight_White.isBishop()): " knight is not a Bishop";
         assert( !knight_White.isKing()) : "knight is not a king";
         assert( knight_White.isKnight()) : " knight is a Knight";
@@ -33,8 +33,8 @@ public class KnightTest {
     @Test
     public void getSymboleTest(){
 
-        Pieces Knight_White = new Knight(Color.WHITE);
-        Pieces Knight_Black = new Knight(Color.BLACK);
+        Pieces Knight_White = new Knight(PiecesColor.WHITE);
+        Pieces Knight_Black = new Knight(PiecesColor.BLACK);
 
         assert (Knight_White.getSymbol().equals("\u265E") ):" Must display a White Knight ";
         assert (Knight_White.getSymbol().equals(UnicodePieces.KNIGHT_WHITE) ):" Must display a White Knight ";
@@ -50,7 +50,7 @@ public class KnightTest {
 
         for (int i = 0; i < 100; i++) {
 
-            Pieces knight = new Knight(Color.BLACK);
+            Pieces knight = new Knight(PiecesColor.BLACK);
             Board board = new EmptyBoard();
             int x = rand.nextInt(8);
             int y = rand.nextInt(8);
@@ -72,7 +72,7 @@ public class KnightTest {
                 int mx = move[0];
                 int my = move[1];
                 if (board.isBound(mx, my)) {
-                    board.setPiece(mx, my, new Knight(Color.BLACK));
+                    board.setPiece(mx, my, new Knight(PiecesColor.BLACK));
                 }
             }
 
@@ -89,7 +89,7 @@ public class KnightTest {
 
         for (int i = 0; i < 100; i++) {
 
-            Pieces knight = new Knight(Color.BLACK);
+            Pieces knight = new Knight(PiecesColor.BLACK);
             Board board = new EmptyBoard();
             int x = rand.nextInt(8);
             int y = rand.nextInt(8);
@@ -114,7 +114,7 @@ public class KnightTest {
                 int mx = move[0];
                 int my = move[1];
                 if (board.isBound(mx, my)) {
-                    board.setPiece(mx, my, new Knight(Color.BLACK));
+                    board.setPiece(mx, my, new Knight(PiecesColor.BLACK));
                 }
 
                 int test2 = knight.movements(x, y, board).size();

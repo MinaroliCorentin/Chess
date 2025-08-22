@@ -18,9 +18,9 @@ public class PromoteHandler {
      * Let the user decide what he want with a scanner, have to be Rook,Knight,Bishop or Queen
      * @param x row
      * @param y col
-     * @param color color of the pawn
+     * @param piecesColor piecesColor of the pawn
      */
-    public void promotion(int x, int y, Color color){
+    public void promotion(int x, int y, PiecesColor piecesColor){
 
         Scanner scanner =  new Scanner(System.in);
         System.out.println(
@@ -41,16 +41,16 @@ public class PromoteHandler {
 
         switch (str){
             case "1":
-                board.setPiece(x,y,new Rook(color));
+                board.setPiece(x,y,new Rook(piecesColor));
                 break;
             case "2":
-                board.setPiece(x,y,new Knight(color));
+                board.setPiece(x,y,new Knight(piecesColor));
                 break;
             case "3":
-                board.setPiece(x,y,new Bishop(color));
+                board.setPiece(x,y,new Bishop(piecesColor));
                 break;
             case "4":
-                board.setPiece(x,y,new Queen(color));
+                board.setPiece(x,y,new Queen(piecesColor));
                 break;
 
         }

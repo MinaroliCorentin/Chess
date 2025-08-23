@@ -106,10 +106,10 @@ public class Pawn extends Pieces {
         }
 
         // Piece left
-        if ( y - board.getEnPassantPawnY() == 1  ){
+        if ( y - board.getEnPassantPawnY() == 1 && x == board.getEnPassantPawnX() ){
             moves.add(new Localisation(x + direction, y - 1));
         // Piece right
-        } else if ( y - board.getEnPassantPawnY() == -1 ){
+        } else if ( y - board.getEnPassantPawnY() == -1 && x == board.getEnPassantPawnX() ){
             moves.add(new Localisation(x + direction, y + 1));
         }
 

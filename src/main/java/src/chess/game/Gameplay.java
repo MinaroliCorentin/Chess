@@ -117,7 +117,7 @@ public class Gameplay {
 
                 if (movingPiece.isPawn()){
 
-                    // If black use enPassant
+                    // If black used enPassant
                     if (movingPiece.getColor() == PiecesColor.BLACK) {
                         if ( x == board.getEnPassantPawnX() && y + 1 == board.getEnPassantPawnY() && newX == board.getEnPassantPawnX() + 1 && newY == board.getEnPassantPawnY() && enemyPiece == null) {
                             board.setPiece(board.getEnPassantPawnX(), board.getEnPassantPawnY(), null);
@@ -128,7 +128,7 @@ public class Gameplay {
                             gameStatus.resetDrawCounter();
                         }
                     }
-                    // If white use enPassant
+                    // If white used enPassant
                     if (movingPiece.getColor() == PiecesColor.WHITE) {
                         if ( x == board.getEnPassantPawnX() && y + 1 == board.getEnPassantPawnY() && newX == board.getEnPassantPawnX() - 1 && newY == board.getEnPassantPawnY() && enemyPiece == null) {
                             board.setPiece(board.getEnPassantPawnX(), board.getEnPassantPawnY(), null);

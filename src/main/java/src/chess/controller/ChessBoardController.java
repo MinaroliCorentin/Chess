@@ -1,6 +1,7 @@
 package src.chess.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -10,10 +11,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import src.chess.factory.Board;
 import src.chess.factory.StandartBoard;
-import src.chess.game.Gameplay;
+import src.chess.model.Fx.GameManagementFx;
 import src.chess.model.pieces.Localisation;
 import src.chess.model.pieces.Pieces;
 import src.chess.model.pieces.PiecesColor;
+import src.chess.model.players.HumanPlayer;
+import src.chess.model.players.Player;
 
 import java.util.List;
 
@@ -22,6 +25,7 @@ public class ChessBoardController implements Observer {
     @FXML
     private GridPane chessGrid;
 
+    private GameManagementFx gameFX;
     private Board board;
     private StackPane[][] cells = new StackPane[8][8];
 
@@ -31,10 +35,18 @@ public class ChessBoardController implements Observer {
     private int toRow = -1 ;
     private int toCol = -1;
 
+    private Player whitePlayer;
+    private Player blackPlayer;
+
     @FXML
     public void initialize() {
 
         board = new StandartBoard();
+
+        this.whitePlayer = new HumanPlayer(board, PiecesColor.WHITE);
+        this.blackPlayer = new HumanPlayer(board, PiecesColor.BLACK);
+
+        gameFX = new GameManagementFx(board, whitePlayer, blackPlayer);
         initializeBoard();
         board.addObserver(this);
 
@@ -78,8 +90,6 @@ public class ChessBoardController implements Observer {
 
         Pieces clickedPiece = board.getPiece(row, col);
 
-        System.out.println("AVANT : fromRow : " + fromRow + " fromCol : " + fromCol + " toRow : " + toRow + " toCol : " + toCol);
-
         // No piece selected
         if (fromRow == -1 && fromCol == -1) {
             if (clickedPiece != null) {
@@ -110,12 +120,17 @@ public class ChessBoardController implements Observer {
         }
 
         // User already selected a piece and want to move it
-        if (fromRow != -1 && fromCol != -1 && toRow == -1 && toCol == -1) {
-            Pieces pieces = board.getPiece(fromRow,fromCol);
-            this.toRow = row ;
-            this.toCol = col ;
-            System.out.println("TEST1");
-            playMove(pieces.getColor());
+        if (toRow == -1 && toCol == -1) {
+            toRow = row;
+            toCol = col;
+            String from = toChessNotation(fromRow, fromCol);
+            String to = toChessNotation(toRow, toCol);
+
+            gameFX.playMove(from, to);
+
+            resetFromTo();
+            board.notifyObservers();
+
         }
 
     }
@@ -124,21 +139,6 @@ public class ChessBoardController implements Observer {
         char file = (char) ('a' + col);
         char rank = (char) ('0' + (8 - row));
         return "" + file + rank;
-    }
-
-    public void playMove(PiecesColor piecesColor) {
-
-        Gameplay gameplay = new Gameplay(board, piecesColor);
-        String beginning = toChessNotation(fromRow,fromCol);
-        System.out.println("beginning : " + beginning);
-        String ending = toChessNotation(toRow,toCol);
-        System.out.println("ending " + ending);
-        gameplay.play(beginning,ending);
-        System.out.println("APRES : fromRow : " + fromRow + " fromCol : " + fromCol + " toRow : " + toRow + " toCol : " + toCol);
-        resetFromTo();
-        System.out.println("TEST2");
-        board.notifyObservers();
-
     }
 
     public void resetFromTo(){
@@ -194,7 +194,6 @@ public class ChessBoardController implements Observer {
     @Override
     public void react() {
 
-        System.out.println("TEST3");
         initializeBoard();
 
     }

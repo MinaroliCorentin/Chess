@@ -52,7 +52,7 @@ public class GameManagement {
     }
 
     /**
-     * Generate a random to find you start.
+     * Generate a random to find who start.
      * Then, according to the current round, ask the move of the current player, play it and display the board
      */
     public void chess() {

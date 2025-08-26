@@ -118,7 +118,7 @@ public class RookTest {
     public void leftRookMovedBlackTest(){
 
         RookBoard rookBoard = new RookBoard();
-        Player playerBlackRook = new HumanPlayer(rookBoard, PiecesColor.BLACK);
+        Player playerBlackRook = new HumanPlayer(rookBoard, PiecesColor.BLACK,"Black");
 
         String from = "A8";
         String to = "A7";
@@ -137,7 +137,7 @@ public class RookTest {
     public void rightRookMovedBlackTest(){
 
         RookBoard rookBoard = new RookBoard();
-        Player playerBlackRook = new HumanPlayer(rookBoard, PiecesColor.BLACK);
+        Player playerBlackRook = new HumanPlayer(rookBoard, PiecesColor.BLACK,"Black");
 
         String from = "H8";
         String to = "H7";
@@ -156,17 +156,17 @@ public class RookTest {
     public void leftRookMovedWhiteTest(){
 
         RookBoard rookBoard = new RookBoard();
-        Player playerWhiteRook = new HumanPlayer(rookBoard, PiecesColor.WHITE);
+        Player playerWhiteRook = new HumanPlayer(rookBoard, PiecesColor.WHITE,"White");
 
-        String from = "A1"; // (7, 0)
-        String to = "B1";   // (7, 1)
+        String from = "A1";
+        String to = "B1";
 
         Rook rookBefore = (Rook) rookBoard.getPiece(7, 0);
         assert (!rookBefore.isLeftRookMoved()): "The left rook didn't move yet";
 
         playerWhiteRook.play(from, to);
 
-        Rook rookAfter = (Rook) rookBoard.getPiece(7, 1); // et non (1, 7)
+        Rook rookAfter = (Rook) rookBoard.getPiece(7, 1);
         assert (rookAfter.isLeftRookMoved()): "The left rook did move";
 
         rookBoard.displayWithIndices();
@@ -178,7 +178,7 @@ public class RookTest {
     public void rightRookMovedWhiteTest(){
 
         RookBoard rookBoard = new RookBoard();
-        Player playerWhiteRook = new HumanPlayer(rookBoard, PiecesColor.WHITE);
+        Player playerWhiteRook = new HumanPlayer(rookBoard, PiecesColor.WHITE,"White");
 
         String from = "H1";
         String to = "H2";

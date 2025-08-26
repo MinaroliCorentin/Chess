@@ -130,8 +130,8 @@ public class BoardTest {
         this.board.setBoard(standardBoard.getBoard());
         assertEquals(32, board.getPiecesMap().size());
 
-        Player white = new HumanPlayer(board, PiecesColor.WHITE);
-        Player black = new HumanPlayer(board, PiecesColor.BLACK);
+        Player white = new HumanPlayer(board, PiecesColor.WHITE,"White");
+        Player black = new HumanPlayer(board, PiecesColor.BLACK,"Black");
 
         white.play("B2","B4");
         black.play("A7","A5");

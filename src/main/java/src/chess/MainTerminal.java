@@ -12,8 +12,8 @@ public class MainTerminal {
     public static void main(String[] args) {
 
         Board board = new StandartBoard();
-        Player white = new HumanPlayer(board, PiecesColor.WHITE);
-        Player black = new HumanPlayer(board, PiecesColor.BLACK);
+        Player white = new HumanPlayer(board, PiecesColor.WHITE,"White");
+        Player black = new HumanPlayer(board, PiecesColor.BLACK,"Black");
         GameManagement gameManagement = new GameManagement(board,white,black);
         gameManagement.chess();
 

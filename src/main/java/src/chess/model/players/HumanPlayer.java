@@ -5,8 +5,8 @@ import src.chess.model.pieces.PiecesColor;
 
 public class HumanPlayer extends Player {
 
-    public HumanPlayer(Board board, PiecesColor piecesColor) {
-        super(board, piecesColor);
+    public HumanPlayer(Board board, PiecesColor piecesColor, String playerName) {
+        super(board, piecesColor, playerName);
     }
 
 }

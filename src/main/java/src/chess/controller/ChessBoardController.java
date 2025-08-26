@@ -43,8 +43,8 @@ public class ChessBoardController implements Observer {
 
         board = new StandartBoard();
 
-        this.whitePlayer = new HumanPlayer(board, PiecesColor.WHITE);
-        this.blackPlayer = new HumanPlayer(board, PiecesColor.BLACK);
+        this.whitePlayer = new HumanPlayer(board, PiecesColor.WHITE,"White");
+        this.blackPlayer = new HumanPlayer(board, PiecesColor.BLACK,"Black");
 
         gameFX = new GameManagementFx(board, whitePlayer, blackPlayer);
         initializeBoard();

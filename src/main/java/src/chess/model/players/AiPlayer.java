@@ -5,8 +5,8 @@ import src.chess.model.pieces.PiecesColor;
 
 public class AiPlayer extends Player{
 
-    public AiPlayer(Board board, PiecesColor piecesColor) {
-        super(board, piecesColor);
+    public AiPlayer(Board board, PiecesColor piecesColor, String playerName) {
+        super(board, piecesColor, playerName);
     }
 
 }

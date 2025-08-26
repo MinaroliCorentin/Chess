@@ -8,12 +8,18 @@ public abstract class Player {
 
     private Board board;
     private PiecesColor piecesColor;
+    private String playerName;
 
-    public Player(Board board, PiecesColor piecesColor) {
+    public Player(Board board, PiecesColor piecesColor, String playerName) {
 
         this.board = board;
         this.piecesColor = piecesColor;
+        this.playerName = playerName;
 
+    }
+
+    public String getPlayerName() {
+        return playerName;
     }
 
     /**

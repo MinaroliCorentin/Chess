@@ -30,7 +30,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK);
+            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK,"Black");
 
             BlackPawnPlayer.play("H7","H5");
             BlackPawnPlayer.play("H5","H4");
@@ -59,7 +59,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK);
+            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK,"Black");
 
             BlackPawnPlayer.play("H7","H5");
             BlackPawnPlayer.play("H5","H4");
@@ -88,7 +88,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK);
+            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK,"Black");
 
             BlackPawnPlayer.play("H7","H5");
             BlackPawnPlayer.play("H5","H4");
@@ -117,7 +117,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK);
+            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK,"Black");
 
             BlackPawnPlayer.play("H7","H5");
             BlackPawnPlayer.play("H5","H4");
@@ -146,7 +146,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE);
+            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE,"White");
 
             WhitePawnPlayer.play("A2","A4");
             WhitePawnPlayer.play("A4","A5");
@@ -175,7 +175,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE);
+            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE,"White");
 
             WhitePawnPlayer.play("A2","A4");
             WhitePawnPlayer.play("A4","A5");
@@ -204,7 +204,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE);
+            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE,"White");
 
             WhitePawnPlayer.play("A2","A4");
             WhitePawnPlayer.play("A4","A5");
@@ -232,7 +232,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE);
+            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE,"White");
 
             WhitePawnPlayer.play("A2","A4");
             WhitePawnPlayer.play("A4","A5");

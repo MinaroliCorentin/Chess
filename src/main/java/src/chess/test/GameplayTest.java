@@ -40,28 +40,28 @@ public class GameplayTest {
     public void setUp() {
 
         board = new StandartBoard();
-        playerBlack = new HumanPlayer(board, PiecesColor.BLACK);
-        playerWhite = new HumanPlayer(board, PiecesColor.WHITE);
+        playerBlack = new HumanPlayer(board, PiecesColor.BLACK,"Black");
+        playerWhite = new HumanPlayer(board, PiecesColor.WHITE,"White");
 
         bishopBoard = new BishopBoard();
-        playerBlackBishop = new HumanPlayer(bishopBoard, PiecesColor.BLACK);
-        playerWhiteBishop = new HumanPlayer(bishopBoard, PiecesColor.WHITE);
+        playerBlackBishop = new HumanPlayer(bishopBoard, PiecesColor.BLACK,"Black");
+        playerWhiteBishop = new HumanPlayer(bishopBoard, PiecesColor.WHITE,"White");
 
         kingBoard = new KingBoard();
-        playerBlackKing = new HumanPlayer(kingBoard, PiecesColor.BLACK);
-        playerWhiteKing = new HumanPlayer(kingBoard, PiecesColor.WHITE);
+        playerBlackKing = new HumanPlayer(kingBoard, PiecesColor.BLACK,"Black");
+        playerWhiteKing = new HumanPlayer(kingBoard, PiecesColor.WHITE,"White");
 
         rookBoard = new RookBoard();
-        playerBlackRook = new HumanPlayer(rookBoard, PiecesColor.BLACK);
-        playerWhiteRook = new HumanPlayer(rookBoard, PiecesColor.WHITE);
+        playerBlackRook = new HumanPlayer(rookBoard, PiecesColor.BLACK,"Black");
+        playerWhiteRook = new HumanPlayer(rookBoard, PiecesColor.WHITE,"White");
 
         queenBoard = new QueenBoard();
-        playerBlackQueen = new HumanPlayer(queenBoard, PiecesColor.BLACK);
-        playerWhiteQueen = new HumanPlayer(queenBoard, PiecesColor.WHITE);
+        playerBlackQueen = new HumanPlayer(queenBoard, PiecesColor.BLACK,"Black");
+        playerWhiteQueen = new HumanPlayer(queenBoard, PiecesColor.WHITE,"White");
 
         castlingBoard = new CastlingBoard();
-        playerBlackCastling = new HumanPlayer(castlingBoard, PiecesColor.BLACK);
-        playerWhiteCastling = new HumanPlayer(castlingBoard, PiecesColor.WHITE);
+        playerBlackCastling = new HumanPlayer(castlingBoard, PiecesColor.BLACK,"Black");
+        playerWhiteCastling = new HumanPlayer(castlingBoard, PiecesColor.WHITE,"White");
 
     }
 

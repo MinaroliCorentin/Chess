@@ -1,14 +1,15 @@
-package src.chess.status;
+package src.chess.gamestatus;
 
 import src.chess.factory.Board;
-import src.chess.model.handler.PromoteHandler;
-import src.chess.model.pieces.PiecesColor;
 import src.chess.model.pieces.Localisation;
 import src.chess.model.pieces.Pieces;
+import src.chess.model.pieces.PiecesColor;
+import src.chess.status.PiecesStatus;
+
 import java.util.List;
 import java.util.Map;
 
-public class GameStatus {
+public abstract class GameStatus {
 
     private Board board;
     private int drawCounter ;
@@ -19,6 +20,12 @@ public class GameStatus {
         this.drawCounter = 0;
 
     }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public abstract void promoting();
 
     public int getDrawCounter() {
         return drawCounter;
@@ -38,30 +45,6 @@ public class GameStatus {
 
         this.drawCounter = 0;
 
-    }
-
-    /**
-     * Verify if a Pawn is located the Top or Bottom of the map depending of his color.
-     * Then promoteHandler to promote the pawn.
-     */
-    public void promoting() {
-        PromoteHandler promoteHandler = new PromoteHandler(board);
-        Map<Localisation, Pieces> allPieces = board.getPiecesMap();
-
-        for (Map.Entry<Localisation, Pieces> entry : allPieces.entrySet()) {
-            Localisation loc = entry.getKey();
-            Pieces piece = entry.getValue();
-
-            if (piece.isPawn()) {
-                if (piece.getColor() == PiecesColor.WHITE && loc.getX() == 0) {
-                    board.setPiece(loc.getX(), loc.getY(), null);
-                    promoteHandler.promotion(loc.getX(), loc.getY(), PiecesColor.WHITE);
-                } else if (piece.getColor() == PiecesColor.BLACK && loc.getX() == 7) {
-                    board.setPiece(loc.getX(), loc.getY(), null);
-                    promoteHandler.promotion(loc.getX(), loc.getY(), PiecesColor.BLACK);
-                }
-            }
-        }
     }
 
     /**

@@ -1,7 +1,6 @@
 package src.chess.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -11,7 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import src.chess.factory.Board;
 import src.chess.factory.StandartBoard;
-import src.chess.model.Fx.GameManagementFx;
+import src.chess.GameManagement.GameManagementFx;
 import src.chess.model.pieces.Localisation;
 import src.chess.model.pieces.Pieces;
 import src.chess.model.pieces.PiecesColor;

@@ -10,7 +10,7 @@ import src.chess.model.pieces.Pawn;
 import src.chess.model.pieces.Queen;
 import src.chess.model.players.HumanPlayer;
 import src.chess.model.players.Player;
-import src.chess.status.GameStatus;
+import src.chess.gamestatus.GameStatusTerminal;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -18,7 +18,7 @@ import java.io.InputStream;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class GameStatusTest {
+public class GameStatusTerminalTest {
 
     @Test
     public void promotionAsBlackRookTest(){
@@ -39,8 +39,8 @@ public class GameStatusTest {
             BlackPawnPlayer.play("H2","H1");
 
             board.display();
-            GameStatus gameStatus = new GameStatus(board);
-            gameStatus.promoting();
+            GameStatusTerminal gameStatusTerminal = new GameStatusTerminal(board);
+            gameStatusTerminal.promoting();
             assert(board.getPiece(7,7).isRook()):" The Piece at H1 (7,7) must be a rook";
 
         } finally {
@@ -68,8 +68,8 @@ public class GameStatusTest {
             BlackPawnPlayer.play("H2","H1");
 
             board.display();
-            GameStatus gameStatus = new GameStatus(board);
-            gameStatus.promoting();
+            GameStatusTerminal gameStatusTerminal = new GameStatusTerminal(board);
+            gameStatusTerminal.promoting();
             assert(board.getPiece(7,7).isKnight()):" The Piece at H1 (7,7) must be a Knight";
 
         } finally {
@@ -97,8 +97,8 @@ public class GameStatusTest {
             BlackPawnPlayer.play("H2","H1");
 
             board.display();
-            GameStatus gameStatus = new GameStatus(board);
-            gameStatus.promoting();
+            GameStatusTerminal gameStatusTerminal = new GameStatusTerminal(board);
+            gameStatusTerminal.promoting();
             assert(board.getPiece(7,7).isBishop()):" The Piece at H1 (7,7) must be a Bishop";
 
         } finally {
@@ -126,8 +126,8 @@ public class GameStatusTest {
             BlackPawnPlayer.play("H2","H1");
 
             board.display();
-            GameStatus gameStatus = new GameStatus(board);
-            gameStatus.promoting();
+            GameStatusTerminal gameStatusTerminal = new GameStatusTerminal(board);
+            gameStatusTerminal.promoting();
             assert(board.getPiece(7,7).isQueen()):" The Piece at H1 (7,7) must be a queen";
 
         } finally {
@@ -155,8 +155,8 @@ public class GameStatusTest {
             WhitePawnPlayer.play("A7","A8");
 
             board.display();
-            GameStatus gameStatus = new GameStatus(board);
-            gameStatus.promoting();
+            GameStatusTerminal gameStatusTerminal = new GameStatusTerminal(board);
+            gameStatusTerminal.promoting();
             assert(board.getPiece(0,0).isRook()):" The Piece at A8 (0,0) must be a rook";
 
         } finally {
@@ -184,8 +184,8 @@ public class GameStatusTest {
             WhitePawnPlayer.play("A7","A8");
 
             board.display();
-            GameStatus gameStatus = new GameStatus(board);
-            gameStatus.promoting();
+            GameStatusTerminal gameStatusTerminal = new GameStatusTerminal(board);
+            gameStatusTerminal.promoting();
             assert(board.getPiece(0,0).isKnight()):" The Piece at A8 (0,0) must be a knight";
 
         } finally {
@@ -213,8 +213,8 @@ public class GameStatusTest {
             WhitePawnPlayer.play("A7","A8");
 
             board.display();
-            GameStatus gameStatus = new GameStatus(board);
-            gameStatus.promoting();
+            GameStatusTerminal gameStatusTerminal = new GameStatusTerminal(board);
+            gameStatusTerminal.promoting();
             assert(board.getPiece(0,0).isBishop()):" The Piece at A8 (0,0) must be a Bishop";
 
         } finally {
@@ -241,8 +241,8 @@ public class GameStatusTest {
             WhitePawnPlayer.play("A7","A8");
 
             board.display();
-            GameStatus gameStatus = new GameStatus(board);
-            gameStatus.promoting();
+            GameStatusTerminal gameStatusTerminal = new GameStatusTerminal(board);
+            gameStatusTerminal.promoting();
             assert(board.getPiece(0,0).isQueen()):" The Piece at A8 (0,0) must be a Queen";
 
         } finally {
@@ -263,8 +263,8 @@ public class GameStatusTest {
         board.setPiece(1,2,new Pawn(PiecesColor.BLACK));
 
         board.displayWithIndices();
-        GameStatus gameStatus = new GameStatus(board);
-        boolean checkmate1 = gameStatus.isCheckmate(PiecesColor.WHITE);
+        GameStatusTerminal gameStatusTerminal = new GameStatusTerminal(board);
+        boolean checkmate1 = gameStatusTerminal.isCheckmate(PiecesColor.WHITE);
         assert( !checkmate1 ):" The king is surrounded by pawn but can move ";
         board.reset();
 
@@ -275,7 +275,7 @@ public class GameStatusTest {
         board.setPiece(1,1,new Queen(PiecesColor.BLACK));
         board.setPiece(1,2,new Queen(PiecesColor.BLACK));
         board.displayWithIndices();
-        boolean checkmate2 = gameStatus.isCheckmate(PiecesColor.WHITE);
+        boolean checkmate2 = gameStatusTerminal.isCheckmate(PiecesColor.WHITE);
         assert( checkmate2 ):" The king is surrounded by Queen and cannot move";
 
     }
@@ -292,8 +292,8 @@ public class GameStatusTest {
         board.setPiece(1,2,new Pawn(PiecesColor.WHITE));
 
         board.displayWithIndices();
-        GameStatus gameStatus = new GameStatus(board);
-        boolean checkmate1 = gameStatus.isCheckmate(PiecesColor.BLACK);
+        GameStatusTerminal gameStatusTerminal = new GameStatusTerminal(board);
+        boolean checkmate1 = gameStatusTerminal.isCheckmate(PiecesColor.BLACK);
         assert( !checkmate1 ):" The king is surrounded by pawn but can move ";
         board.reset();
 
@@ -304,7 +304,7 @@ public class GameStatusTest {
         board.setPiece(1,1,new Queen(PiecesColor.WHITE));
         board.setPiece(1,2,new Queen(PiecesColor.WHITE));
         board.displayWithIndices();
-        boolean checkmate2 = gameStatus.isCheckmate(PiecesColor.BLACK);
+        boolean checkmate2 = gameStatusTerminal.isCheckmate(PiecesColor.BLACK);
         assert( checkmate2 ):" The king is surrounded by Queen and cannot move";
 
     }
@@ -313,10 +313,10 @@ public class GameStatusTest {
     public void drawnCounterGetterAndSetterTest(){
 
         Board board = new EmptyBoard();
-        GameStatus gameStatus = new GameStatus(board);
-        assert (gameStatus.getDrawCounter() == 0):"Have to be 0";
-        gameStatus.setDrawCounter(10);
-        assert (gameStatus.getDrawCounter() == 10):"Have to be 10";
+        GameStatusTerminal gameStatusTerminal = new GameStatusTerminal(board);
+        assert (gameStatusTerminal.getDrawCounter() == 0):"Have to be 0";
+        gameStatusTerminal.setDrawCounter(10);
+        assert (gameStatusTerminal.getDrawCounter() == 10):"Have to be 10";
 
 
     }
@@ -326,30 +326,30 @@ public class GameStatusTest {
     public void drawnCounterTest(){
 
         Board board = new EmptyBoard();
-        GameStatus gameStatus = new GameStatus(board);
-        assert (gameStatus.getDrawCounter() == 0):"Have to be 0";
-        assertFalse("Have to be false",gameStatus.isDraw());
+        GameStatusTerminal gameStatusTerminal = new GameStatusTerminal(board);
+        assert (gameStatusTerminal.getDrawCounter() == 0):"Have to be 0";
+        assertFalse("Have to be false", gameStatusTerminal.isDraw());
 
-        gameStatus.setDrawCounter(10);
-        assertFalse("Have to be false",gameStatus.isDraw());
+        gameStatusTerminal.setDrawCounter(10);
+        assertFalse("Have to be false", gameStatusTerminal.isDraw());
 
-        gameStatus.setDrawCounter(20);
-        assertFalse("Have to be false",gameStatus.isDraw());
+        gameStatusTerminal.setDrawCounter(20);
+        assertFalse("Have to be false", gameStatusTerminal.isDraw());
 
-        gameStatus.setDrawCounter(30);
-        assertFalse("Have to be false",gameStatus.isDraw());
+        gameStatusTerminal.setDrawCounter(30);
+        assertFalse("Have to be false", gameStatusTerminal.isDraw());
 
-        gameStatus.setDrawCounter(40);
-        assertFalse("Have to be false",gameStatus.isDraw());
+        gameStatusTerminal.setDrawCounter(40);
+        assertFalse("Have to be false", gameStatusTerminal.isDraw());
 
-        gameStatus.setDrawCounter(50);
-        assertTrue("Have to be true",gameStatus.isDraw());
+        gameStatusTerminal.setDrawCounter(50);
+        assertTrue("Have to be true", gameStatusTerminal.isDraw());
 
-        gameStatus.setDrawCounter(60);
-        assertFalse("Have to be false",gameStatus.isDraw());
+        gameStatusTerminal.setDrawCounter(60);
+        assertFalse("Have to be false", gameStatusTerminal.isDraw());
 
-        gameStatus.setDrawCounter(-10);
-        assertFalse("Have to be false",gameStatus.isDraw());
+        gameStatusTerminal.setDrawCounter(-10);
+        assertFalse("Have to be false", gameStatusTerminal.isDraw());
 
     }
 
@@ -357,12 +357,12 @@ public class GameStatusTest {
     public void resetDrawCounterTest(){
 
         Board board = new EmptyBoard();
-        GameStatus gameStatus = new GameStatus(board);
-        gameStatus.setDrawCounter(10);
-        assert (gameStatus.getDrawCounter() == 10):"Have to be 10";
+        GameStatusTerminal gameStatusTerminal = new GameStatusTerminal(board);
+        gameStatusTerminal.setDrawCounter(10);
+        assert (gameStatusTerminal.getDrawCounter() == 10):"Have to be 10";
 
-        gameStatus.resetDrawCounter();
-        assert (gameStatus.getDrawCounter() == 0):"Have to be 0";
+        gameStatusTerminal.resetDrawCounter();
+        assert (gameStatusTerminal.getDrawCounter() == 0):"Have to be 0";
 
     }
 

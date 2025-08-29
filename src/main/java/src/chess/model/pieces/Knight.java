@@ -126,4 +126,9 @@ public class Knight extends Pieces {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Knight";
+    }
+
 }

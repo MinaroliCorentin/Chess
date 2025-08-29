@@ -151,4 +151,9 @@ public class Pawn extends Pieces {
             return UnicodePieces.PAWN_WHITE;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Pawn";
+    }
 }

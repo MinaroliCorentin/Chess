@@ -4,7 +4,7 @@ import src.chess.factory.Board;
 import src.chess.model.handler.CastlingHandler;
 import src.chess.model.pieces.*;
 import src.chess.gamestatus.GameStatusTerminal;
-import src.chess.status.PiecesStatus;
+import src.chess.model.pieces.PiecesStatus;
 
 import java.util.List;
 
@@ -166,7 +166,7 @@ public class Gameplay {
             gameStatusTerminal.resetDrawCounter();
         }
 
-        if ( board.getPiece(newX, newY) == null) throw new IllegalStateException(" This move is impossible");
+        if ( board.getPiece(newX, newY) == null) throw new IllegalStateException("This piece can't play this move ");
 
     }
 

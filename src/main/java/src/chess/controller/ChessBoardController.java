@@ -2,12 +2,9 @@ package src.chess.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import src.chess.factory.Board;
 import src.chess.factory.StandartBoard;
 import src.chess.GameManagement.GameManagementFx;
@@ -16,8 +13,10 @@ import src.chess.model.pieces.Pieces;
 import src.chess.model.pieces.PiecesColor;
 import src.chess.model.players.HumanPlayer;
 import src.chess.model.players.Player;
+import src.chess.view.ImagesPieces;
 
 import java.util.List;
+import java.util.Map;
 
 public class ChessBoardController implements Observer {
 
@@ -26,51 +25,36 @@ public class ChessBoardController implements Observer {
 
     private GameManagementFx gameFX;
     private Board board;
-    private StackPane[][] cells = new StackPane[8][8];
 
-    private int fromRow = -1;
-    private int fromCol = -1;
+    private TilePane[][] cells = new TilePane[8][8];
 
-    private int toRow = -1 ;
-    private int toCol = -1;
+    private int fromRow = -1, fromCol = -1;
+    private int toRow = -1, toCol = -1;
 
-    private Player whitePlayer;
-    private Player blackPlayer;
+    private Player whitePlayer, blackPlayer;
 
     @FXML
     public void initialize() {
 
         board = new StandartBoard();
-
-        this.whitePlayer = new HumanPlayer(board, PiecesColor.WHITE,"White");
-        this.blackPlayer = new HumanPlayer(board, PiecesColor.BLACK,"Black");
-
+        whitePlayer = new HumanPlayer(board, PiecesColor.WHITE, "White");
+        blackPlayer = new HumanPlayer(board, PiecesColor.BLACK, "Black");
         gameFX = new GameManagementFx(board, whitePlayer, blackPlayer);
+
         initializeBoard();
         board.addObserver(this);
-
     }
 
     private void initializeBoard() {
-
         chessGrid.getChildren().clear();
-        Pieces[][] piecesArray = board.getBoard();
-        int counter = 0;
 
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
 
-                StackPane cell = new StackPane();
-                cell.setPrefSize(120, 120);
-                Color baseColor = (counter % 2 == 0) ? Color.BURLYWOOD : Color.SADDLEBROWN;
+                TilePane cell = new TilePane();
+                cell.setPrefSize(100, 100);
+                Color baseColor = ((row + col) % 2 == 0) ? Color.BURLYWOOD : Color.SADDLEBROWN;
                 cell.setBackground(new Background(new BackgroundFill(baseColor, null, null)));
-
-                Pieces piece = piecesArray[row][col];
-                if (piece != null) {
-                    Label label = new Label(piece.getSymbol());
-                    label.setFont(new Font(30));
-                    cell.getChildren().add(label);
-                }
 
                 final int r = row;
                 final int c = col;
@@ -78,19 +62,29 @@ public class ChessBoardController implements Observer {
 
                 cells[row][col] = cell;
                 chessGrid.add(cell, col, row);
-
-                counter++;
             }
-            counter++;
+        }
+        addPieces();
+    }
+
+    private void addPieces() {
+        Map<Localisation, Pieces> allPieces = board.getPiecesMap();
+
+        for (Map.Entry<Localisation, Pieces> entry : allPieces.entrySet()) {
+            Pieces piece = entry.getValue();
+            System.out.println(piece.toString());
+            ImageView imageView = ImagesPieces.getImage(piece);
+            cells[entry.getKey().getX()][entry.getKey().getY()].getChildren().add(imageView);
         }
     }
 
-    private void handleLeftClick(int row, int col) {
+    public void handleLeftClick(int row, int col) {
 
         Pieces clickedPiece = board.getPiece(row, col);
+        if ( clickedPiece != null) System.out.println(clickedPiece.getColor());
+        if ( clickedPiece != null) System.out.println(clickedPiece.getSymbol());
 
-        // No piece selected
-        if (fromRow == -1 && fromCol == -1) {
+        if (fromRow == -1) {
             if (clickedPiece != null) {
                 fromRow = row;
                 fromCol = col;
@@ -100,15 +94,14 @@ public class ChessBoardController implements Observer {
             return;
         }
 
-        // User click on the piece he already clicked on
         if (row == fromRow && col == fromCol) {
-            applyBoardDefaultColor(row,col);
+            applyBoardDefaultColor(fromRow, fromCol);
             resetFromTo();
             return;
         }
 
-        // Select another piece
-        if (clickedPiece != null && clickedPiece.getColor() == board.getPiece(fromRow, fromCol).getColor()) {
+        if (clickedPiece != null &&
+                clickedPiece.getColor() == board.getPiece(fromRow, fromCol).getColor()) {
             applyBoardDefaultColor(fromRow, fromCol);
             resetFromTo();
             fromRow = row;
@@ -118,10 +111,10 @@ public class ChessBoardController implements Observer {
             return;
         }
 
-        // User already selected a piece and want to move it
-        if (toRow == -1 && toCol == -1) {
+        if (toRow == -1) {
             toRow = row;
             toCol = col;
+
             String from = toChessNotation(fromRow, fromCol);
             String to = toChessNotation(toRow, toCol);
 
@@ -129,71 +122,54 @@ public class ChessBoardController implements Observer {
 
             resetFromTo();
             board.notifyObservers();
-
         }
-
     }
 
-    public String toChessNotation(int row, int col) {
+    private String toChessNotation(int row, int col) {
         char file = (char) ('a' + col);
         char rank = (char) ('0' + (8 - row));
         return "" + file + rank;
     }
 
-    public void resetFromTo(){
-
-        this.fromRow = -1;
-        this.fromCol = -1;
-        this.toRow = -1;
-        this.toCol = -1;
-
+    private void resetFromTo() {
+        fromRow = -1;
+        fromCol = -1;
+        toRow = -1;
+        toCol = -1;
     }
 
-    public void highlightCell(int row, int col) {
-
-        StackPane cell = cells[row][col];
+    private void highlightCell(int row, int col) {
+        TilePane cell = cells[row][col];
         cell.setBackground(new Background(new BackgroundFill(Color.YELLOW, null, null)));
-
     }
 
     private void applyBoardDefaultColor(int row, int col) {
+        Pieces piece = board.getPiece(row, col);
+        if (piece == null) return;
 
-        StackPane cell ;
-        int sum ;
-        Color baseColor ;
+        List<Localisation> cleaningCells = piece.movements(row, col, board);
+        cleaningCells.add(new Localisation(row, col));
 
-        if ( board.getPiece(row, col) != null ) {
-
-            List<Localisation> cleaningCells = board.getPiece(row,col).movements(row,col,board);
-            cleaningCells.add(new Localisation(row,col));
-
-            for ( Localisation loc : cleaningCells ) {
-                cell = cells[loc.getX()][loc.getY()];
-                sum = loc.getX() + loc.getY();
-                baseColor = (sum % 2 == 0) ? Color.BURLYWOOD : Color.SADDLEBROWN;
-                cell.setBackground(new Background(new BackgroundFill(baseColor, null, null)));
-            }
+        for (Localisation loc : cleaningCells) {
+            TilePane cell = cells[loc.getX()][loc.getY()];
+            Color baseColor = ((loc.getX() + loc.getY()) % 2 == 0) ? Color.BURLYWOOD : Color.SADDLEBROWN;
+            cell.setBackground(new Background(new BackgroundFill(baseColor, null, null)));
         }
     }
 
-    private void pieceMovement(int x, int y){
+    private void pieceMovement(int x, int y) {
+        Pieces piece = board.getPiece(x, y);
+        if (piece == null) return;
 
-        Pieces piece = board.getBoard()[x][y];
-
-        if ( piece == null) return ;
-
-        List<Localisation> moves = piece.movements(x,y,board);
-        for ( Localisation loc : moves){
-            StackPane cell = cells[loc.getX()][loc.getY()];
-            cell.setBackground(new Background(new BackgroundFill(Color.RED,null,null)));
+        List<Localisation> moves = piece.movements(x, y, board);
+        for (Localisation loc : moves) {
+            TilePane cell = cells[loc.getX()][loc.getY()];
+            cell.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
         }
-
     }
 
     @Override
     public void react() {
-
         initializeBoard();
-
     }
 }

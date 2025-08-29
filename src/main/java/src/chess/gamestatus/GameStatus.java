@@ -4,7 +4,7 @@ import src.chess.factory.Board;
 import src.chess.model.pieces.Localisation;
 import src.chess.model.pieces.Pieces;
 import src.chess.model.pieces.PiecesColor;
-import src.chess.status.PiecesStatus;
+import src.chess.model.pieces.PiecesStatus;
 
 import java.util.List;
 import java.util.Map;

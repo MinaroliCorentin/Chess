@@ -4,7 +4,7 @@ import src.chess.factory.Board;
 import src.chess.model.pieces.King;
 import src.chess.model.pieces.Pieces;
 import src.chess.model.pieces.Rook;
-import src.chess.status.PiecesStatus;
+import src.chess.model.pieces.PiecesStatus;
 
 public class CastlingHandler {
 

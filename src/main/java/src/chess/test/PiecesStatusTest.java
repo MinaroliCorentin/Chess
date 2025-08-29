@@ -6,7 +6,7 @@ import src.chess.factory.*;
 import src.chess.model.pieces.*;
 import src.chess.model.players.HumanPlayer;
 import src.chess.model.players.Player;
-import src.chess.status.PiecesStatus;
+import src.chess.model.pieces.PiecesStatus;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

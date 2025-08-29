@@ -1,7 +1,6 @@
-package src.chess.status;
+package src.chess.model.pieces;
 
 import src.chess.factory.Board;
-import src.chess.model.pieces.*;
 
 import java.util.List;
 import java.util.Map;

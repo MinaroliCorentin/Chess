@@ -133,4 +133,8 @@ public class Bishop extends Pieces{
         }
     }
 
+    @Override
+    public String toString() {
+        return "Bishop";
+    }
 }

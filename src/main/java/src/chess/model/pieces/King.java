@@ -1,7 +1,6 @@
 package src.chess.model.pieces;
 
 import src.chess.factory.Board;
-import src.chess.status.PiecesStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -209,6 +208,11 @@ public class King extends Pieces {
         } else {
             return UnicodePieces.KING_WHITE;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "King";
     }
 
 }

@@ -16,5 +16,4 @@ public class UnicodePieces {
     public static final String KNIGHT_WHITE = "\u265E";
     public static final String PAWN_WHITE = "\u265F";
     
-    
 }

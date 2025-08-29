@@ -1,6 +1,7 @@
 package src.chess.GameManagement;
 
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import src.chess.customalert.MultiProposeAlert;
 import src.chess.factory.Board;
@@ -8,7 +9,7 @@ import src.chess.model.pieces.PiecesColor;
 import src.chess.model.players.Player;
 import src.chess.gamestatus.GameStatus;
 import src.chess.gamestatus.GameStatusFx;
-import src.chess.status.PiecesStatus;
+import src.chess.model.pieces.PiecesStatus;
 
 public class GameManagementFx extends GameManagement {
 
@@ -28,6 +29,7 @@ public class GameManagementFx extends GameManagement {
                 if (piecesStatus.stalemate(getBoard(), PiecesColor.WHITE)) {
                     MultiProposeAlert multiProposeAlert = new MultiProposeAlert(Alert.AlertType.INFORMATION);
                     multiProposeAlert.showMessageWithTimeout("Stalemate ! Black Wins", 10);
+                    Platform.exit();
                 }
                 getWhite().play(from, to);
                 if (piecesStatus.isKingInCheck(getBoard(), PiecesColor.WHITE)) {
@@ -39,6 +41,7 @@ public class GameManagementFx extends GameManagement {
                 if (piecesStatus.stalemate(getBoard(), PiecesColor.BLACK)) {
                     MultiProposeAlert multiProposeAlert = new MultiProposeAlert(Alert.AlertType.INFORMATION);
                     multiProposeAlert.showMessageWithTimeout("Stalemate ! Black Wins", 10);
+                    Platform.exit();
                 }
                 getBlack().play(from, to);
                 if (piecesStatus.isKingInCheck(getBoard(), PiecesColor.BLACK)) {
@@ -54,8 +57,9 @@ public class GameManagementFx extends GameManagement {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("End of the game");
                 alert.setHeaderText(null);
-                alert.setContentText("This match is over");
+                alert.setContentText( this.getPlayerNameBasedOnRound() + "Wins ! ");
                 alert.showAndWait();
+                Platform.exit();
             }
 
         } catch (RuntimeException e) {

@@ -88,4 +88,6 @@ public abstract class Pieces {
      */
     public abstract List<Localisation> getAttackSquares(int x, int y, Board board);
 
+    public abstract String toString();
+
 }

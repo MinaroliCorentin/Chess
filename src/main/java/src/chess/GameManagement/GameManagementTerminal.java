@@ -4,7 +4,7 @@ import src.chess.factory.Board;
 import src.chess.model.pieces.PiecesColor;
 import src.chess.model.players.Player;
 import src.chess.gamestatus.GameStatusTerminal;
-import src.chess.status.PiecesStatus;
+import src.chess.model.pieces.PiecesStatus;
 
 import java.util.Scanner;
 

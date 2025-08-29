@@ -176,4 +176,9 @@ public class Rook extends Pieces {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Rook";
+    }
+
 }

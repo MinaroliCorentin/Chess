@@ -72,7 +72,6 @@ public class ChessBoardController implements Observer {
 
         for (Map.Entry<Localisation, Pieces> entry : allPieces.entrySet()) {
             Pieces piece = entry.getValue();
-            System.out.println(piece.toString());
             ImageView imageView = ImagesPieces.getImage(piece);
             cells[entry.getKey().getX()][entry.getKey().getY()].getChildren().add(imageView);
         }
@@ -81,8 +80,6 @@ public class ChessBoardController implements Observer {
     public void handleLeftClick(int row, int col) {
 
         Pieces clickedPiece = board.getPiece(row, col);
-        if ( clickedPiece != null) System.out.println(clickedPiece.getColor());
-        if ( clickedPiece != null) System.out.println(clickedPiece.getSymbol());
 
         if (fromRow == -1) {
             if (clickedPiece != null) {

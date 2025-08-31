@@ -1,5 +1,7 @@
 package src.chess.gameplay;
 
+import javafx.scene.control.Alert;
+import src.chess.customalert.MultiProposeAlert;
 import src.chess.factory.Board;
 import src.chess.gamestatus.GameStatus;
 import src.chess.gamestatus.GameStatusFx;
@@ -26,9 +28,6 @@ public class GameplayFx extends Gameplay {
      */
     @Override
     public void play(String beginning, String ending) {
-
-
-        System.out.println("TEST FX");
 
         // Used to reset the drawCounter if attacking a piece
         GameStatus gameStatusFx = new GameStatusFx(getBoard());

@@ -27,35 +27,32 @@ public class GameManagementFx extends GameManagement {
         GameStatus gameStatusFx = new GameStatusFx(getBoard());
         PiecesStatus piecesStatus = new PiecesStatus(getBoard());
         PlayerTurnAlert playerTurnALert = new PlayerTurnAlert(Alert.AlertType.INFORMATION, "player turn", getPlayerBaseOnRound());
+        MultiProposeAlert multiProposeAlert = new MultiProposeAlert(Alert.AlertType.WARNING);
 
             try {
             playerTurnALert.showWithTimeout(1);
             if ((getRounds()) % 2 == 0) {
                 // White
                 if (piecesStatus.stalemate(getBoard(), PiecesColor.WHITE)) {
-                    MultiProposeAlert multiProposeAlert = new MultiProposeAlert(Alert.AlertType.INFORMATION);
                     multiProposeAlert.showMessageWithTimeout("Stalemate ! Black Wins", 10);
                     Platform.exit();
                 }
 
                 getWhite().play(from, to);
 
-                if (piecesStatus.isKingInCheck(getBoard(), PiecesColor.WHITE)) {
-                    MultiProposeAlert multiProposeAlert = new MultiProposeAlert(Alert.AlertType.INFORMATION);
+                if (piecesStatus.isKingInCheck(getBoard(), PiecesColor.BLACK)) {
                     multiProposeAlert.showMessageWithTimeout(" WhiteKing in check", 3);
                 }
             } else {
                 // Black
                 if (piecesStatus.stalemate(getBoard(), PiecesColor.BLACK)) {
-                    MultiProposeAlert multiProposeAlert = new MultiProposeAlert(Alert.AlertType.INFORMATION);
                     multiProposeAlert.showMessageWithTimeout("Stalemate ! Black Wins", 10);
                     Platform.exit();
                 }
 
                 getBlack().play(from, to);
 
-                if (piecesStatus.isKingInCheck(getBoard(), PiecesColor.BLACK)) {
-                    MultiProposeAlert multiProposeAlert = new MultiProposeAlert(Alert.AlertType.INFORMATION);
+                if (piecesStatus.isKingInCheck(getBoard(), PiecesColor.WHITE)) {
                     multiProposeAlert.showMessageWithTimeout(" BlackKing in check", 3);
                 }
             }
@@ -73,7 +70,8 @@ public class GameManagementFx extends GameManagement {
             }
 
         } catch (RuntimeException e) {
-            System.err.println("Erreur : " + e.getMessage());
+
+            multiProposeAlert.showMessageWithTimeout(e.getMessage(), 2);
         }
     }
 

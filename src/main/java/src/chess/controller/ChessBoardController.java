@@ -1,7 +1,6 @@
 package src.chess.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -26,12 +25,15 @@ public class ChessBoardController implements Observer {
     private GameManagementFx gameFX;
     private Board board;
 
-    private TilePane[][] cells = new TilePane[8][8];
+    private TilePane[][] cells ;
 
-    private int fromRow = -1, fromCol = -1;
-    private int toRow = -1, toCol = -1;
+    private int fromRow = -1;
+    private int fromCol = -1;
+    private int toRow = -1;
+    private int toCol = -1;
 
-    private Player whitePlayer, blackPlayer;
+    private Player whitePlayer;
+    private Player blackPlayer;
 
     @FXML
     public void initialize() {
@@ -40,12 +42,14 @@ public class ChessBoardController implements Observer {
         whitePlayer = new HumanPlayer(board, PiecesColor.WHITE, "White");
         blackPlayer = new HumanPlayer(board, PiecesColor.BLACK, "Black");
         gameFX = new GameManagementFx(board, whitePlayer, blackPlayer);
+        this.cells = new TilePane[8][8];
 
         initializeBoard();
         board.addObserver(this);
     }
 
-    private void initializeBoard() {
+    public void initializeBoard() {
+
         chessGrid.getChildren().clear();
 
         for (int row = 0; row < 8; row++) {
@@ -67,7 +71,7 @@ public class ChessBoardController implements Observer {
         addPieces();
     }
 
-    private void addPieces() {
+    public void addPieces() {
         Map<Localisation, Pieces> allPieces = board.getPiecesMap();
 
         for (Map.Entry<Localisation, Pieces> entry : allPieces.entrySet()) {
@@ -76,7 +80,16 @@ public class ChessBoardController implements Observer {
             cells[entry.getKey().getX()][entry.getKey().getY()].getChildren().add(imageView);
         }
     }
+    public void removePiecesAndColor() {
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                cells[row][col].getChildren().clear();
+                Color baseColor = ((row + col) % 2 == 0) ? Color.BURLYWOOD : Color.SADDLEBROWN;
+                cells[row][col].setBackground(new Background(new BackgroundFill(baseColor, null, null)));
 
+            }
+        }
+    }
     public void handleLeftClick(int row, int col) {
 
         Pieces clickedPiece = board.getPiece(row, col);
@@ -97,8 +110,7 @@ public class ChessBoardController implements Observer {
             return;
         }
 
-        if (clickedPiece != null &&
-                clickedPiece.getColor() == board.getPiece(fromRow, fromCol).getColor()) {
+        if (clickedPiece != null && clickedPiece.getColor() == board.getPiece(fromRow, fromCol).getColor()) {
             applyBoardDefaultColor(fromRow, fromCol);
             resetFromTo();
             fromRow = row;
@@ -167,6 +179,8 @@ public class ChessBoardController implements Observer {
 
     @Override
     public void react() {
-        initializeBoard();
+        removePiecesAndColor();
+        applyBoardDefaultColor(fromRow, fromCol);
+        addPieces();
     }
 }

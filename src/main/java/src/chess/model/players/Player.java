@@ -1,7 +1,9 @@
 package src.chess.model.players;
 
 import src.chess.factory.Board;
-import src.chess.game.Gameplay;
+import src.chess.gameplay.Gameplay;
+import src.chess.gameplay.GameplayFx;
+import src.chess.gameplay.GameplayTerminal;
 import src.chess.model.pieces.*;
 
 public abstract class Player {
@@ -40,8 +42,8 @@ public abstract class Player {
 
     public void play(String beginning, String ending) {
 
-        Gameplay gameplay = new Gameplay(board, piecesColor);
-        gameplay.play(beginning,ending);
+        Gameplay gameplayFx = new GameplayFx(board, piecesColor);
+        gameplayFx.play(beginning,ending);
 
     }
 

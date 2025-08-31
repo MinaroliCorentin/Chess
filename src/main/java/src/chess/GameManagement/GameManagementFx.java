@@ -4,6 +4,7 @@ package src.chess.GameManagement;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import src.chess.customalert.MultiProposeAlert;
+import src.chess.customalert.PlayerTurnAlert;
 import src.chess.factory.Board;
 import src.chess.model.pieces.PiecesColor;
 import src.chess.model.players.Player;
@@ -17,13 +18,18 @@ public class GameManagementFx extends GameManagement {
         super(board,white,black);
     }
 
+    public Player getPlayerBaseOnRound() {
+        return getRounds() % 2 == 0 ? getBlack() : getWhite();
+    }
+
     public void playMove(String from, String to) {
 
         GameStatus gameStatusFx = new GameStatusFx(getBoard());
         PiecesStatus piecesStatus = new PiecesStatus(getBoard());
+        PlayerTurnAlert playerTurnALert = new PlayerTurnAlert(Alert.AlertType.INFORMATION, "player turn", getPlayerBaseOnRound());
 
-        try {
-            System.out.println(getPlayerNameBasedOnRound());
+            try {
+            playerTurnALert.showWithTimeout(1);
             if ((getRounds()) % 2 == 0) {
                 // White
                 if (piecesStatus.stalemate(getBoard(), PiecesColor.WHITE)) {
@@ -31,7 +37,9 @@ public class GameManagementFx extends GameManagement {
                     multiProposeAlert.showMessageWithTimeout("Stalemate ! Black Wins", 10);
                     Platform.exit();
                 }
+
                 getWhite().play(from, to);
+
                 if (piecesStatus.isKingInCheck(getBoard(), PiecesColor.WHITE)) {
                     MultiProposeAlert multiProposeAlert = new MultiProposeAlert(Alert.AlertType.INFORMATION);
                     multiProposeAlert.showMessageWithTimeout(" WhiteKing in check", 3);
@@ -43,7 +51,9 @@ public class GameManagementFx extends GameManagement {
                     multiProposeAlert.showMessageWithTimeout("Stalemate ! Black Wins", 10);
                     Platform.exit();
                 }
+
                 getBlack().play(from, to);
+
                 if (piecesStatus.isKingInCheck(getBoard(), PiecesColor.BLACK)) {
                     MultiProposeAlert multiProposeAlert = new MultiProposeAlert(Alert.AlertType.INFORMATION);
                     multiProposeAlert.showMessageWithTimeout(" BlackKing in check", 3);

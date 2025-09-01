@@ -39,7 +39,7 @@ public class GameManagementTerminal extends GameManagement {
                         System.out.println("Stalemate Black Wins");
                     }
                     getWhite().play(from, to);
-                    if (piecesStatus.isKingInCheck(getBoard(), PiecesColor.WHITE)) {
+                    if (piecesStatus.isKingInCheck(getBoard(), PiecesColor.BLACK)) {
                         System.out.println("White King in check");
                     }
                 } else {
@@ -47,7 +47,7 @@ public class GameManagementTerminal extends GameManagement {
                         System.out.println("Stalemate White Wins");
                     }
                     getBlack().play(from, to);
-                    if (piecesStatus.isKingInCheck(getBoard(), PiecesColor.BLACK)) {
+                    if (piecesStatus.isKingInCheck(getBoard(), PiecesColor.WHITE)) {
                         System.out.println("Black King in check");
                     }
                 }

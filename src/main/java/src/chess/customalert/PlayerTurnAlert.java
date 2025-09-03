@@ -8,8 +8,6 @@ import src.chess.model.players.Player;
 
 public class PlayerTurnAlert extends Alert {
 
-    private Player player ;
-
     public PlayerTurnAlert(AlertType alertType, String title, Player player) {
 
         super(alertType);

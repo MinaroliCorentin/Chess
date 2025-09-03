@@ -41,19 +41,19 @@ public class GameManagementFx extends GameManagement {
                 getWhite().play(from, to);
 
                 if (piecesStatus.isKingInCheck(getBoard(), PiecesColor.BLACK)) {
-                    multiProposeAlert.showMessageWithTimeout(" WhiteKing in check", 3);
+                    multiProposeAlert.showMessageWithTimeout(" BlackKing in check", 3);
                 }
             } else {
                 // Black
                 if (piecesStatus.stalemate(getBoard(), PiecesColor.BLACK)) {
-                    multiProposeAlert.showMessageWithTimeout("Stalemate ! Black Wins", 10);
+                    multiProposeAlert.showMessageWithTimeout("Stalemate ! White Wins", 10);
                     Platform.exit();
                 }
 
                 getBlack().play(from, to);
 
                 if (piecesStatus.isKingInCheck(getBoard(), PiecesColor.WHITE)) {
-                    multiProposeAlert.showMessageWithTimeout(" BlackKing in check", 3);
+                    multiProposeAlert.showMessageWithTimeout(" WhiteKing in check", 3);
                 }
             }
 

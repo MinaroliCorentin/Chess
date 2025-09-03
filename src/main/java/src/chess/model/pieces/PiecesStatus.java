@@ -194,6 +194,7 @@ public class PiecesStatus {
                 for (Localisation move : moves) {
 
                     Pieces target = board.getPiece(move.getX(), move.getY());
+
                     board.setPiece(move.getX(), move.getY(), piece);
                     board.setPiece(x, y, null);
 

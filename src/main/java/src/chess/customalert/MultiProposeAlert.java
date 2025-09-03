@@ -14,6 +14,7 @@ public class MultiProposeAlert extends Alert {
     public void showMessageWithTimeout(String message, int seconds){
 
         setContentText(message);
+        setTitle(message);
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(seconds), e -> this.close()));
         timeline.setCycleCount(1);
         timeline.play();

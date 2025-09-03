@@ -6,6 +6,7 @@ import src.chess.model.pieces.Pieces;
 import src.chess.model.pieces.PiecesColor;
 import src.chess.model.pieces.PiecesStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -68,6 +69,51 @@ public abstract class GameStatus {
         return false;
     }
 
+    /**
+     *
+     * @param piecesColor The king color
+     * @return
+     */
+    public List<Localisation> PiecesThreateningKing(PiecesColor piecesColor) {
 
+        List<Localisation> piecesThreatening = new ArrayList<>() ;
+        PiecesStatus piecesStatus = new PiecesStatus(board);
+        // King no in check so List is empty
+        if (!piecesStatus.isKingInCheck(board, piecesColor)) return piecesThreatening ;
+
+
+        // Find the king
+        Localisation kingLoc = null;
+        Map<Localisation, Pieces> allPieces = board.getPiecesMap();
+
+        for (Map.Entry<Localisation, Pieces> entry : allPieces.entrySet()) {
+            Pieces piece = entry.getValue();
+            if (piece.isKing() && piece.getColor().equals(piecesColor)) {
+                kingLoc = entry.getKey();
+                break;
+            }
+        }
+
+        // Return list empty
+        if (kingLoc == null) {
+            return piecesThreatening;
+        }
+
+        for ( Map.Entry<Localisation,Pieces> entry : allPieces.entrySet()) {
+            Pieces piece = entry.getValue();
+            if ( piece.getColor() != piecesColor) {
+                List<Localisation> pieceMovement = piece.movements(entry.getKey().getX(), entry.getKey().getY(), board);
+
+                for ( Localisation localisation : pieceMovement){
+                    if ( localisation.getX() == kingLoc.getX() && localisation.getY() == kingLoc.getY()){
+                        piecesThreatening.add (localisation);
+                    }
+                }
+            }
+        }
+
+        return piecesThreatening ;
+
+    }
 
 }

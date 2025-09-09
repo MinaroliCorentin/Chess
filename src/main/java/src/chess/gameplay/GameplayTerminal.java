@@ -26,8 +26,6 @@ public class GameplayTerminal extends Gameplay {
     @Override
     public void play(String beginning, String ending) {
 
-        System.out.println("TEST TERMINAL");
-
         // Used to reset the drawCounter if attacking a piece
         GameStatusTerminal gameStatusTerminal = new GameStatusTerminal(getBoard());
 

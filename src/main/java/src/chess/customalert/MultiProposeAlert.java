@@ -11,6 +11,11 @@ public class MultiProposeAlert extends Alert {
         super(alertType);
     }
 
+    /**
+     * Create a popup that dissapear after X seconds
+     * @param message The content of the Message
+     * @param seconds Time to live of the Popup
+     */
     public void showMessageWithTimeout(String message, int seconds){
 
         setContentText(message);

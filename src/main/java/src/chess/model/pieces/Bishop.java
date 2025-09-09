@@ -133,6 +133,10 @@ public class Bishop extends Pieces{
         }
     }
 
+    /**
+     * ToString of the Bishop
+     * @return "Bishop"
+     */
     @Override
     public String toString() {
         return "Bishop";

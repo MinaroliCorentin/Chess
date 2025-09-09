@@ -169,9 +169,6 @@ public class RookTest {
         Rook rookAfter = (Rook) rookBoard.getPiece(7, 1);
         assert (rookAfter.isLeftRookMoved()): "The left rook did move";
 
-        rookBoard.displayWithIndices();
-        rookBoard.display();
-
     }
 
     @Test

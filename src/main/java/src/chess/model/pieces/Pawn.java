@@ -152,6 +152,10 @@ public class Pawn extends Pieces {
         }
     }
 
+    /**
+     * ToString of the Pawn
+     * @return "Pawn"
+     */
     @Override
     public String toString() {
         return "Pawn";

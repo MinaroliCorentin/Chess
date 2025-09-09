@@ -81,7 +81,6 @@ public class PlayerTest {
         assertNull("must be empty cause the pawn has been moved", board.getPiece(2,7) );
         assertNotNull( " the pawn must be here now",board.getPiece(4,7));
 
-        board.display();
 
         from = "a2";
         to = "a3";
@@ -89,7 +88,6 @@ public class PlayerTest {
         assertNull( " must be empty cause the pawn has been moved", board.getPiece(6,0) );
         assertNotNull( " the pawn must be here now", board.getPiece(5,0));
 
-        board.display();
 
         from = "a7";
         to = "a5";
@@ -97,7 +95,6 @@ public class PlayerTest {
         assertNull("must be empty cause the pawn has been moved", board.getPiece(1,0) );
         assertNotNull( " the pawn must be here now",board.getPiece(3,0));
 
-        board.display();
 
         from = "H7";
         to = "H6";
@@ -105,7 +102,6 @@ public class PlayerTest {
         assertNull( " must be empty cause the pawn has been moved", board.getPiece(1,7) );
         assertNotNull( " the pawn must be here now", board.getPiece(2,7));
 
-        board.display();
 
     }
 
@@ -191,9 +187,6 @@ public class PlayerTest {
 
     @Test
     public void moveKnightTest(){
-
-        board.display();
-        board.displayWithIndices();
 
         from = "B1";
         to = "A3";

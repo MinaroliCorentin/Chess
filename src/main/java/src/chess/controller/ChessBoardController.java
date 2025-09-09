@@ -1,6 +1,9 @@
 package src.chess.controller;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -25,7 +28,7 @@ public class ChessBoardController implements Observer {
     private GameManagementFx gameFX;
     private Board board;
 
-    private TilePane[][] cells ;
+    private StackPane[][] cells ;
 
     private int fromRow = -1;
     private int fromCol = -1;
@@ -42,12 +45,15 @@ public class ChessBoardController implements Observer {
         whitePlayer = new HumanPlayer(board, PiecesColor.WHITE, "White");
         blackPlayer = new HumanPlayer(board, PiecesColor.BLACK, "Black");
         gameFX = new GameManagementFx(board, whitePlayer, blackPlayer);
-        this.cells = new TilePane[8][8];
+        this.cells = new StackPane[8][8];
 
         initializeBoard();
         board.addObserver(this);
     }
 
+    /**
+     * Initialize the board, add pieces, color for the board, and make it tactile
+     */
     public void initializeBoard() {
 
         chessGrid.getChildren().clear();
@@ -55,7 +61,8 @@ public class ChessBoardController implements Observer {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
 
-                TilePane cell = new TilePane();
+                StackPane cell = new StackPane();
+
                 cell.setPrefSize(100, 100);
                 Color baseColor = ((row + col) % 2 == 0) ? Color.BURLYWOOD : Color.SADDLEBROWN;
                 cell.setBackground(new Background(new BackgroundFill(baseColor, null, null)));
@@ -66,11 +73,37 @@ public class ChessBoardController implements Observer {
 
                 cells[row][col] = cell;
                 chessGrid.add(cell, col, row);
+
             }
         }
+        addChessNotation();
         addPieces();
     }
 
+    /**
+     *
+     */
+    public void addChessNotation() {
+
+        for ( int i = 0 ; i < 8 ; i ++ ){
+            for ( int j = 0 ; j < 8 ; j++){
+
+                Label overlay = new Label(toChessNotation(i,j));
+                overlay.setStyle("-fx-text-fill: blue; -fx-font-size: 8px;");
+                overlay.setMouseTransparent(true);
+
+                StackPane.setAlignment(overlay, Pos.BOTTOM_RIGHT);
+                StackPane.setMargin(overlay, new Insets(2));
+
+                cells[i][j].getChildren().add(overlay);
+
+            }
+        }
+    }
+
+    /**
+     * Add all the pieces to the board
+     */
     public void addPieces() {
         Map<Localisation, Pieces> allPieces = board.getPiecesMap();
 
@@ -80,6 +113,10 @@ public class ChessBoardController implements Observer {
             cells[entry.getKey().getX()][entry.getKey().getY()].getChildren().add(imageView);
         }
     }
+
+    /**
+     * Revome the Piece and reset the color of the board
+     */
     public void removePiecesAndColor() {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
@@ -90,6 +127,15 @@ public class ChessBoardController implements Observer {
             }
         }
     }
+
+    /**
+     * Handler the leftClick
+     * Highlight a pieces in yellow when selected
+     * Show all the possible movements in red
+     * if the user click on the red box, move the piece
+     * @param row row of the piece
+     * @param col col of the piece
+     */
     public void handleLeftClick(int row, int col) {
 
         Pieces clickedPiece = board.getPiece(row, col);
@@ -134,12 +180,21 @@ public class ChessBoardController implements Observer {
         }
     }
 
+    /**
+     * Transform the int board to a standard chess board
+     * @param row
+     * @param col
+     * @return
+     */
     private String toChessNotation(int row, int col) {
         char file = (char) ('a' + col);
         char rank = (char) ('0' + (8 - row));
         return "" + file + rank;
     }
 
+    /**
+     * Reset from and to variables
+     */
     private void resetFromTo() {
         fromRow = -1;
         fromCol = -1;
@@ -147,11 +202,21 @@ public class ChessBoardController implements Observer {
         toCol = -1;
     }
 
+    /**
+     * Highlight the selected piece in yellow
+     * @param row row of the piece
+     * @param col col of the piece
+     */
     private void highlightCell(int row, int col) {
-        TilePane cell = cells[row][col];
+        StackPane cell = cells[row][col];
         cell.setBackground(new Background(new BackgroundFill(Color.YELLOW, null, null)));
     }
 
+    /**
+     * Reset the default color of the board based on a Piece pos
+     * @param row Piece row
+     * @param col Piece col
+     */
     private void applyBoardDefaultColor(int row, int col) {
         Pieces piece = board.getPiece(row, col);
         if (piece == null) return;
@@ -160,27 +225,36 @@ public class ChessBoardController implements Observer {
         cleaningCells.add(new Localisation(row, col));
 
         for (Localisation loc : cleaningCells) {
-            TilePane cell = cells[loc.getX()][loc.getY()];
+            StackPane cell = cells[loc.getX()][loc.getY()];
             Color baseColor = ((loc.getX() + loc.getY()) % 2 == 0) ? Color.BURLYWOOD : Color.SADDLEBROWN;
             cell.setBackground(new Background(new BackgroundFill(baseColor, null, null)));
         }
     }
 
+    /**
+     * Highlight the possible movement in the grid
+     * @param x Piece x position
+     * @param y Piece y position
+     */
     private void pieceMovement(int x, int y) {
         Pieces piece = board.getPiece(x, y);
         if (piece == null) return;
 
         List<Localisation> moves = piece.movements(x, y, board);
         for (Localisation loc : moves) {
-            TilePane cell = cells[loc.getX()][loc.getY()];
+            StackPane cell = cells[loc.getX()][loc.getY()];
             cell.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
         }
     }
 
+    /**
+     * Remove the pieces, apply the default color then add the pieces
+     */
     @Override
     public void react() {
         removePiecesAndColor();
         applyBoardDefaultColor(fromRow, fromCol);
+        addChessNotation();
         addPieces();
     }
 }

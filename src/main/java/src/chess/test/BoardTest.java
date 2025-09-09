@@ -135,9 +135,7 @@ public class BoardTest {
 
         white.play("B2","B4");
         black.play("A7","A5");
-        board.display();
         white.play("B4","A5");
-        board.display();
         assertEquals(31, board.getPiecesMap().size());
 
     }

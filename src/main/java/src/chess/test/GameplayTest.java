@@ -178,9 +178,6 @@ public class GameplayTest {
     @Test
     public void moveKnightTest(){
 
-        board.display();
-        board.displayWithIndices();
-
         from = "B1";
         to = "A3";
         playerWhite.play(from, to);
@@ -377,8 +374,6 @@ public class GameplayTest {
         to = "B4";
         playerWhite.play(from,to);
 
-        board.display();
-
         from = "A4";
         to = "B3";
         playerBlack.play(from,to);
@@ -405,8 +400,6 @@ public class GameplayTest {
         from = "B2";
         to = "B4";
         playerWhite.play(from,to);
-
-        board.display();
 
         from = "C4";
         to = "B3";
@@ -440,8 +433,6 @@ public class GameplayTest {
         from ="B5";
         to = "C6";
         playerWhite.play(from,to);
-
-        board.displayWithIndices();
 
         assertNull("The piece got attacked by enPassant",board.getPiece(3,2));
 

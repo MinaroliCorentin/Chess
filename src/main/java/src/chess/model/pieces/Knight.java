@@ -126,6 +126,10 @@ public class Knight extends Pieces {
         }
     }
 
+    /**
+     * ToString of the Knight
+     * @return "Knight"
+     */
     @Override
     public String toString() {
         return "Knight";

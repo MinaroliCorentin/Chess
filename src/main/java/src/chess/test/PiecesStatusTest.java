@@ -219,8 +219,6 @@ public class PiecesStatusTest {
 
         playerWhiteCastling.play(from, to);
 
-        castlingBoard.display();
-
         assertFalse("The rook moved",  rook.isLeftRookMoved());
         assertFalse("Castling should not be allowed after rook moved", statusWhiteRook.canCastleWhiteRightSide());
 
@@ -237,15 +235,11 @@ public class PiecesStatusTest {
         Rook rook = (Rook) castlingBoard.getPiece(7, 0);
         King king = (King) castlingBoard.getPiece(7, 4);
 
-        castlingBoard.display();
-
         assertFalse("Left white rook should not have moved", rook.isLeftRookMoved());
         assertFalse("White king should not have moved", king.isMoved());
         assertTrue("White left-side castling should be possible", statusWhite.canCastleWhiteLeftSide());
 
         playerWhiteCastling.play(from, to);
-
-        castlingBoard.display();
 
     }
 
@@ -335,7 +329,6 @@ public class PiecesStatusTest {
         emptyBoard.setPiece(6,6, new Pawn(PiecesColor.BLACK));
         emptyBoard.setPiece(7,6, new Pawn(PiecesColor.WHITE));
 
-        emptyBoard.display();
         assertTrue(status.stalemate(emptyBoard, PiecesColor.BLACK));
         emptyBoard.reset();
 

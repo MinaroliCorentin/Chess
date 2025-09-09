@@ -22,26 +22,44 @@ public abstract class GameStatus {
 
     }
 
+    /**
+     * Getter board
+     * @return Board
+     */
     public Board getBoard() {
         return board;
     }
 
     public abstract void promoting();
 
+    /**
+     * Getter DrawCounter
+     * @return DrawCounter
+     */
     public int getDrawCounter() {
         return drawCounter;
     }
 
+    /**
+     * Setter DrawCounter
+     * @param drawCounter set the DrawCounter
+     */
     public void setDrawCounter(int drawCounter) {
         this.drawCounter = drawCounter;
     }
 
+    /**
+     * @return True if the DrawCounter is == 50
+     */
     public boolean isDraw(){
 
         return drawCounter == 50;
 
     }
 
+    /**
+     * Reset the DrawCounter
+     */
     public void resetDrawCounter(){
 
         this.drawCounter = 0;
@@ -70,9 +88,8 @@ public abstract class GameStatus {
     }
 
     /**
-     *
      * @param piecesColor The king color
-     * @return
+     * @return The localisation off all the piece that threaten the king
      */
     public List<Localisation> PiecesThreateningKing(PiecesColor piecesColor) {
 

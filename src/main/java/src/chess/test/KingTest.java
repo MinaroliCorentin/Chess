@@ -135,7 +135,6 @@ public class KingTest {
         board.setPiece(0,1,king);
         board.setPiece(1,0,rook1);
 
-        board.display();
 
         Player p1 = new HumanPlayer(board, PiecesColor.BLACK,"Black");
         assertThrows(IllegalStateException.class,()->{ p1.play("B8","A8");});
@@ -157,7 +156,6 @@ public class KingTest {
         Player p1 = new HumanPlayer(board, PiecesColor.BLACK,"Black");
         assertThrows(IllegalStateException.class,()->{ p1.play("B7","C6");});
 
-        board.display();
         board.reset();
 
         Pieces king1 = new King(PiecesColor.WHITE);
@@ -171,7 +169,6 @@ public class KingTest {
         Player p2 = new HumanPlayer(board, PiecesColor.WHITE,"White");
         assertThrows(IllegalStateException.class,()->{ p2.play("B7","C6");});
 
-        board.display();
 
     }
 

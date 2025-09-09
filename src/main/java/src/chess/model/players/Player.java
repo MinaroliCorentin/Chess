@@ -40,6 +40,11 @@ public abstract class Player {
     }
 
 
+    /**
+     * use GameplayFx play
+     * @param beginning Starting Localisation of the piece
+     * @param ending Ending Localisation of the piece
+     */
     public void play(String beginning, String ending) {
 
         Gameplay gameplayFx = new GameplayFx(board, piecesColor);
@@ -47,6 +52,10 @@ public abstract class Player {
 
     }
 
+    /**
+     * Player ToString
+     * @return "Player : " + getColor()
+     */
     public String toString(){
 
         return "Player : " + getColor() ;

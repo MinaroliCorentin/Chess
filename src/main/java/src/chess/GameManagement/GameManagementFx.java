@@ -18,10 +18,11 @@ public class GameManagementFx extends GameManagement {
         super(board,white,black);
     }
 
-    public Player getPlayerBaseOnRound() {
-        return getRounds() % 2 == 0 ? getBlack() : getWhite();
-    }
-
+    /**
+     * Based on the rounds, choose who gonna play
+     * @param from Starting Piece position
+     * @param to Ending Piece position
+     */
     public void playMove(String from, String to) {
 
         GameStatus gameStatusFx = new GameStatusFx(getBoard());
@@ -75,7 +76,9 @@ public class GameManagementFx extends GameManagement {
         }
     }
 
-
+    /**
+     * @return True if one of the player is in Checkmate or the match is a dra
+     */
     public boolean isGameOver() {
         GameStatus gameStatusFx = new GameStatusFx(getBoard());
         return gameStatusFx.isCheckmate(PiecesColor.WHITE)

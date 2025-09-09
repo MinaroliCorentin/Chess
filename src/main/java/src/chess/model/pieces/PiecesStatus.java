@@ -178,6 +178,12 @@ public class PiecesStatus {
         return false;
     }
 
+    /**
+     * Try all the movement to see if a stalemate is possible
+     * @param board Board
+     * @param piecesColor Color of the player
+     * @return True if stalemate, else false
+     */
     public boolean stalemate(Board board, PiecesColor piecesColor) {
 
         if (isKingInCheck(board, piecesColor)) {

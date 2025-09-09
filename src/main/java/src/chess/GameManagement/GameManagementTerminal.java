@@ -15,8 +15,7 @@ public class GameManagementTerminal extends GameManagement {
     }
 
     /**
-     * Generate a random to find who start.
-     * Then, according to the current round, ask the move of the current player, play it and display the board
+     * According to the current round, ask the move of the current player, play it and display the board
      */
     public void chess() {
 

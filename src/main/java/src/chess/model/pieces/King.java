@@ -210,6 +210,10 @@ public class King extends Pieces {
         }
     }
 
+    /**
+     * ToString of the King
+     * @return "King"
+     */
     @Override
     public String toString() {
         return "King";

@@ -142,6 +142,10 @@ public class Queen extends Pieces{
         }
     }
 
+    /**
+     * Queen ToString
+     * @return "Queen"
+     */
     @Override
     public String toString() {
         return "Queen";

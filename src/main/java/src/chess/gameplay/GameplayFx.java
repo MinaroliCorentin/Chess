@@ -19,7 +19,7 @@ public class GameplayFx extends Gameplay {
 
 
     /**
-     * Use 2 strings. The first one is the piece the playare if willing to play, the second is the move is want to do.
+     * Use 2 strings. The first one is the piece the play are if willing to play, the second is the move is want to do.
      * Verify if the move is current, then play it.
      * Allow Castling if everything is correct.
      * Every time a player want to play a Piece, the method verify if it's safe for the king

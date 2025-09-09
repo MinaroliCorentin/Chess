@@ -17,10 +17,18 @@ public abstract class Gameplay {
         this.piecesColor = piecesColor;
     }
 
+    /**
+     * Getter board
+     * @return Board
+     */
     public Board getBoard() {
         return board;
     }
 
+    /**
+     * Getter PiecesColor
+     * @return return the color of the pieces
+     */
     public PiecesColor getPiecesColor() {
         return piecesColor;
     }
@@ -65,6 +73,15 @@ public abstract class Gameplay {
 
     }
 
+    /**
+     * Handle the castling if possible
+     * @param movingPiece The Piece
+     * @param x Piece x
+     * @param y Piece y
+     * @param newX New x Piece
+     * @param newY New Y Piece
+     * @return True if the player did a castling. The function is a boolean so i can return in play
+     */
     public boolean playCastling(Pieces movingPiece, int x, int y, int newX, int newY) {
 
         if (movingPiece.isKing()) {

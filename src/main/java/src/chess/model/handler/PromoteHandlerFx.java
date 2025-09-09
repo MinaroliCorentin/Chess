@@ -18,6 +18,12 @@ public class PromoteHandlerFx {
 
     }
 
+    /**
+     * Promote for the Fx version. Use a ChoiceDialog to select the desired piece
+     * @param x X position of the piece
+     * @param y Y position of the piece
+     * @param piecesColor Color of the piece
+     */
     public void promotion(int x, int y, PiecesColor piecesColor){
 
         ChoiceDialog<String> dialog = new ChoiceDialog<>("Rook", "Knight", "Queen", "Bishop");

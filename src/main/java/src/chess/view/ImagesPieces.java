@@ -11,6 +11,11 @@ public class ImagesPieces {
 
     private static final String PATH = "/picture/";
 
+    /**
+     * Get the name and the color of the piece to search for the good png
+     * @param piece Board Piece
+     * @return The imageView of the Piece for the Fx Board
+     */
     public static ImageView getImage(Pieces piece) {
 
         if (piece == null) return null;

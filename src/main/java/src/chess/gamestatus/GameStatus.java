@@ -7,6 +7,7 @@ import src.chess.model.pieces.PiecesColor;
 import src.chess.model.pieces.PiecesStatus;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -71,66 +72,73 @@ public abstract class GameStatus {
      * @return True @PiecesColor is in checkmate
      */
     public boolean isCheckmate(PiecesColor piecesColor) {
+
         PiecesStatus piecesStatus = new PiecesStatus(board);
+
         if (!piecesStatus.isKingInCheck(board, piecesColor)) return false;
 
-        Map<Localisation, Pieces> allPieces = board.getPiecesMap();
-        for (Map.Entry<Localisation, Pieces> entry : allPieces.entrySet()) {
+        List<Localisation> threateningPieces = PiecesThreateningKing(piecesColor);
+
+        if ( threateningPieces.size() == 1 ){
+            return canParryKingThreat(piecesColor, threateningPieces);
+        }
+
+        return true;
+    }
+
+
+    public Boolean canParryKingThreat(PiecesColor piecesColor, List<Localisation> threateningPieces){
+
+        assert ( threateningPieces.size() == 1 );
+
+        for (Map.Entry<Localisation, Pieces> entry : board.getPiecesMap().entrySet()) {
             Pieces piece = entry.getValue();
-            if (piece.isKing() && piece.getColor() == piecesColor) {
-                List<Localisation> kingMoves = piece.movements(entry.getKey().getX(), entry.getKey().getY(), board);
-                if (kingMoves.isEmpty()) {
-                    return true;
+            if ( piece.getColor() == piecesColor){
+                List<Localisation> moves = piece.movements(entry.getKey().getX(), entry.getKey().getY(),board);
+                if ( moves.contains(threateningPieces.getFirst())){
+                    return true ;
                 }
             }
         }
-        return false;
+        return false ;
     }
+
+
+
+
 
     /**
      * @param piecesColor The king color
-     * @return The localisation off all the piece that threaten the king
+     * @return The locations of all enemy pieces that threaten the king
      */
     public List<Localisation> PiecesThreateningKing(PiecesColor piecesColor) {
+        List<Localisation> threateningPieces = new ArrayList<>();
 
-        List<Localisation> piecesThreatening = new ArrayList<>() ;
-        PiecesStatus piecesStatus = new PiecesStatus(board);
-        // King no in check so List is empty
-        if (!piecesStatus.isKingInCheck(board, piecesColor)) return piecesThreatening ;
-
-
-        // Find the king
         Localisation kingLoc = null;
-        Map<Localisation, Pieces> allPieces = board.getPiecesMap();
-
-        for (Map.Entry<Localisation, Pieces> entry : allPieces.entrySet()) {
+        for (Map.Entry<Localisation, Pieces> entry : board.getPiecesMap().entrySet()) {
             Pieces piece = entry.getValue();
-            if (piece.isKing() && piece.getColor().equals(piecesColor)) {
+            if (piece.isKing() && piece.getColor() == piecesColor) {
                 kingLoc = entry.getKey();
                 break;
             }
         }
 
-        // Return list empty
-        if (kingLoc == null) {
-            return piecesThreatening;
-        }
 
-        for ( Map.Entry<Localisation,Pieces> entry : allPieces.entrySet()) {
+        for (Map.Entry<Localisation, Pieces> entry : board.getPiecesMap().entrySet()) {
             Pieces piece = entry.getValue();
-            if ( piece.getColor() != piecesColor) {
-                List<Localisation> pieceMovement = piece.movements(entry.getKey().getX(), entry.getKey().getY(), board);
+            if (piece.getColor() != piecesColor) {
+                List<Localisation> moves = piece.movements(entry.getKey().getX(), entry.getKey().getY(), board);
 
-                for ( Localisation localisation : pieceMovement){
-                    if ( localisation.getX() == kingLoc.getX() && localisation.getY() == kingLoc.getY()){
-                        piecesThreatening.add (localisation);
+                for (Localisation move : moves) {
+                    if (move.equals(kingLoc)) {
+                        threateningPieces.add(entry.getKey());
                     }
                 }
             }
         }
 
-        return piecesThreatening ;
-
+        return threateningPieces;
     }
+
 
 }

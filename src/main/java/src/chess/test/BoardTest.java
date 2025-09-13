@@ -36,7 +36,7 @@ public class BoardTest {
     public void setBoardTest(){
     assertEquals(0, board.getPiecesMap().size());
     Board boardTest = new StandartBoard();
-    board.setBoard(boardTest.getBoard());
+    board.setMapBoard(boardTest.getMapBoard());
     assertEquals(32, board.getPiecesMap().size());
     }
 
@@ -44,11 +44,11 @@ public class BoardTest {
     public void getBoardTest(){
 
         Knight knight = new Knight(PiecesColor.WHITE);
-        Pieces[][] boardArray = board.getBoard();
+        Pieces[][] boardArray = board.getMapBoard();
         assertNull(boardArray[0][0]);
 
         this.board.setPiece(0,0,knight);
-        boardArray = board.getBoard();
+        boardArray = board.getMapBoard();
         assertNotNull(boardArray[0][0]);
 
 
@@ -127,7 +127,7 @@ public class BoardTest {
     public void updatePiecesMapTest(){
 
         Board standardBoard = new StandartBoard();
-        this.board.setBoard(standardBoard.getBoard());
+        this.board.setMapBoard(standardBoard.getMapBoard());
         assertEquals(32, board.getPiecesMap().size());
 
         Player white = new HumanPlayer(board, PiecesColor.WHITE,"White");

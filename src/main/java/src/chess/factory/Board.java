@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class Board extends ObserverSubject {
 
-    private final Map<Localisation, Pieces> board = new ConcurrentHashMap<>();
+    private final Map<Localisation, Pieces> mapBoard = new ConcurrentHashMap<>();
     private Point enPassantPawn ;
 
     public Board() {
@@ -43,7 +43,7 @@ public abstract class Board extends ObserverSubject {
      * Clear the board and call initialize
      */
     public void reset() {
-        board.clear();
+        mapBoard.clear();
         this.BoardInitialize();
     }
 
@@ -51,13 +51,13 @@ public abstract class Board extends ObserverSubject {
      * Clear the board then fill it with the @param board
      * @param newBoard the new board
      */
-    public void setBoard(Pieces[][] newBoard) {
-        board.clear();
+    public void setMapBoard(Pieces[][] newBoard) {
+        mapBoard.clear();
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 Pieces p = newBoard[x][y];
                 if (p != null) {
-                    board.put(new Localisation(x, y), p);
+                    mapBoard.put(new Localisation(x, y), p);
                 }
             }
         }
@@ -66,9 +66,9 @@ public abstract class Board extends ObserverSubject {
     /**
      * @return a array of Pieces[][] that contain every Pieces
      */
-    public Pieces[][] getBoard() {
+    public Pieces[][] getMapBoard() {
         Pieces[][] array = new Pieces[8][8];
-        for (Map.Entry<Localisation, Pieces> entry : board.entrySet()) {
+        for (Map.Entry<Localisation, Pieces> entry : mapBoard.entrySet()) {
             Localisation loc = entry.getKey();
             array[loc.getX()][loc.getY()] = entry.getValue();
         }
@@ -81,7 +81,7 @@ public abstract class Board extends ObserverSubject {
      * @return the Pieces at x,y, position
      */
     public Pieces getPiece(int x, int y) {
-        return board.get(new Localisation(x, y));
+        return mapBoard.get(new Localisation(x, y));
     }
 
     /**
@@ -93,9 +93,9 @@ public abstract class Board extends ObserverSubject {
     public void setPiece(int x, int y, Pieces piece) {
         Localisation loc = new Localisation(x, y);
         if (piece != null) {
-            board.put(loc, piece);
+            mapBoard.put(loc, piece);
         } else {
-            board.remove(loc);
+            mapBoard.remove(loc);
         }
     }
 
@@ -106,7 +106,7 @@ public abstract class Board extends ObserverSubject {
      * @return true if the pos dont contain a piece and is in bound
      */
     public boolean isEmpty(int x, int y) {
-        return isBound(x, y) && !board.containsKey(new Localisation(x, y));
+        return isBound(x, y) && !mapBoard.containsKey(new Localisation(x, y));
     }
 
     /**
@@ -127,7 +127,7 @@ public abstract class Board extends ObserverSubject {
      * @return true if the piece at x,y is null or != piecesColor
      */
     public boolean hasOpponentPieceOrNull(int x, int y, PiecesColor piecesColor) {
-        Pieces p = board.get(new Localisation(x, y));
+        Pieces p = mapBoard.get(new Localisation(x, y));
         return isBound(x, y) && p != null && p.getColor() != piecesColor;
     }
 
@@ -147,9 +147,8 @@ public abstract class Board extends ObserverSubject {
         return piecesMap;
     }
 
-
     /**
-     * Used to display the board if the standard coordonates
+     * Used to display the board if the standard coordinates
      */
     public void display() {
         for (int i = 0; i < 8; i++) {

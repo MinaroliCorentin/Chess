@@ -20,6 +20,9 @@ public abstract class Player {
 
     }
 
+    /**
+     * @return return player name
+     */
     public String getPlayerName() {
         return playerName;
     }

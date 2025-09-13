@@ -59,16 +59,16 @@ public class GameManagementFx extends GameManagement {
             }
 
             gameStatusFx.promoting();
-            setRounds(getRounds() + 1);
-            gameStatusFx.setDrawCounter(getRounds() + 1);
             if (this.isGameOver()) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("End of the game");
                 alert.setHeaderText(null);
-                alert.setContentText( this.getPlayerNameBasedOnRound() + "Wins ! ");
+                alert.setContentText( this.getPlayerNameBasedOnRound()  + "Wins ! ");
                 alert.showAndWait();
                 Platform.exit();
             }
+            setRounds(getRounds() + 1);
+            gameStatusFx.setDrawCounter(getRounds() + 1);
 
         } catch (RuntimeException e) {
 

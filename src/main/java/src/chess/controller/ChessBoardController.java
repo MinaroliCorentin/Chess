@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -81,7 +82,7 @@ public class ChessBoardController implements Observer {
     }
 
     /**
-     *
+     * add indices at the bottom right of each cells to help the user
      */
     public void addChessNotation() {
 
@@ -89,7 +90,7 @@ public class ChessBoardController implements Observer {
             for ( int j = 0 ; j < 8 ; j++){
 
                 Label overlay = new Label(toChessNotation(i,j));
-                overlay.setStyle("-fx-text-fill: blue; -fx-font-size: 8px;");
+                overlay.setStyle("-fx-text-fill: blue; -fx-font-size: 12px;");
                 overlay.setMouseTransparent(true);
 
                 StackPane.setAlignment(overlay, Pos.BOTTOM_RIGHT);

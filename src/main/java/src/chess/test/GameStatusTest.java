@@ -4,6 +4,8 @@ import org.junit.Test;
 import src.chess.factory.Board;
 import src.chess.factory.EmptyBoard;
 import src.chess.factory.PawnBoard;
+import src.chess.factory.StandartBoard;
+import src.chess.gamestatus.GameStatus;
 import src.chess.model.pieces.*;
 import src.chess.model.players.HumanPlayer;
 import src.chess.model.players.Player;
@@ -11,10 +13,10 @@ import src.chess.gamestatus.GameStatusTerminal;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class GameStatusTest {
 
@@ -280,9 +282,11 @@ public class GameStatusTest {
         board.setPiece(1, 1, new Pawn(PiecesColor.WHITE));
         board.setPiece(1, 2, new Pawn(PiecesColor.WHITE));
 
+        board.display();
+
         GameStatusTerminal gameStatusTerminal = new GameStatusTerminal(board);
         boolean checkmate1 = gameStatusTerminal.isCheckmate(PiecesColor.BLACK);
-        assert (!checkmate1) : " The king is surrounded by pawn but can move ";
+        assert (checkmate1) : " The king is surrounded by pawn but can escape ";
         board.reset();
 
         board.setPiece(0, 2, new King(PiecesColor.BLACK));
@@ -454,4 +458,61 @@ public class GameStatusTest {
 
     }
 
+    @Test
+    public void PiecesThreateningKingTest(){
+
+        Board board = new EmptyBoard();
+        List<Localisation>testList;
+        GameStatus gameStatus = new GameStatusTerminal(board);
+        board.setPiece(0,4, new King(PiecesColor.BLACK));
+
+        board.setPiece(0,7, new Queen(PiecesColor.WHITE));
+        testList = (gameStatus.PiecesThreateningKing(PiecesColor.BLACK));
+        assert (testList.size() == 1) : " 1 pieces are threatening the king ";
+        assert (testList.contains(new Localisation(0,7)));
+        testList.clear();
+
+        board.setPiece(0,3,new Rook(PiecesColor.WHITE));
+        testList = (gameStatus.PiecesThreateningKing(PiecesColor.BLACK));
+        assert (testList.size() == 2) : " 2 pieces are threatening the king ";
+        assert (testList.contains(new Localisation(0,3)));
+        testList.clear();
+
+        board.setPiece(1,3,new Pawn(PiecesColor.WHITE));
+        testList = (gameStatus.PiecesThreateningKing(PiecesColor.BLACK));
+        assert (testList.size() == 3) : " 3 pieces are threatening the king ";
+        assert (testList.contains(new Localisation(1,3)));
+        testList.clear();
+
+        board.setPiece(1,5,new Bishop(PiecesColor.WHITE));
+        testList = (gameStatus.PiecesThreateningKing(PiecesColor.BLACK));
+        board.displayWithIndices();
+        assert (testList.size() == 4) : " 4 pieces are threatening the king ";
+        assert (testList.contains(new Localisation(1,5)));
+        testList.clear();
+
+    }
+
+    @Test
+    public void CanParryTest(){
+
+        Board board = new EmptyBoard();
+        board.setPiece(0,4, new King(PiecesColor.BLACK));
+        board.setPiece(0,3, new Queen(PiecesColor.BLACK));
+        board.setPiece(1,4, new Queen(PiecesColor.WHITE));
+
+        GameStatus gameStatus = new GameStatusTerminal(board);
+        List<Localisation> threateningPieces = gameStatus.PiecesThreateningKing(PiecesColor.BLACK);
+        assertTrue ( gameStatus.canParryKingThreat(PiecesColor.BLACK, threateningPieces));
+
+        board.setPiece(0,5, new Rook(PiecesColor.WHITE));
+        threateningPieces.clear();
+        threateningPieces = gameStatus.PiecesThreateningKing(PiecesColor.BLACK);
+
+        List<Localisation> finalThreateningPieces = threateningPieces;
+        assertThrows(AssertionError.class, () -> {
+            gameStatus.canParryKingThreat(PiecesColor.BLACK, finalThreateningPieces);
+        });
+
+    }
 }

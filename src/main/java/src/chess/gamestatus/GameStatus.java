@@ -104,9 +104,6 @@ public abstract class GameStatus {
     }
 
 
-
-
-
     /**
      * @param piecesColor The king color
      * @return The locations of all enemy pieces that threaten the king

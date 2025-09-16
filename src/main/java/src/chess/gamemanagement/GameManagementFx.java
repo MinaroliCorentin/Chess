@@ -1,4 +1,4 @@
-package src.chess.GameManagement;
+package src.chess.gamemanagement;
 
 
 import javafx.application.Platform;
@@ -59,7 +59,7 @@ public class GameManagementFx extends GameManagement {
             }
 
             gameStatusFx.promoting();
-            if (this.isGameOver()) {
+            if (this.isGameOver(this.getPlayerBaseOnRoundReversed().getColor())) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("End of the game");
                 alert.setHeaderText(null);
@@ -76,13 +76,4 @@ public class GameManagementFx extends GameManagement {
         }
     }
 
-    /**
-     * @return True if one of the player is in Checkmate or the match is a dra
-     */
-    public boolean isGameOver() {
-        GameStatus gameStatusFx = new GameStatusFx(getBoard());
-        return gameStatusFx.isCheckmate(PiecesColor.WHITE)
-                || gameStatusFx.isCheckmate(PiecesColor.BLACK)
-                || gameStatusFx.isDraw();
-    }
 }

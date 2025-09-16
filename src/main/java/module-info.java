@@ -18,6 +18,6 @@ module src.chess {
     exports src.chess.model.pieces;
     exports src.chess.model.players;
     opens src.chess.gameplay to javafx.fxml;
-    exports src.chess.GameManagement;
-    opens src.chess.GameManagement to javafx.fxml;
+    exports src.chess.gamemanagement;
+    opens src.chess.gamemanagement to javafx.fxml;
 }

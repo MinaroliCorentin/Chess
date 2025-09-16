@@ -1,6 +1,9 @@
-package src.chess.GameManagement;
+package src.chess.gamemanagement;
 
 import src.chess.factory.Board;
+import src.chess.gamestatus.GameStatus;
+import src.chess.gamestatus.GameStatusFx;
+import src.chess.model.pieces.PiecesColor;
 import src.chess.model.players.Player;
 
 public abstract class GameManagement {
@@ -66,11 +69,33 @@ public abstract class GameManagement {
     }
 
     /**
-     * Based of the rounds, return the player
-     * @return Player white or black
+     * Based on the rounds, return the player
+     * @return White if white turn or Black if black turn
      */
     public Player getPlayerBaseOnRound() {
         return getRounds() % 2 == 0 ? getBlack() : getWhite();
     }
 
+    /**
+     * Based on the rounds, return the player that is not currently playing.
+     * Used for gameover()
+     * @return Black if White turn or White if Black turn
+     */
+    public Player getPlayerBaseOnRoundReversed() {
+        return getRounds() % 2 == 0 ? getWhite() : getBlack();
+    }
+
+    /**
+     * @return True if one of the player is in Checkmate or the match is a draw
+     */
+    public boolean isGameOver(PiecesColor piecesColor) {
+
+        GameStatus gameStatusFx = new GameStatusFx(board);
+
+        System.out.println(gameStatusFx.isCheckmate(PiecesColor.BLACK));
+        System.out.println(gameStatusFx.isCheckmate(PiecesColor.WHITE));
+
+        return gameStatusFx.isCheckmate(piecesColor) || gameStatusFx.isDraw();
+
+    }
 }

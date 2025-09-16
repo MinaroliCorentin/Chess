@@ -1,4 +1,4 @@
-package src.chess.GameManagement;
+package src.chess.gamemanagement;
 
 import src.chess.factory.Board;
 import src.chess.model.pieces.PiecesColor;
@@ -11,13 +11,13 @@ import java.util.Scanner;
 public class GameManagementTerminal extends GameManagement {
 
     public GameManagementTerminal(Board board, Player white, Player black) {
-        super(board,white,black);
+        super(board, white, black);
     }
 
     /**
      * According to the current round, ask the move of the current player, play it and display the board
      */
-    public void chess() {
+    public void playMove() {
 
         GameStatusTerminal gameStatusTerminal = new GameStatusTerminal(getBoard());
         PiecesStatus piecesStatus = new PiecesStatus(getBoard());
@@ -33,8 +33,8 @@ public class GameManagementTerminal extends GameManagement {
             String to = input.nextLine();
 
             try {
-                if ((this.getRounds() ) % 2 == 0) {
-                    if ( piecesStatus.stalemate(getBoard(), PiecesColor.WHITE)){
+                if ((this.getRounds()) % 2 == 0) {
+                    if (piecesStatus.stalemate(getBoard(), PiecesColor.WHITE)) {
                         System.out.println("Stalemate Black Wins");
                     }
                     getWhite().play(from, to);
@@ -42,7 +42,7 @@ public class GameManagementTerminal extends GameManagement {
                         System.out.println("White King in check");
                     }
                 } else {
-                    if ( piecesStatus.stalemate(getBoard(), PiecesColor.BLACK)){
+                    if (piecesStatus.stalemate(getBoard(), PiecesColor.BLACK)) {
                         System.out.println("Stalemate White Wins");
                     }
                     getBlack().play(from, to);
@@ -54,12 +54,12 @@ public class GameManagementTerminal extends GameManagement {
                 gameStatusTerminal.promoting();
                 getBoard().display();
                 setRounds(getRounds() + 1);
-                gameStatusTerminal.setDrawCounter(getRounds() + 1 );
+                gameStatusTerminal.setDrawCounter(getRounds() + 1);
 
             } catch (RuntimeException e) {
                 System.err.println("Erreur : " + e.getMessage());
             }
 
-        } while (!gameStatusTerminal.isCheckmate(PiecesColor.WHITE) && !gameStatusTerminal.isCheckmate(PiecesColor.BLACK) && !gameStatusTerminal.isDraw());
+        } while (!this.isGameOver(this.getPlayerBaseOnRoundReversed().getColor()));
     }
 }

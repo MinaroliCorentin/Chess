@@ -3,7 +3,6 @@ package src.chess.view;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import src.chess.model.pieces.Pieces;
-import src.chess.model.pieces.PiecesColor;
 
 import java.util.Objects;
 

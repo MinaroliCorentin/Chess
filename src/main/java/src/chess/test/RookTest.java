@@ -8,6 +8,7 @@ import src.chess.model.pieces.*;
 import src.chess.model.players.HumanPlayer;
 import src.chess.model.players.Player;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public class RookTest {

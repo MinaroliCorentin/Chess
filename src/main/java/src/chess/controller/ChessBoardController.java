@@ -9,7 +9,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import src.chess.factory.Board;
 import src.chess.factory.StandartBoard;
+import src.chess.gamemanagement.GameManagement;
 import src.chess.gamemanagement.GameManagementFx;
+import src.chess.gameplay.Gameplay;
 import src.chess.model.pieces.Localisation;
 import src.chess.model.pieces.Pieces;
 import src.chess.model.pieces.PiecesColor;
@@ -21,6 +23,9 @@ import java.util.List;
 import java.util.Map;
 
 public class ChessBoardController implements Observer {
+
+    @FXML
+    private Label turnLabel;
 
     @FXML
     private GridPane chessGrid;
@@ -51,6 +56,9 @@ public class ChessBoardController implements Observer {
         board.addObserver(this);
     }
 
+
+
+
     /**
      * Initialize the board, add pieces, color for the board, and make it tactile
      */
@@ -78,6 +86,7 @@ public class ChessBoardController implements Observer {
         }
         addChessNotation();
         addPieces();
+        updatePlayerTurn();
     }
 
     /**
@@ -248,6 +257,15 @@ public class ChessBoardController implements Observer {
     }
 
     /**
+     * Update the label that indicates who is playing
+     */
+    private void updatePlayerTurn(){
+
+        turnLabel.setText(gameFX.getPlayerNameBasedOnRound());
+
+    }
+
+    /**
      * Remove the pieces, apply the default color then add the pieces
      */
     @Override
@@ -256,5 +274,6 @@ public class ChessBoardController implements Observer {
         applyBoardDefaultColor(fromRow, fromCol);
         addChessNotation();
         addPieces();
+        updatePlayerTurn();
     }
 }

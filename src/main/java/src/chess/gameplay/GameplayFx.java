@@ -1,11 +1,8 @@
 package src.chess.gameplay;
 
-import javafx.scene.control.Alert;
-import src.chess.customalert.MultiProposeAlert;
 import src.chess.factory.Board;
 import src.chess.gamestatus.GameStatus;
 import src.chess.gamestatus.GameStatusFx;
-import src.chess.gamestatus.GameStatusTerminal;
 import src.chess.model.pieces.*;
 
 import java.util.List;

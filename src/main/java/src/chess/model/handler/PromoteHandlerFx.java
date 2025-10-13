@@ -1,8 +1,5 @@
 package src.chess.model.handler;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ChoiceDialog;
 import src.chess.factory.Board;
 import src.chess.model.pieces.*;

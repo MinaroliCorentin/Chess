@@ -92,9 +92,6 @@ public abstract class GameManagement {
 
         GameStatus gameStatusFx = new GameStatusFx(board);
 
-        System.out.println(gameStatusFx.isCheckmate(PiecesColor.BLACK));
-        System.out.println(gameStatusFx.isCheckmate(PiecesColor.WHITE));
-
         return gameStatusFx.isCheckmate(piecesColor) || gameStatusFx.isDraw();
 
     }

@@ -3,7 +3,6 @@ package src.chess.model.players;
 import src.chess.factory.Board;
 import src.chess.gameplay.Gameplay;
 import src.chess.gameplay.GameplayFx;
-import src.chess.gameplay.GameplayTerminal;
 import src.chess.model.pieces.*;
 
 public abstract class Player {

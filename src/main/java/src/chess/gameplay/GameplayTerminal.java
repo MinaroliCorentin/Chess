@@ -1,7 +1,6 @@
 package src.chess.gameplay;
 
 import src.chess.factory.Board;
-import src.chess.model.handler.CastlingHandler;
 import src.chess.model.pieces.*;
 import src.chess.gamestatus.GameStatusTerminal;
 import src.chess.model.pieces.PiecesStatus;

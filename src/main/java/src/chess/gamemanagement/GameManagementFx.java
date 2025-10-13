@@ -4,7 +4,6 @@ package src.chess.gamemanagement;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import src.chess.customalert.MultiProposeAlert;
-import src.chess.customalert.PlayerTurnAlert;
 import src.chess.factory.Board;
 import src.chess.model.pieces.PiecesColor;
 import src.chess.model.players.Player;
@@ -27,11 +26,9 @@ public class GameManagementFx extends GameManagement {
 
         GameStatus gameStatusFx = new GameStatusFx(getBoard());
         PiecesStatus piecesStatus = new PiecesStatus(getBoard());
-        PlayerTurnAlert playerTurnALert = new PlayerTurnAlert(Alert.AlertType.INFORMATION, "player turn", getPlayerBaseOnRound());
         MultiProposeAlert multiProposeAlert = new MultiProposeAlert(Alert.AlertType.WARNING);
 
             try {
-            playerTurnALert.showWithTimeout(1);
             if ((getRounds()) % 2 == 0) {
                 // White
                 if (piecesStatus.stalemate(getBoard(), PiecesColor.WHITE)) {

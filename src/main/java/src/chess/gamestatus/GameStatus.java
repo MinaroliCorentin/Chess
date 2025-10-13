@@ -7,7 +7,6 @@ import src.chess.model.pieces.PiecesColor;
 import src.chess.model.pieces.PiecesStatus;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 

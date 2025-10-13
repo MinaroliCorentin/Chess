@@ -6,7 +6,7 @@ import java.util.List;
 
 public abstract class Pieces {
 
-    private PiecesColor piecesColor;
+    private final PiecesColor piecesColor;
     
     public Pieces(PiecesColor piecesColor){
         this.piecesColor = piecesColor;

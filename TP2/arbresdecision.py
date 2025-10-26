@@ -18,7 +18,11 @@ def categorie_majoritaire(y):
 	"""
 	categorie = -1
 	erreur = 0
+	
+	# Comme les étiquette sont numérotées de 0 à n, n + 1 renvoie le nb de catégories
 	Q = max(y) + 1
+
+	#Tableau de 0
 	p = np.zeros(Q)
 	for i in range (Q) :
 		
@@ -35,13 +39,20 @@ def gini_index(y):
 	"""
 		Retourne l'index de Gini pour des données étiquetées par y
 	"""
+
+	# Renvoie le nb des catégories
 	Q = max(y) + 1
-	
-	g = 0
-	
-	
-	# à compléter
-	
+
+	p = np.zeros(Q)
+	z = np.zeros(Q)
+	for i in range (Q) :
+		
+		p[i] = np.mean(y == i)
+		z[i] = np.mean(y == i)
+
+
+	g = 1 - (len(p) / Q )**2 + (len(z) / Q)**2 
+		
 	
 	return g 
 

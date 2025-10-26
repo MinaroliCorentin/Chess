@@ -80,26 +80,26 @@ def coupe(X, y, critere="erreur", foret_aleatoire=-1):
 		s = get_seuils(X,k)
 		for seuil in s : 
 
+			#Remplit de début à fin de seuil
 			I1 = X[:,k] <= seuil
-
 			#Nombre dans l1
 			lenL1 = np.sum(I1);	
 			
-			I2 = X[k,:] > seuil
-			
+			#Remplit de début à fin de seuil
+			I2 = X[:, k] > seuil			
 			#Nombre dans L2 
 			lenL2 = np.sum(I2)
 			
-			FilsGauche, ErreurGauche = categorie_majoritaire(I1)
-			FilsDroite, ErreurDroite = categorie_majoritaire(I2)
+			FilsGauche, ErreurGauche = categorie_majoritaire(y[I1])
+			FilsDroite, ErreurDroite = categorie_majoritaire(y[I2])
 
 			impurete = lenL1 * ErreurGauche + lenL2 * ErreurDroite 
 			
 			if ( impurete < meilleur_imp ): 
 				meilleur_imp = impurete
 				coupe_k = k
-				coupe_s = s
-	
+				coupe_s = seuil
+
 	return (coupe_k,coupe_s)
 	
 class Noeud:
@@ -134,10 +134,15 @@ class Noeud:
 
 		self.categorie, erreur = categorie_majoritaire(y)
 
+		# Cas feuille 
 		if ( erreur < tol ):
 			self.feuille = True
-			etiquette = self.etiquette
+			self.etiquette = self.categorie
+		
+		#Cas autre
 		else :
+			
+			self.feuille = False
 			self.composant,self.seuil = coupe(X,y,critere="erreur", foret_aleatoire=-1)
 			
 			# Remplit la partie 0 à seuil 
@@ -145,14 +150,18 @@ class Noeud:
 			# Remplit la partie seuil + 1 à fin valeurs
 			droite = X[: , self.composant] > self.seuil
 
-			if ( self.composant < self.seuil): 
-				self.fils1 = Noeud (profondeur +1,X[gauche],y[gauche],tol,critere="erreur", foret_aleatoire=-1)
-				self.fils2 = Noeud (profondeur +1,X[droite],y[droite],tol,critere="erreur", foret_aleatoire=-1)
-			
+			if np.sum(gauche) == 0 or np.sum(droite) == 0:
+				self.feuille = True
+				self.etiquette = self.categorie
+				self.fils1 = None
+				self.fils2 = None
+			else:
+                # Création récursive des fils : noter l'ordre des arguments
+				self.fils1 = Noeud(profondeur + 1, X[gauche], y[gauche], tol, critere=critere, foret_aleatoire=-1)
+				self.fils2 = Noeud(profondeur + 1, X[droite], y[droite], tol, critere=critere, foret_aleatoire=-1)
+
 
 		# à compléter pour remplir tous les champs... 
-		
-		
 			
 	def pred(self, x):
 		"""
@@ -161,9 +170,9 @@ class Noeud:
 		"""
 
 		if ( self.feuille):
-			return self.y  
+			return self.etiquette  
 		else : 
-			if (x[self.composant] <= get_seuils(X, self.composant)) :
+			if x[self.composant] <= self.seuil:
 				return self.fils1.pred(x)
 			else :
 				return self.fils2.pred(x)
@@ -316,17 +325,14 @@ for x1 in r1:
 		Xtest[i,:] = [x1, x2]
 		i += 1
 
-
 tol = 0.1
-arbre = Arbre(X, y, tol)
-ypred = arbre.pred(Xtest)
-
+arbre_test = Arbre(X, y, tol)
+ypred = arbre_test.pred(Xtest)
 
 # à utiliser pour afficher la grille :
 plt.plot(Xtest[ypred==0,0],Xtest[ypred==0,1], 'oc',alpha=0.2)
 plt.plot(Xtest[ypred==1,0],Xtest[ypred==1,1], 'om', alpha=0.2)
 plt.title("Partition du plan donnée par un arbre de décision")
-
 
 
 ### pour Exercice 3... ###
@@ -351,3 +357,5 @@ plt.title("Partition du plan donnée par un arbre de décision")
 
 
 plt.show()
+
+

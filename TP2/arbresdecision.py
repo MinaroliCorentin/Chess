@@ -10,7 +10,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-
 def categorie_majoritaire(y):
 	"""
 		Retourne la catégorie majoritaire parmie les étiquettes y

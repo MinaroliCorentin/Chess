@@ -12,12 +12,14 @@ public abstract class GameManagement {
     private Player white;
     private Player black;
     private int rounds;
+    private GameStatus gameStatus ;
 
-    public GameManagement(Board board, Player white, Player black) {
+    public GameManagement(Board board, Player white, Player black, GameStatus gameStatus) {
         this.board = board;
         this.white = white;
         this.black = black;
         this.rounds = 0;
+        this.gameStatus = gameStatus ;
     }
 
     /**
@@ -60,6 +62,14 @@ public abstract class GameManagement {
         this.rounds = rounds;
     }
 
+    public GameStatus getGameStatus() {
+        return gameStatus;
+    }
+
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
+    }
+
     /**
      * Based on the rounds, return the player name
      * @return Player name
@@ -90,9 +100,11 @@ public abstract class GameManagement {
      */
     public boolean isGameOver(PiecesColor piecesColor) {
 
-        GameStatus gameStatusFx = new GameStatusFx(board);
+        return this.gameStatus.isCheckmate(piecesColor)  ;
 
-        return gameStatusFx.isCheckmate(piecesColor) || gameStatusFx.isDraw();
+    }
 
+    public boolean isDraw(){
+        return this.gameStatus.isDraw();
     }
 }

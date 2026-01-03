@@ -12,6 +12,8 @@ import src.chess.factory.StandartBoard;
 import src.chess.gamemanagement.GameManagement;
 import src.chess.gamemanagement.GameManagementFx;
 import src.chess.gameplay.Gameplay;
+import src.chess.gamestatus.GameStatus;
+import src.chess.gamestatus.GameStatusFx;
 import src.chess.model.pieces.Localisation;
 import src.chess.model.pieces.Pieces;
 import src.chess.model.pieces.PiecesColor;
@@ -47,9 +49,10 @@ public class ChessBoardController implements Observer {
     public void initialize() {
 
         board = new StandartBoard();
-        whitePlayer = new HumanPlayer(board, PiecesColor.WHITE, "White");
-        blackPlayer = new HumanPlayer(board, PiecesColor.BLACK, "Black");
-        gameFX = new GameManagementFx(board, whitePlayer, blackPlayer);
+        GameStatus gameStatusFX = new GameStatusFx(board);
+        whitePlayer = new HumanPlayer(board, PiecesColor.WHITE, "White",gameStatusFX);
+        blackPlayer = new HumanPlayer(board, PiecesColor.BLACK, "Black",gameStatusFX);
+        gameFX = new GameManagementFx(board, whitePlayer, blackPlayer, gameStatusFX);
         this.cells = new StackPane[8][8];
 
         initializeBoard();

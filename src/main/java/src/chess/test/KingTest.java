@@ -3,6 +3,7 @@ package src.chess.test;
 import org.junit.Test;
 import src.chess.factory.Board;
 import src.chess.factory.EmptyBoard;
+import src.chess.gamestatus.GameStatusTerminal;
 import src.chess.model.pieces.*;
 import src.chess.model.players.HumanPlayer;
 import src.chess.model.players.Player;
@@ -136,7 +137,7 @@ public class KingTest {
         board.setPiece(1,0,rook1);
 
 
-        Player p1 = new HumanPlayer(board, PiecesColor.BLACK,"Black");
+        Player p1 = new HumanPlayer(board, PiecesColor.BLACK,"Black", new GameStatusTerminal(board));
         assertThrows(IllegalStateException.class,()->{ p1.play("B8","A8");});
 
     }
@@ -153,7 +154,7 @@ public class KingTest {
         board.setPiece(1,1,bishop);
         board.setPiece(2,1,rook);
 
-        Player p1 = new HumanPlayer(board, PiecesColor.BLACK,"Black");
+        Player p1 = new HumanPlayer(board, PiecesColor.BLACK,"Black", new GameStatusTerminal(board));
         assertThrows(IllegalStateException.class,()->{ p1.play("B7","C6");});
 
         board.reset();
@@ -166,7 +167,7 @@ public class KingTest {
         board.setPiece(1,1,bishop1);
         board.setPiece(2,1,rook1);
 
-        Player p2 = new HumanPlayer(board, PiecesColor.WHITE,"White");
+        Player p2 = new HumanPlayer(board, PiecesColor.WHITE,"White", new GameStatusTerminal(board));
         assertThrows(IllegalStateException.class,()->{ p2.play("B7","C6");});
 
 

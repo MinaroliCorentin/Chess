@@ -3,6 +3,7 @@ package src.chess.test;
 import org.junit.Before;
 import org.junit.Test;
 import src.chess.factory.*;
+import src.chess.gamestatus.GameStatusTerminal;
 import src.chess.model.pieces.PiecesColor;
 import src.chess.model.pieces.Pieces;
 import src.chess.model.players.HumanPlayer;
@@ -40,28 +41,28 @@ public class GameplayTest {
     public void setUp() {
 
         board = new StandartBoard();
-        playerBlack = new HumanPlayer(board, PiecesColor.BLACK,"Black");
-        playerWhite = new HumanPlayer(board, PiecesColor.WHITE,"White");
+        playerBlack = new HumanPlayer(board, PiecesColor.BLACK,"Black", new GameStatusTerminal(board));
+        playerWhite = new HumanPlayer(board, PiecesColor.WHITE,"White", new GameStatusTerminal(board));
 
         bishopBoard = new BishopBoard();
-        playerBlackBishop = new HumanPlayer(bishopBoard, PiecesColor.BLACK,"Black");
-        playerWhiteBishop = new HumanPlayer(bishopBoard, PiecesColor.WHITE,"White");
+        playerBlackBishop = new HumanPlayer(bishopBoard, PiecesColor.BLACK,"Black", new GameStatusTerminal(board));
+        playerWhiteBishop = new HumanPlayer(bishopBoard, PiecesColor.WHITE,"White", new GameStatusTerminal(board));
 
         kingBoard = new KingBoard();
-        playerBlackKing = new HumanPlayer(kingBoard, PiecesColor.BLACK,"Black");
-        playerWhiteKing = new HumanPlayer(kingBoard, PiecesColor.WHITE,"White");
+        playerBlackKing = new HumanPlayer(kingBoard, PiecesColor.BLACK,"Black", new GameStatusTerminal(board));
+        playerWhiteKing = new HumanPlayer(kingBoard, PiecesColor.WHITE,"White", new GameStatusTerminal(board));
 
         rookBoard = new RookBoard();
-        playerBlackRook = new HumanPlayer(rookBoard, PiecesColor.BLACK,"Black");
-        playerWhiteRook = new HumanPlayer(rookBoard, PiecesColor.WHITE,"White");
+        playerBlackRook = new HumanPlayer(rookBoard, PiecesColor.BLACK,"Black", new GameStatusTerminal(board));
+        playerWhiteRook = new HumanPlayer(rookBoard, PiecesColor.WHITE,"White", new GameStatusTerminal(board));
 
         queenBoard = new QueenBoard();
-        playerBlackQueen = new HumanPlayer(queenBoard, PiecesColor.BLACK,"Black");
-        playerWhiteQueen = new HumanPlayer(queenBoard, PiecesColor.WHITE,"White");
+        playerBlackQueen = new HumanPlayer(queenBoard, PiecesColor.BLACK,"Black", new GameStatusTerminal(board));
+        playerWhiteQueen = new HumanPlayer(queenBoard, PiecesColor.WHITE,"White", new GameStatusTerminal(board));
 
         castlingBoard = new CastlingBoard();
-        playerBlackCastling = new HumanPlayer(castlingBoard, PiecesColor.BLACK,"Black");
-        playerWhiteCastling = new HumanPlayer(castlingBoard, PiecesColor.WHITE,"White");
+        playerBlackCastling = new HumanPlayer(castlingBoard, PiecesColor.BLACK,"Black", new GameStatusTerminal(board));
+        playerWhiteCastling = new HumanPlayer(castlingBoard, PiecesColor.WHITE,"White", new GameStatusTerminal(board));
 
     }
 

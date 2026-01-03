@@ -13,8 +13,8 @@ import src.chess.model.pieces.PiecesStatus;
 
 public class GameManagementFx extends GameManagement {
 
-    public GameManagementFx(Board board, Player white, Player black) {
-        super(board,white,black);
+    public GameManagementFx(Board board, Player white, Player black,GameStatus gameStatus) {
+        super(board,white,black,gameStatus);
     }
 
     /**
@@ -24,7 +24,6 @@ public class GameManagementFx extends GameManagement {
      */
     public void playMove(String from, String to) {
 
-        GameStatus gameStatusFx = new GameStatusFx(getBoard());
         PiecesStatus piecesStatus = new PiecesStatus(getBoard());
         MultiProposeAlert multiProposeAlert = new MultiProposeAlert(Alert.AlertType.WARNING);
 
@@ -55,7 +54,17 @@ public class GameManagementFx extends GameManagement {
                 }
             }
 
-            gameStatusFx.promoting();
+            getGameStatus().promoting();
+
+            if ( this.isDraw()){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("End of the game");
+                alert.setHeaderText(null);
+                alert.setContentText( "It's a draw ! ");
+                alert.showAndWait();
+                Platform.exit();
+            }
+
             if (this.isGameOver(this.getPlayerBaseOnRoundReversed().getColor())) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("End of the game");
@@ -65,7 +74,9 @@ public class GameManagementFx extends GameManagement {
                 Platform.exit();
             }
             setRounds(getRounds() + 1);
-            gameStatusFx.setDrawCounter(getRounds() + 1);
+
+            System.out.println(" tour " + getGameStatus().getDrawCounter());
+            getGameStatus().inscreaseDrawCounter();
 
         } catch (RuntimeException e) {
 

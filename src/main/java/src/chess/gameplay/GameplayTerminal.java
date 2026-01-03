@@ -1,6 +1,7 @@
 package src.chess.gameplay;
 
 import src.chess.factory.Board;
+import src.chess.gamestatus.GameStatus;
 import src.chess.model.pieces.*;
 import src.chess.gamestatus.GameStatusTerminal;
 import src.chess.model.pieces.PiecesStatus;
@@ -10,8 +11,8 @@ import java.util.List;
 public class GameplayTerminal extends Gameplay {
 
 
-    public GameplayTerminal(Board board, PiecesColor piecesColor){
-        super(board, piecesColor);
+    public GameplayTerminal(Board board, PiecesColor piecesColor, GameStatus gameStatus){
+        super(board, piecesColor, gameStatus);
     }
 
     /**
@@ -24,9 +25,6 @@ public class GameplayTerminal extends Gameplay {
      */
     @Override
     public void play(String beginning, String ending) {
-
-        // Used to reset the drawCounter if attacking a piece
-        GameStatusTerminal gameStatusTerminal = new GameStatusTerminal(getBoard());
 
         int[] value = StringToIntegerPlay(beginning,ending);
 
@@ -74,26 +72,29 @@ public class GameplayTerminal extends Gameplay {
 
                 if (movingPiece.isPawn()){
 
+                    // Reset draw Counter is a pawn move
+                    getGameStatus().resetDrawCounter();
+
                     // If black used enPassant
                     if (movingPiece.getColor() == PiecesColor.BLACK) {
                         if ( x == getBoard().getEnPassantPawnX() && y + 1 == getBoard().getEnPassantPawnY() && newX == getBoard().getEnPassantPawnX() + 1 && newY == getBoard().getEnPassantPawnY() && enemyPiece == null) {
                             getBoard().setPiece(getBoard().getEnPassantPawnX(), getBoard().getEnPassantPawnY(), null);
-                            gameStatusTerminal.resetDrawCounter();
+                            getGameStatus().resetDrawCounter();
                         }
                         if ( x == getBoard().getEnPassantPawnX() && y - 1 == getBoard().getEnPassantPawnY() && newX == getBoard().getEnPassantPawnX() + 1 && newY == getBoard().getEnPassantPawnY() && enemyPiece == null) {
                             getBoard().setPiece(getBoard().getEnPassantPawnX(), getBoard().getEnPassantPawnY(), null);
-                            gameStatusTerminal.resetDrawCounter();
+                            getGameStatus().resetDrawCounter();
                         }
                     }
                     // If white used enPassant
                     if (movingPiece.getColor() == PiecesColor.WHITE) {
                         if ( x == getBoard().getEnPassantPawnX() && y + 1 == getBoard().getEnPassantPawnY() && newX == getBoard().getEnPassantPawnX() - 1 && newY == getBoard().getEnPassantPawnY() && enemyPiece == null) {
                             getBoard().setPiece(getBoard().getEnPassantPawnX(), getBoard().getEnPassantPawnY(), null);
-                            gameStatusTerminal.resetDrawCounter();
+                            getGameStatus().resetDrawCounter();
                         }
                         if ( x == getBoard().getEnPassantPawnX() && y - 1 == getBoard().getEnPassantPawnY() && newX == getBoard().getEnPassantPawnX() - 1 && newY == getBoard().getEnPassantPawnY() && enemyPiece == null) {
                             getBoard().setPiece(getBoard().getEnPassantPawnX(), getBoard().getEnPassantPawnY(), null);
-                            gameStatusTerminal.resetDrawCounter();
+                            getGameStatus().resetDrawCounter();
                         }
                     }
 
@@ -120,7 +121,7 @@ public class GameplayTerminal extends Gameplay {
         }
 
         if ( enemyPiece != null){
-            gameStatusTerminal.resetDrawCounter();
+            getGameStatus().resetDrawCounter();
         }
 
         if ( getBoard().getPiece(newX, newY) == null) throw new IllegalStateException("This piece can't play this move ");

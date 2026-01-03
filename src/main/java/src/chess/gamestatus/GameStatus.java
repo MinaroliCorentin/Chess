@@ -48,12 +48,17 @@ public abstract class GameStatus {
         this.drawCounter = drawCounter;
     }
 
+    public void inscreaseDrawCounter(){
+        this.drawCounter ++ ;
+    }
+
+
     /**
      * @return True if the DrawCounter is == 50
      */
     public boolean isDraw(){
 
-        return drawCounter == 50;
+        return drawCounter >= 50;
 
     }
 

@@ -5,6 +5,7 @@ import org.junit.Test;
 import src.chess.factory.Board;
 import src.chess.factory.EmptyBoard;
 import src.chess.factory.StandartBoard;
+import src.chess.gamestatus.GameStatusTerminal;
 import src.chess.model.pieces.*;
 import src.chess.model.players.HumanPlayer;
 import src.chess.model.players.Player;
@@ -130,8 +131,8 @@ public class BoardTest {
         this.board.setMapBoard(standardBoard.getMapBoard());
         assertEquals(32, board.getPiecesMap().size());
 
-        Player white = new HumanPlayer(board, PiecesColor.WHITE,"White");
-        Player black = new HumanPlayer(board, PiecesColor.BLACK,"Black");
+        Player white = new HumanPlayer(board, PiecesColor.WHITE,"White", new GameStatusTerminal(board));
+        Player black = new HumanPlayer(board, PiecesColor.BLACK,"Black", new GameStatusTerminal(board));
 
         white.play("B2","B4");
         black.play("A7","A5");

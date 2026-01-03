@@ -4,6 +4,7 @@ import org.junit.Test;
 import src.chess.factory.Board;
 import src.chess.factory.EmptyBoard;
 import src.chess.factory.RookBoard;
+import src.chess.gamestatus.GameStatusTerminal;
 import src.chess.model.pieces.*;
 import src.chess.model.players.HumanPlayer;
 import src.chess.model.players.Player;
@@ -119,7 +120,7 @@ public class RookTest {
     public void leftRookMovedBlackTest(){
 
         RookBoard rookBoard = new RookBoard();
-        Player playerBlackRook = new HumanPlayer(rookBoard, PiecesColor.BLACK,"Black");
+        Player playerBlackRook = new HumanPlayer(rookBoard, PiecesColor.BLACK,"Black", new GameStatusTerminal(rookBoard));
 
         String from = "A8";
         String to = "A7";
@@ -138,7 +139,7 @@ public class RookTest {
     public void rightRookMovedBlackTest(){
 
         RookBoard rookBoard = new RookBoard();
-        Player playerBlackRook = new HumanPlayer(rookBoard, PiecesColor.BLACK,"Black");
+        Player playerBlackRook = new HumanPlayer(rookBoard, PiecesColor.BLACK,"Black", new GameStatusTerminal(rookBoard));
 
         String from = "H8";
         String to = "H7";
@@ -157,7 +158,7 @@ public class RookTest {
     public void leftRookMovedWhiteTest(){
 
         RookBoard rookBoard = new RookBoard();
-        Player playerWhiteRook = new HumanPlayer(rookBoard, PiecesColor.WHITE,"White");
+        Player playerWhiteRook = new HumanPlayer(rookBoard, PiecesColor.WHITE,"White", new GameStatusTerminal(rookBoard));
 
         String from = "A1";
         String to = "B1";
@@ -176,7 +177,7 @@ public class RookTest {
     public void rightRookMovedWhiteTest(){
 
         RookBoard rookBoard = new RookBoard();
-        Player playerWhiteRook = new HumanPlayer(rookBoard, PiecesColor.WHITE,"White");
+        Player playerWhiteRook = new HumanPlayer(rookBoard, PiecesColor.WHITE,"White", new GameStatusTerminal(rookBoard));
 
         String from = "H1";
         String to = "H2";

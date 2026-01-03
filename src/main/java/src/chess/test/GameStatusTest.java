@@ -30,7 +30,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK, "Black");
+            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK, "Black", new GameStatusTerminal(board));
 
             BlackPawnPlayer.play("H7", "H5");
             BlackPawnPlayer.play("H5", "H4");
@@ -58,7 +58,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK, "Black");
+            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK, "Black", new GameStatusTerminal(board));
 
             BlackPawnPlayer.play("H7", "H5");
             BlackPawnPlayer.play("H5", "H4");
@@ -86,7 +86,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK, "Black");
+            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK, "Black", new GameStatusTerminal(board));
 
             BlackPawnPlayer.play("H7", "H5");
             BlackPawnPlayer.play("H5", "H4");
@@ -114,7 +114,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK, "Black");
+            Player BlackPawnPlayer = new HumanPlayer(board, PiecesColor.BLACK, "Black", new GameStatusTerminal(board));
 
             BlackPawnPlayer.play("H7", "H5");
             BlackPawnPlayer.play("H5", "H4");
@@ -142,7 +142,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE, "White");
+            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE, "White", new GameStatusTerminal(board));
 
             WhitePawnPlayer.play("A2", "A4");
             WhitePawnPlayer.play("A4", "A5");
@@ -170,7 +170,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE, "White");
+            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE, "White", new GameStatusTerminal(board));
 
             WhitePawnPlayer.play("A2", "A4");
             WhitePawnPlayer.play("A4", "A5");
@@ -198,7 +198,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE, "White");
+            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE, "White", new GameStatusTerminal(board));
 
             WhitePawnPlayer.play("A2", "A4");
             WhitePawnPlayer.play("A4", "A5");
@@ -226,7 +226,7 @@ public class GameStatusTest {
 
             System.setIn(new ByteArrayInputStream(testInput.getBytes()));
             PawnBoard board = new PawnBoard();
-            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE, "White");
+            Player WhitePawnPlayer = new HumanPlayer(board, PiecesColor.WHITE, "White", new GameStatusTerminal(board));
 
             WhitePawnPlayer.play("A2", "A4");
             WhitePawnPlayer.play("A4", "A5");
@@ -337,7 +337,7 @@ public class GameStatusTest {
         assertTrue("Have to be true", gameStatusTerminal.isDraw());
 
         gameStatusTerminal.setDrawCounter(60);
-        assertFalse("Have to be false", gameStatusTerminal.isDraw());
+        assertTrue("Have to be false", gameStatusTerminal.isDraw());
 
         gameStatusTerminal.setDrawCounter(-10);
         assertFalse("Have to be false", gameStatusTerminal.isDraw());

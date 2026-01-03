@@ -3,6 +3,9 @@ package src.chess.model.players;
 import src.chess.factory.Board;
 import src.chess.gameplay.Gameplay;
 import src.chess.gameplay.GameplayFx;
+import src.chess.gameplay.GameplayTerminal;
+import src.chess.gamestatus.GameStatus;
+import src.chess.gamestatus.GameStatusFx;
 import src.chess.model.pieces.*;
 
 public abstract class Player {
@@ -10,12 +13,14 @@ public abstract class Player {
     private Board board;
     private PiecesColor piecesColor;
     private String playerName;
+    private GameStatus gameStatus;
 
-    public Player(Board board, PiecesColor piecesColor, String playerName) {
+    public Player(Board board, PiecesColor piecesColor, String playerName,GameStatus gameStatus ) {
 
         this.board = board;
         this.piecesColor = piecesColor;
         this.playerName = playerName;
+        this.gameStatus = gameStatus ;
 
     }
 
@@ -49,8 +54,14 @@ public abstract class Player {
      */
     public void play(String beginning, String ending) {
 
-        Gameplay gameplayFx = new GameplayFx(board, piecesColor);
-        gameplayFx.play(beginning,ending);
+        Gameplay gameplay ;
+
+        if (this.gameStatus instanceof GameStatusFx) {
+            gameplay = new GameplayFx(board, piecesColor, gameStatus);
+        } else {
+            gameplay = new GameplayTerminal(board, piecesColor, gameStatus);
+        }
+        gameplay.play(beginning,ending);
 
     }
 

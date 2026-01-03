@@ -1,6 +1,7 @@
 package src.chess.gameplay;
 
 import src.chess.factory.Board;
+import src.chess.gamestatus.GameStatus;
 import src.chess.model.handler.CastlingHandler;
 import src.chess.model.pieces.*;
 
@@ -8,10 +9,16 @@ public abstract class Gameplay {
 
     private Board board;
     private PiecesColor piecesColor;
+    private GameStatus gameStatus ;
 
-    public Gameplay(Board board, PiecesColor piecesColor) {
+    public Gameplay(Board board, PiecesColor piecesColor, GameStatus gameStatus) {
         this.board = board ;
         this.piecesColor = piecesColor;
+        this.gameStatus = gameStatus ;
+    }
+
+    public GameStatus getGameStatus() {
+        return gameStatus;
     }
 
     /**

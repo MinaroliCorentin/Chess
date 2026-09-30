@@ -13,7 +13,7 @@ public class MultiProposeAlert extends Alert {
     }
 
     /**
-     * Create a popup that dissapear after X seconds
+     * Create a popup that disappear after X seconds
      * @param message The content of the Message
      * @param seconds Time to live of the Popup
      */

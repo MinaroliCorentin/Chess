@@ -20,11 +20,6 @@ import static org.junit.Assert.*;
 
 public class GameStatusTest {
 
-    // =====================================================================
-    // Helper : remplace l'ancienne méthode PiecesThreateningKing (supprimée
-    // du code de production). Reproduit la même logique en utilisant
-    // uniquement l'API publique (getPiecesMap, movements, isKing).
-    // =====================================================================
     private List<Localisation> threateningPieces(Board board, PiecesColor kingColor) {
         List<Localisation> result = new ArrayList<>();
 
@@ -52,10 +47,6 @@ public class GameStatusTest {
         }
         return result;
     }
-
-    // =====================================================================
-    // Promotion
-    // =====================================================================
 
     @Test
     public void promotionAsBlackRookTest() {
@@ -265,10 +256,6 @@ public class GameStatusTest {
         }
     }
 
-    // =====================================================================
-    // Mat
-    // =====================================================================
-
     @Test
     public void checkMateWhiteTest() {
 
@@ -311,7 +298,6 @@ public class GameStatusTest {
 
         GameStatusTerminal gameStatusTerminal = new GameStatusTerminal(board);
         boolean checkmate1 = gameStatusTerminal.isCheckmate(PiecesColor.BLACK);
-        // Le roi est en échec (pion en (1,1) attaque (0,2)) mais peut capturer le pion en (1,1)
         assertFalse(" The king is surrounded by pawn but can escape ", checkmate1);
         board.reset();
 
@@ -325,9 +311,6 @@ public class GameStatusTest {
         assertTrue(" The king is surrounded by Queen and cannot move", checkmate2);
     }
 
-    // =====================================================================
-    // Draw Counter
-    // =====================================================================
 
     @Test
     public void drawnCounterGetterAndSetterTest() {
@@ -389,11 +372,6 @@ public class GameStatusTest {
         assert (gameStatusTerminal.getDrawCounter() == 0) : "Have to be 0";
 
     }
-
-    // =====================================================================
-    // Pieces menaçant le roi — via le helper privé threateningPieces(...)
-    // (équivalent fonctionnel de l'ancienne méthode PiecesThreateningKing)
-    // =====================================================================
 
     @Test
     public void PiecesThreateningKingBlackTest() {
@@ -526,10 +504,6 @@ public class GameStatusTest {
 
     }
 
-    // =====================================================================
-    // CanParryTest — réécrit pour tester isCheckmate
-    // =====================================================================
-
     @Test
     public void CanParryTest() {
 
@@ -540,21 +514,16 @@ public class GameStatusTest {
 
         GameStatus gameStatus = new GameStatusTerminal(board);
         List<Localisation> threateningPieces = threateningPieces(board, PiecesColor.BLACK);
-        assertEquals("Une seule pièce menace le roi", 1, threateningPieces.size());
-        assertFalse("La dame noire peut parer l'échec, donc pas mat",
+        assertEquals("Only one piece threaten the king", 1, threateningPieces.size());
+        assertFalse("Queen can protect so no checkmate",
                 gameStatus.isCheckmate(PiecesColor.BLACK));
 
         board.setPiece(0, 5, new Rook(PiecesColor.WHITE));
         threateningPieces = threateningPieces(board, PiecesColor.BLACK);
-        assertEquals("Deux pièces menacent le roi", 2, threateningPieces.size());
-        // Le roi peut toujours capturer la dame blanche en (1,4)
-        assertFalse("Le roi peut capturer la dame blanche en (1,4)",
+        assertEquals("Two pieces threaten the king ", 2, threateningPieces.size());
+        assertFalse("King can capture Queen in (1,4)",
                 gameStatus.isCheckmate(PiecesColor.BLACK));
     }
-
-    // =====================================================================
-    // Tests des bugs corrigés
-    // =====================================================================
 
     @Test
     public void playerBaseOnRoundTest() {
@@ -568,15 +537,15 @@ public class GameStatusTest {
         game.setRounds(0);
         assertTrue("Round 0 doit être White",
                 game.getPlayerBaseOnRound() == white);
-        assertEquals("Round 0 : nom White", "White", game.getPlayerNameBasedOnRound());
+        assertEquals("Round 0 : White", "White", game.getPlayerNameBasedOnRound());
 
         game.setRounds(1);
-        assertTrue("Round 1 doit être Black",
+        assertTrue("Round 1 must be Black turn",
                 game.getPlayerBaseOnRound() == black);
-        assertEquals("Round 1 : nom Black", "Black", game.getPlayerNameBasedOnRound());
+        assertEquals("Round 1 : Black", "Black", game.getPlayerNameBasedOnRound());
 
         game.setRounds(2);
-        assertTrue("Round 2 doit être White",
+        assertTrue("Round 2 must be White turn",
                 game.getPlayerBaseOnRound() == white);
     }
 
@@ -588,7 +557,7 @@ public class GameStatusTest {
         rightRook.setRightRookMoved(true);
 
         PiecesStatus status = new PiecesStatus(board);
-        assertFalse("Le castling côté roi doit être bloqué si la tour droite a bougé",
+        assertFalse("King castling have to be blocked because the rook moved",
                 status.canCastleWhiteRightSide());
     }
 
@@ -600,7 +569,7 @@ public class GameStatusTest {
         leftRook.setLeftRookMoved(true);
 
         PiecesStatus status = new PiecesStatus(board);
-        assertTrue("Le castling côté roi doit rester possible si seule la tour gauche a bougé",
+        assertTrue("Queen Castling have to be possible because only the left rook moved",
                 status.canCastleWhiteRightSide());
     }
 
@@ -612,7 +581,7 @@ public class GameStatusTest {
         leftRook.setLeftRookMoved(true);
 
         PiecesStatus status = new PiecesStatus(board);
-        assertFalse("Le castling côté dame doit être bloqué si la tour gauche a bougé",
+        assertFalse("Le castling shouldn't be possible because the rook moved",
                 status.canCastleWhiteLeftSide());
     }
 
@@ -626,10 +595,10 @@ public class GameStatusTest {
         CastlingHandler handler = new CastlingHandler(board);
         handler.handleWhiteKingsideCastling(7, 4, 7, 7);
 
-        assertTrue("Le roi doit rester en (7,4)", board.getPiece(7, 4) instanceof King);
-        assertTrue("La tour doit rester en (7,7)", board.getPiece(7, 7) instanceof Rook);
-        assertNull("La case (7,5) doit rester vide", board.getPiece(7, 5));
-        assertNull("La case (7,6) doit rester vide", board.getPiece(7, 6));
+        assertTrue("Rook have to be in (7,4)", board.getPiece(7, 4).isKing());
+        assertTrue("Rook have to be in (7,7)", board.getPiece(7, 7).isRook());
+        assertNull("(7,5) Must be empty", board.getPiece(7, 5));
+        assertNull("(7,6) Must be empty", board.getPiece(7, 6));
     }
 
     @Test
@@ -637,13 +606,13 @@ public class GameStatusTest {
 
         EmptyBoard board = new EmptyBoard();
         board.setPiece(3, 3, new Pawn(PiecesColor.WHITE));
-        board.setPiece(3, 4, new Pawn(PiecesColor.WHITE)); // même couleur
+        board.setPiece(3, 4, new Pawn(PiecesColor.WHITE));
         board.setEnPassantPawn(3, 4);
 
         Pawn whitePawn = (Pawn) board.getPiece(3, 3);
         List<Localisation> moves = whitePawn.movements(3, 3, board);
 
-        assertFalse("Un pion ne peut pas capturer en passant son propre pion",
+        assertFalse("No EnPassant against a pawn with the same color",
                 moves.contains(new Localisation(2, 4)));
     }
 
@@ -652,12 +621,12 @@ public class GameStatusTest {
 
         EmptyBoard board = new EmptyBoard();
         board.setPiece(3, 3, new Pawn(PiecesColor.WHITE));
-        board.setEnPassantPawn(3, 4); // cible périmée, rien en (3,4)
+        board.setEnPassantPawn(3, 4);
 
         Pawn whitePawn = (Pawn) board.getPiece(3, 3);
         List<Localisation> moves = whitePawn.movements(3, 3, board);
 
-        assertFalse("Pas de capture en passant si aucun pion ennemi cible",
+        assertFalse("No EnPassant because there is not ennemy pawn",
                 moves.contains(new Localisation(2, 4)));
     }
 
@@ -672,7 +641,7 @@ public class GameStatusTest {
         Pawn whitePawn = (Pawn) board.getPiece(3, 3);
         List<Localisation> moves = whitePawn.movements(3, 3, board);
 
-        assertTrue("Le pion blanc doit pouvoir capturer en passant en (2,4)",
+        assertTrue("White pawn can escape in (2,4)",
                 moves.contains(new Localisation(2, 4)));
     }
 
@@ -687,54 +656,38 @@ public class GameStatusTest {
         Pawn blackPawn = (Pawn) board.getPiece(4, 3);
         List<Localisation> moves = blackPawn.movements(4, 3, board);
 
-        assertTrue("Le pion noir doit pouvoir capturer en passant en (5,4)",
+        assertTrue("Black pawn can escape in (5,4)",
                 moves.contains(new Localisation(5, 4)));
     }
 
-    // =====================================================================
-    // Nouveaux tests pour le double échec (cas non couvert explicitement
-    // avant, et qui justifie la nouvelle implémentation par simulation)
-    // =====================================================================
-
-    /**
-     * Double échec : deux pièces ennemies attaquent le roi simultanément.
-     * Le roi ne peut pas capturer les deux. S'il n'a aucune fuite, c'est mat.
-     */
     @Test
     public void doubleCheckIsCheckmateWhenKingCannotEscapeTest() {
 
         EmptyBoard board = new EmptyBoard();
-        // Roi blanc en (7,4), coincé par ses propres pions
         board.setPiece(7, 4, new King(PiecesColor.WHITE));
         board.setPiece(6, 3, new Pawn(PiecesColor.WHITE));
         board.setPiece(6, 4, new Pawn(PiecesColor.WHITE));
         board.setPiece(6, 5, new Pawn(PiecesColor.WHITE));
-        // Deux tours noires qui donnent échec sur la colonne et la rangée
         board.setPiece(0, 4, new Rook(PiecesColor.BLACK));
         board.setPiece(7, 0, new Rook(PiecesColor.BLACK));
 
         GameStatus status = new GameStatusTerminal(board);
-        assertTrue("Double échec sans fuite : mat",
+        assertTrue("Double check with no escape",
                 status.isCheckmate(PiecesColor.WHITE));
     }
 
-    /**
-     * Double échec mais le roi peut fuir : pas mat.
-     */
     @Test
     public void doubleCheckIsNotCheckmateWhenKingCanEscapeTest() {
 
         EmptyBoard board = new EmptyBoard();
-        // Roi blanc en (7,4) avec une case de fuite en (6,3)
         board.setPiece(7, 4, new King(PiecesColor.WHITE));
         board.setPiece(6, 4, new Pawn(PiecesColor.WHITE));
         board.setPiece(6, 5, new Pawn(PiecesColor.WHITE));
-        // Double échec
         board.setPiece(0, 4, new Rook(PiecesColor.BLACK));
         board.setPiece(7, 0, new Rook(PiecesColor.BLACK));
 
         GameStatus status = new GameStatusTerminal(board);
-        assertFalse("Double échec avec fuite possible : pas mat",
+        assertFalse("Double check with no escape",
                 status.isCheckmate(PiecesColor.WHITE));
     }
 
@@ -742,9 +695,9 @@ public class GameStatusTest {
     public void shepherdMateTest() {
         EmptyBoard board = new EmptyBoard();
         board.setPiece(0, 4, new King(PiecesColor.BLACK));
-        board.setPiece(0, 3, new Queen(PiecesColor.BLACK)); // dame noire en d8
-        board.setPiece(1, 5, new Queen(PiecesColor.WHITE)); // dame blanche en f7
-        board.setPiece(4, 2, new Bishop(PiecesColor.WHITE)); // fou blanc en c4
+        board.setPiece(0, 3, new Queen(PiecesColor.BLACK));
+        board.setPiece(1, 5, new Queen(PiecesColor.WHITE));
+        board.setPiece(4, 2, new Bishop(PiecesColor.WHITE));
         board.setPiece(7, 4, new King(PiecesColor.WHITE));
 
         GameStatusTerminal status = new GameStatusTerminal(board);

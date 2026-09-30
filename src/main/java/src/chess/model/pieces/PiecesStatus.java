@@ -41,7 +41,7 @@ public class PiecesStatus {
         for (Map.Entry<Localisation, Pieces> entry : allPieces.entrySet()) {
             Pieces piece = entry.getValue();
             if (!piece.getColor().equals(piecesColor)) {
-                List<Localisation> moves = piece.movements(entry.getKey().getX(), entry.getKey().getY(), board);
+                List<Localisation> moves = piece.getAttackSquares(entry.getKey().getX(), entry.getKey().getY(), board);
                 for (Localisation loc : moves) {
                     if (loc.equals(kingLoc)) {
                         return true;
@@ -148,7 +148,7 @@ public class PiecesStatus {
         if (pieces != null && pieces.isRook() && pieces2 != null && pieces2.isKing()) {
             Rook rook = (Rook) board.getPiece(0, 7);
             King king = (King) board.getPiece(0, 4);
-            return !rook.isLeftRookMoved() && !king.isMoved();
+            return !rook.isRightRookMoved() && !king.isMoved();
         }
         return false;
     }
@@ -173,7 +173,7 @@ public class PiecesStatus {
         if (pieces != null && pieces.isRook() && pieces2 != null && pieces2.isKing()) {
             Rook rook = (Rook) board.getPiece(7, 7);
             King king = (King) board.getPiece(7, 4);
-            return !rook.isLeftRookMoved() && !king.isMoved();
+            return !rook.isRightRookMoved() && !king.isMoved();
         }
         return false;
     }

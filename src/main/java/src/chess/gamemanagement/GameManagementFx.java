@@ -31,8 +31,8 @@ public class GameManagementFx extends GameManagement {
             if ((getRounds()) % 2 == 0) {
                 // White
                 if (piecesStatus.stalemate(getBoard(), PiecesColor.WHITE)) {
-                    multiProposeAlert.showMessageWithTimeout("Stalemate ! Black Wins", 10);
-                    Platform.exit();
+                    multiProposeAlert.showGameOverAlert("Stalemate ! It's a draw !");
+                    return;
                 }
 
                 getWhite().play(from, to);
@@ -43,8 +43,8 @@ public class GameManagementFx extends GameManagement {
             } else {
                 // Black
                 if (piecesStatus.stalemate(getBoard(), PiecesColor.BLACK)) {
-                    multiProposeAlert.showMessageWithTimeout("Stalemate ! White Wins", 10);
-                    Platform.exit();
+                    multiProposeAlert.showGameOverAlert("Stalemate ! It's a draw");
+                    return;
                 }
 
                 getBlack().play(from, to);
@@ -57,25 +57,16 @@ public class GameManagementFx extends GameManagement {
             getGameStatus().promoting();
 
             if ( this.isDraw()){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("End of the game");
-                alert.setHeaderText(null);
-                alert.setContentText( "It's a draw ! ");
-                alert.showAndWait();
-                Platform.exit();
+                multiProposeAlert.showGameOverAlert("It's a draw !");
             }
 
             if (this.isGameOver(this.getPlayerBaseOnRoundReversed().getColor())) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("End of the game");
-                alert.setHeaderText(null);
-                alert.setContentText( this.getPlayerNameBasedOnRound()  + "Wins ! ");
-                alert.showAndWait();
-                Platform.exit();
+                String a = getPlayerBaseOnRound().getColor().toString().toLowerCase() ;
+                String b = a.substring(0,1).toUpperCase();
+                multiProposeAlert.showGameOverAlert( b + a.substring(1) + " Wins");
+                return;
             }
             setRounds(getRounds() + 1);
-
-            System.out.println(" tour " + getGameStatus().getDrawCounter());
             getGameStatus().inscreaseDrawCounter();
 
         } catch (RuntimeException e) {

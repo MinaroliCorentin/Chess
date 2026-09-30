@@ -54,11 +54,11 @@ public abstract class GameStatus {
 
 
     /**
-     * @return True if the DrawCounter is == 50
+     * @return True if the DrawCounter is == 100
      */
     public boolean isDraw(){
 
-        return drawCounter >= 50;
+        return drawCounter >= 100;
 
     }
 
@@ -81,65 +81,25 @@ public abstract class GameStatus {
 
         if (!piecesStatus.isKingInCheck(board, piecesColor)) return false;
 
-        List<Localisation> threateningPieces = PiecesThreateningKing(piecesColor);
+        for (Map.Entry<Localisation,Pieces> entry : board.getPiecesMap().entrySet()){
 
-        if ( threateningPieces.size() == 1 ){
-            return canParryKingThreat(piecesColor, threateningPieces);
+            Pieces piece = entry.getValue();
+            if(piece.getColor() != piecesColor) continue ;
+            int x = entry.getKey().getX();
+            int y = entry.getKey().getY();
+            List<Localisation> moves = piece.movements(x,y,board);
+
+            for (Localisation move : moves){
+                Pieces target = board.getPiece(move.getX(), move.getY());
+                board.setPiece(move.getX(), move.getY(),piece);
+                board.setPiece(x,y,null);
+                boolean safe = !piecesStatus.isKingInCheck(board,piecesColor);
+                board.setPiece(x,y,piece);
+                board.setPiece(move.getX(), move.getY(),target);
+                if (safe) return false ;
+            }
         }
-
         return true;
     }
-
-
-    public Boolean canParryKingThreat(PiecesColor piecesColor, List<Localisation> threateningPieces){
-
-        assert ( threateningPieces.size() == 1 );
-
-        for (Map.Entry<Localisation, Pieces> entry : board.getPiecesMap().entrySet()) {
-            Pieces piece = entry.getValue();
-            if ( piece.getColor() == piecesColor){
-                List<Localisation> moves = piece.movements(entry.getKey().getX(), entry.getKey().getY(),board);
-                if ( moves.contains(threateningPieces.getFirst())){
-                    return true ;
-                }
-            }
-        }
-        return false ;
-    }
-
-
-    /**
-     * @param piecesColor The king color
-     * @return The locations of all enemy pieces that threaten the king
-     */
-    public List<Localisation> PiecesThreateningKing(PiecesColor piecesColor) {
-        List<Localisation> threateningPieces = new ArrayList<>();
-
-        Localisation kingLoc = null;
-        for (Map.Entry<Localisation, Pieces> entry : board.getPiecesMap().entrySet()) {
-            Pieces piece = entry.getValue();
-            if (piece.isKing() && piece.getColor() == piecesColor) {
-                kingLoc = entry.getKey();
-                break;
-            }
-        }
-
-
-        for (Map.Entry<Localisation, Pieces> entry : board.getPiecesMap().entrySet()) {
-            Pieces piece = entry.getValue();
-            if (piece.getColor() != piecesColor) {
-                List<Localisation> moves = piece.movements(entry.getKey().getX(), entry.getKey().getY(), board);
-
-                for (Localisation move : moves) {
-                    if (move.equals(kingLoc)) {
-                        threateningPieces.add(entry.getKey());
-                    }
-                }
-            }
-        }
-
-        return threateningPieces;
-    }
-
 
 }

@@ -105,11 +105,15 @@ public class Pawn extends Pieces {
             moves.add(new Localisation(x + direction, y + 1));
         }
 
+        // EnPassant Only works on pawn vs pawn
+        Pieces enPassantTarget = board.getPiece(board.getEnPassantPawnX(), board.getEnPassantPawnY());
+        boolean isEnemyPawn = enPassantTarget != null && enPassantTarget.isPawn() && enPassantTarget.getColor() != this.getColor() ;
+
         // Piece left
-        if ( y - board.getEnPassantPawnY() == 1 && x == board.getEnPassantPawnX() ){
+        if ( isEnemyPawn && y - board.getEnPassantPawnY() == 1 && x == board.getEnPassantPawnX() && board.isEmpty(x + direction, y -1)){
             moves.add(new Localisation(x + direction, y - 1));
         // Piece right
-        } else if ( y - board.getEnPassantPawnY() == -1 && x == board.getEnPassantPawnX() ){
+        } else if ( isEnemyPawn && y - board.getEnPassantPawnY() == -1 && x == board.getEnPassantPawnX() && board.isEmpty(x + direction, y + 1 )){
             moves.add(new Localisation(x + direction, y + 1));
         }
 

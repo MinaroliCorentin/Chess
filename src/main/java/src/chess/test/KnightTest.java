@@ -78,8 +78,6 @@ public class KnightTest {
 
             assert (knight.movements(x, y, board).isEmpty()): " Knight have to be stuck ";
 
-
-
         }
     }
 

@@ -22,7 +22,7 @@ public class CastlingHandler {
      * @param toX Rook X position
      * @param toY Rook Y postion
      */
-    public void handleWhiteKingsideCastling(int fromX, int fromY, int toX, int toY) {
+    public boolean handleWhiteKingsideCastling(int fromX, int fromY, int toX, int toY) {
         PiecesStatus status = new PiecesStatus(board);
 
         if (fromX == 7 && fromY == 4 && toX == 7 && toY == 7 && status.canCastleWhiteRightSide()) {
@@ -40,8 +40,11 @@ public class CastlingHandler {
                 board.setPiece(7, 7, null);
                 ((Rook) rook).setRightRookMoved(true);
                 ((King) king).setHasMoved(true);
+
             }
+            return true ;
         }
+    return false ;
     }
 
     /**
@@ -52,7 +55,7 @@ public class CastlingHandler {
      * @param toX Rook X position
      * @param toY Rook Y postion
      */
-    public void handleWhiteQueensideCastling(int fromX, int fromY, int toX, int toY) {
+    public boolean handleWhiteQueensideCastling(int fromX, int fromY, int toX, int toY) {
         PiecesStatus status = new PiecesStatus(board);
 
         if (fromX == 7 && fromY == 4 && toX == 7 && toY == 0 && status.canCastleWhiteLeftSide()) {
@@ -71,8 +74,11 @@ public class CastlingHandler {
                 board.setPiece(7, 0, null);
                 ((Rook) rook).setLeftRookMoved(true);
                 ((King) king).setHasMoved(true);
+                return true ;
             }
+
         }
+    return false ;
     }
 
     /**
@@ -83,7 +89,7 @@ public class CastlingHandler {
      * @param toX Rook X position
      * @param toY Rook Y postion
      */
-    public void handleBlackKingsideCastling(int fromX, int fromY, int toX, int toY) {
+    public boolean handleBlackKingsideCastling(int fromX, int fromY, int toX, int toY) {
 
         PiecesStatus status = new PiecesStatus(board);
 
@@ -102,8 +108,10 @@ public class CastlingHandler {
                 board.setPiece(0, 7, null);
                 ((Rook) rook).setRightRookMoved(true);
                 ((King) king).setHasMoved(true);
+                return true;
             }
         }
+        return false ;
     }
 
     /**
@@ -114,7 +122,7 @@ public class CastlingHandler {
      * @param toX Rook X position
      * @param toY Rook Y postion
      */
-    public void handleBlackQueensideCastling(int fromX, int fromY, int toX, int toY) {
+    public boolean handleBlackQueensideCastling(int fromX, int fromY, int toX, int toY) {
         PiecesStatus status = new PiecesStatus(board);
 
         if (fromX == 0 && fromY == 4 && toX == 0 && toY == 0 && status.canCastleBlackLeftSide()) {
@@ -132,8 +140,10 @@ public class CastlingHandler {
                 board.setPiece(0, 0, null);
                 ((Rook) rook).setLeftRookMoved(true);
                 ((King) king).setHasMoved(true);
+                return true ;
             }
         }
+        return false ;
     }
 
 

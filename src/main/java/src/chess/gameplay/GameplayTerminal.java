@@ -124,7 +124,7 @@ public class GameplayTerminal extends Gameplay {
             getGameStatus().resetDrawCounter();
         }
 
-        if ( getBoard().getPiece(newX, newY) == null) throw new IllegalStateException("This piece can't play this move ");
+        if ( x == newX && y == newY || getBoard().getPiece(newX, newY) != movingPiece) throw new IllegalStateException("This piece can't play this move ");
 
     }
 

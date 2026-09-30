@@ -17,10 +17,11 @@ public class GameManagementTerminal extends GameManagement {
         Scanner input = new Scanner(System.in);
         getBoard().display();
 
-        while (!isGameOver(getPlayerBaseOnRoundReversed().getColor()) && !isDraw() ) {
+        PiecesStatus piecesStatus = new PiecesStatus(getBoard());
+
+        while (!isGameOver(getPlayerBaseOnRound().getColor()) && !isDraw() && !piecesStatus.stalemate(getBoard(), getPlayerBaseOnRound().getColor()) ) {
 
             System.out.println(getGameStatus().getDrawCounter());
-
             System.out.println( getPlayerNameBasedOnRound() + " Turn ");
             System.out.print("From : ");
             String from = input.nextLine();
@@ -29,24 +30,19 @@ public class GameManagementTerminal extends GameManagement {
 
             this.playMove(from, to);
         }
-
-        if (getGameStatus().isDraw()) {
+        if (getGameStatus().isDraw() || piecesStatus.stalemate(getBoard(), getPlayerBaseOnRound().getColor()) ) {
             System.out.println("It's a Draw ! ");
         } else {
-            System.out.println( getPlayerBaseOnRoundReversed().getPlayerName() + "Wins !");
+            System.out.println(getPlayerBaseOnRoundReversed().getPlayerName().toLowerCase() + " Wins !");
         }
     }
 
-
     public void playMove(String from, String to) {
-        PiecesStatus piecesStatus = new PiecesStatus(getBoard());
 
         try {
             if ((this.getRounds()) % 2 == 0) {
-                if (piecesStatus.stalemate(getBoard(), PiecesColor.WHITE)) return;
                 getWhite().play(from, to);
             } else {
-                if (piecesStatus.stalemate(getBoard(), PiecesColor.BLACK)) return;
                 getBlack().play(from, to);
             }
 
@@ -54,7 +50,7 @@ public class GameManagementTerminal extends GameManagement {
             getBoard().display();
 
             setRounds(getRounds() + 1);
-            getGameStatus().inscreaseDrawCounter(); //
+            getGameStatus().inscreaseDrawCounter();
 
         } catch (RuntimeException e) {
             System.err.println("Error : " + e.getMessage());

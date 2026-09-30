@@ -14,8 +14,8 @@ public abstract class Board extends ObserverSubject {
     private Point enPassantPawn ;
 
     public Board() {
-        this.BoardInitialize();
         this.enPassantPawn = new Point(-2,-2);
+        this.BoardInitialize();
     }
 
     public int getEnPassantPawnX() {
@@ -31,7 +31,7 @@ public abstract class Board extends ObserverSubject {
     }
 
     public void setEnPassantPawnDefaultValue(){
-        this.enPassantPawn.setLocation(-1,-1);
+        this.enPassantPawn.setLocation(-2,-2);
     }
 
     /**
@@ -45,6 +45,7 @@ public abstract class Board extends ObserverSubject {
     public void reset() {
         mapBoard.clear();
         this.BoardInitialize();
+        this.enPassantPawn.setLocation(-2,-2);
     }
 
     /**

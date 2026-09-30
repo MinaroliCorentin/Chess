@@ -93,19 +93,15 @@ public abstract class Gameplay {
             CastlingHandler castling = new CastlingHandler(board);
             if (movingPiece.getColor() == PiecesColor.WHITE) {
                 if (x == 7 && y == 4 && newX == 7 && newY == 7) {
-                    castling.handleWhiteKingsideCastling(x, y, newX, newY);
-                    return true;
+                    return castling.handleWhiteKingsideCastling(x, y, newX, newY);
                 } else if (x == 7 && y == 4 && newX == 7 && newY == 0) {
-                    castling.handleWhiteQueensideCastling(x, y, newX, newY);
-                    return true;
+                    return castling.handleWhiteQueensideCastling(x, y, newX, newY);
                 }
             } else if (movingPiece.getColor() == PiecesColor.BLACK) {
                 if (x == 0 && y == 4 && newX == 0 && newY == 7) {
-                    castling.handleBlackKingsideCastling(x, y, newX, newY);
-                    return true;
+                    return castling.handleBlackKingsideCastling(x, y, newX, newY);
                 } else if (x == 0 && y == 4 && newX == 0 && newY == 0) {
-                    castling.handleBlackQueensideCastling(x, y, newX, newY);
-                    return true;
+                    return castling.handleBlackQueensideCastling(x, y, newX, newY);
                 }
             }
         }

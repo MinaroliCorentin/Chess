@@ -83,17 +83,17 @@ public abstract class GameManagement {
      * @return White if white turn or Black if black turn
      */
     public Player getPlayerBaseOnRound() {
-        return getRounds() % 2 == 0 ? getBlack() : getWhite();
+        return getRounds() % 2 == 0 ? getWhite() : getBlack();
     }
 
     /**
-     * Based on the rounds, return the player that is not currently playing.
-     * Used for gameover()
+     * Based on the rounds, return the player that is NOT currently playing.
      * @return Black if White turn or White if Black turn
      */
     public Player getPlayerBaseOnRoundReversed() {
-        return getRounds() % 2 == 0 ? getWhite() : getBlack();
+        return getRounds() % 2 == 0 ? getBlack() : getWhite();
     }
+
 
     /**
      * @return True if one of the player is in Checkmate or the match is a draw
